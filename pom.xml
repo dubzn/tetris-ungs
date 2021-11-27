@@ -7,10 +7,10 @@
   <description>Proyecto del diseño del juego tetris para el final de la materia PP2</description>
   <dependencies>
 	<dependency>
-		<groupId>org.projectlombok</groupId>
-		<artifactId>lombok</artifactId>
-		<version>1.18.22</version>
-		<scope>provided</scope>
+	  <groupId>de.gurkenlabs</groupId>
+	  <artifactId>litiengine</artifactId>
+	  <version>0.5.1</version>
 	</dependency>
+		
 </dependencies>
 </project>
