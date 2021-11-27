@@ -1,5 +1,6 @@
 package model;
 
-public class Orientacion {
-
+public enum Orientacion {
+	HORIZONTAL,
+	VERTICAL
 }
