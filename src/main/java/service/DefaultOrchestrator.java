@@ -1,29 +1,47 @@
 package service;
 
+import factory.GeneradorPieza;
 import model.Juego;
 import model.Pieza;
+import model.Tablero;
 
 public class DefaultOrchestrator implements Orquestador {
 	
 	private Juego partida;
-	private Pieza piezaEnJuego;
-	private Float tiempo;
-	private GravedadService gravedad;
-	private BorradorLineasService borrador;
-	private MovimientoService movimiento;
-	private GameService game;
+	private final GravedadService gravedad;
+	private final BorradorLineasService borrador;
+	private final MovimientoService movimiento;
+	private final GameService game;
+	private final GeneradorPieza generador;
 	
-	public DefaultOrchestrator(Juego partida, GravedadService gravedad, BorradorLineasService borrador, MovimientoService movimiento, GameService game) {
+	private Pieza piezaEnJuego;
+	private double tiempo;
+	
+	public DefaultOrchestrator(Juego partida, GravedadService gravedad, BorradorLineasService borrador, MovimientoService movimiento, GameService game, GeneradorPieza generador) {
 		this.partida = partida;
 		this.gravedad = gravedad;
 		this.borrador = borrador;
 		this.movimiento = movimiento;
 		this.game = game;
+		this.generador = generador;
+
+		this.tiempo = 0;	
 	}
 
 	public void run() {
-		// TODO Auto-generated method stub
+		piezaEnJuego = generador.crear();
+				
+		Tablero tablero = partida.getTablero();
 		
+		tablero = movimiento.run(tablero, piezaEnJuego);
+		
+		tablero = gravedad.run(tablero);
+		
+		tablero = borrador.run(tablero);
+	
+		partida.setTablero(tablero);
+		
+		game.render(partida);
 	}
 
 }
