@@ -4,8 +4,7 @@ import java.util.List;
 
 public class Pieza {
 	private String nombre;
-	private Boolean estaFlotando;
-	private Orientacion orientacion;
+	private EstadoPieza estado;
 	private List<Celda> piezaHorizontal;
 	private List<Celda> piezaVertical;
 	
@@ -14,18 +13,6 @@ public class Pieza {
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-	public Boolean getEstaFlotando() {
-		return estaFlotando;
-	}
-	public void setEstaFlotando(Boolean estaFlotando) {
-		this.estaFlotando = estaFlotando;
-	}
-	public Orientacion getOrientacion() {
-		return orientacion;
-	}
-	public void setOrientacion(Orientacion orientacion) {
-		this.orientacion = orientacion;
 	}
 	public List<Celda> getPiezaHorizontal() {
 		return piezaHorizontal;
@@ -38,6 +25,12 @@ public class Pieza {
 	}
 	public void setPiezaVertical(List<Celda> piezaVertical) {
 		this.piezaVertical = piezaVertical;
+	}
+	public EstadoPieza getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadoPieza estado) {
+		this.estado = estado;
 	}
 	
 }
