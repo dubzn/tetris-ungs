@@ -26,6 +26,7 @@ public class Celda {
 	public Boolean estaOcupada() {
 		return ocupada;
 	}
+	
 	public void setOcupada(Boolean ocupada) {
 		this.ocupada = ocupada;
 	}

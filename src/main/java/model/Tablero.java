@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Tablero {
 	private List<Pieza> piezas;
@@ -40,11 +41,21 @@ public class Tablero {
 	public void setCeldas(List<Celda> celdas) {
 		this.celdas = celdas;
 	}
+	
+	public Optional<Celda> getCelda(Integer x, Integer y) {
+		return celdas
+				.stream()
+				.filter(celda -> celda.getX() == x && celda.getY() == y)
+				.findFirst();
+	}
 
 	@Override
 	public String toString() {
-		String ret = "▒Tablero☺▒\n";
+		String ret = "00▒Tablero☺▒\n";
 		for(Celda celda : celdas) {
+			if(celda.getX() == 1) {
+				ret = celda.getY() >= 10 ? ret + + celda.getY() : ret +"0" + celda.getY();
+			}
 			String ocupada = celda.estaOcupada() ? "█" : "░";
 			ret = ret + ocupada;
 			if(celda.getX() == ancho) {
