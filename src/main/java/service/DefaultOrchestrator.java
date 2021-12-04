@@ -35,9 +35,9 @@ public class DefaultOrchestrator implements Orquestador {
 		
 		tablero = movimiento.run(tablero, piezaEnJuego);
 		
-		tablero = gravedad.run(tablero);
+		tablero = borrador.run(tablero);		
 		
-		tablero = borrador.run(tablero);
+		tablero = gravedad.run(tablero);
 	
 		partida.setTablero(tablero);
 		
