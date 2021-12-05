@@ -5,19 +5,16 @@ import java.util.List;
 import java.util.Optional;
 
 public class Tablero {
-	private List<Pieza> piezas;
 	private List<Celda> celdas;
 	private final Integer ancho = 10;
 	private final Integer alto = 22;
 	
-	public Tablero(List<Pieza> piezas)  {
-		this.piezas = piezas;
-		
+	public Tablero()  {
 		//La cantidad de celdas que tiene el tablero ya están pre-definidas 22 alto * 10 ancho
 		this.celdas = new ArrayList<Celda>();
 		for(int posY = 1; posY<=alto; posY++) {
 			for(int posX = 1; posX<=ancho; posX++) {
-				this.celdas.add(new Celda(posX, posY, false));
+				this.celdas.add(new Celda(new Position(posX, posY), false));
 			}
 		}
 	}
@@ -28,10 +25,6 @@ public class Tablero {
 	
 	public Integer getAncho() {
 		return ancho;
-	}
-	
-	public List<Pieza> getPiezas() {
-		return piezas;
 	}
 	
 	public List<Celda> getCeldas() {
@@ -51,7 +44,8 @@ public class Tablero {
 
 	@Override
 	public String toString() {
-		String ret = "00▒Tablero☺▒\n";
+		String ret = "▒▒▒Tetris▒▒▒\n";
+		ret = ret + "00123456789X\n";
 		for(Celda celda : celdas) {
 			if(celda.getX() == 1) {
 				ret = celda.getY() >= 10 ? ret + + celda.getY() : ret +"0" + celda.getY();
@@ -73,7 +67,6 @@ public class Tablero {
 		result = prime * result + ((alto == null) ? 0 : alto.hashCode());
 		result = prime * result + ((ancho == null) ? 0 : ancho.hashCode());
 		result = prime * result + ((celdas == null) ? 0 : celdas.hashCode());
-		result = prime * result + ((piezas == null) ? 0 : piezas.hashCode());
 		return result;
 	}
 
@@ -100,11 +93,6 @@ public class Tablero {
 			if (other.celdas != null)
 				return false;
 		} else if (!celdas.equals(other.celdas))
-			return false;
-		if (piezas == null) {
-			if (other.piezas != null)
-				return false;
-		} else if (!piezas.equals(other.piezas))
 			return false;
 		return true;
 	}

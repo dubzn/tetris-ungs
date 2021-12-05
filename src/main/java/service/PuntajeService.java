@@ -1,6 +1,8 @@
 package service;
 
+import model.Juego;
+
 public interface PuntajeService {
 
-	Integer sumar(Integer lineas);
+	void sumar(Juego juego, Integer lineas);
 }

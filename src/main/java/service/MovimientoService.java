@@ -1,9 +1,11 @@
 package service;
 
+import java.util.Map;
 import java.util.Stack;
 
 import model.Movimiento;
 import model.Pieza;
+import model.Position;
 import model.Tablero;
 
 public abstract class MovimientoService {
@@ -13,7 +15,7 @@ public abstract class MovimientoService {
 	/**
 	 * En base a la cola de movimientos, debe retornar el tablero modificado
 	 */
-	abstract Tablero run(Tablero tablero, Pieza pieza);
+	abstract Tablero run(Tablero tablero, Map<Position, Pieza> pieza) ;
 	
 	/**
 	 * Agregar un movimiento a la cola de movimientos pendientes

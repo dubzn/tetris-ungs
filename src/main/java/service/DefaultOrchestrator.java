@@ -1,8 +1,12 @@
 package service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import factory.GeneradorPieza;
 import model.Juego;
 import model.Pieza;
+import model.Position;
 import model.Tablero;
 
 public class DefaultOrchestrator implements Orquestador {
@@ -14,7 +18,7 @@ public class DefaultOrchestrator implements Orquestador {
 	private final GameService game;
 	private final GeneradorPieza generador;
 	
-	private Pieza piezaEnJuego;
+	private Map<Position, Pieza> piezaEnJuego;
 	private double tiempo;
 	
 	public DefaultOrchestrator(Juego partida, GravedadService gravedad, BorradorLineasService borrador, MovimientoService movimiento, GameService game, GeneradorPieza generador) {
@@ -29,7 +33,12 @@ public class DefaultOrchestrator implements Orquestador {
 	}
 
 	public void run() {
-		piezaEnJuego = generador.crear();
+		for(Position position : piezaEnJuego.keySet()) {
+			if(!piezaEnJuego.get(position).getEstado().getEstaFlotando()) { 
+				piezaEnJuego = new HashMap<Position, Pieza>();		
+				piezaEnJuego.put(new Position(5, 1), generador.crear());
+			}
+		}
 				
 		Tablero tablero = partida.getTablero();
 		

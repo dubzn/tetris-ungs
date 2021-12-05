@@ -1,28 +1,27 @@
 package model;
 
 public class Celda {
-	private Integer x;
-	private Integer y;
+	private Position posicion;
 	private Boolean ocupada;
 
-	public Celda(Integer x, Integer y, Boolean ocupada) {
-		this.x = x;
-		this.y = y;
+	public Celda(Position posicion, Boolean ocupada) {
+		this.posicion = posicion;
 		this.ocupada = ocupada;
 	}
 	
 	public Integer getX() {
-		return x;
+		return posicion.getX();
 	}
 	public void setX(Integer x) {
-		this.x = x;
+		this.posicion.setX(x);
 	}
 	public Integer getY() {
-		return y;
+		return this.posicion.getY();
 	}
 	public void setY(Integer y) {
-		this.y = y;
+		this.posicion.setY(y);
 	}
+	
 	public Boolean estaOcupada() {
 		return ocupada;
 	}
@@ -34,7 +33,7 @@ public class Celda {
 	@Override
 	public String toString() {
 		String strOcupada = this.ocupada ? "X" : "O"; 
-		return "C ["+ x + ", " + y + ", " + strOcupada + "]";
+		return "C ["+ posicion.getX() + ", " + posicion.getY() + ", " + strOcupada + "]";
 	}
 
 	@Override
@@ -42,8 +41,8 @@ public class Celda {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((ocupada == null) ? 0 : ocupada.hashCode());
-		result = prime * result + ((x == null) ? 0 : x.hashCode());
-		result = prime * result + ((y == null) ? 0 : y.hashCode());
+		result = prime * result + ((posicion.getX() == null) ? 0 : posicion.getX().hashCode());
+		result = prime * result + ((posicion.getY() == null) ? 0 : posicion.getY().hashCode());
 		return result;
 	}
 
@@ -61,15 +60,15 @@ public class Celda {
 				return false;
 		} else if (!ocupada.equals(other.ocupada))
 			return false;
-		if (x == null) {
-			if (other.x != null)
+		if (posicion.getX() == null) {
+			if (other.posicion.getX() != null)
 				return false;
-		} else if (!x.equals(other.x))
+		} else if (!posicion.getX().equals(other.posicion.getX()))
 			return false;
-		if (y == null) {
-			if (other.y != null)
+		if (posicion.getY() == null) {
+			if (other.posicion.getY() != null)
 				return false;
-		} else if (!y.equals(other.y))
+		} else if (!posicion.getY().equals(other.posicion.getY()))
 			return false;
 		return true;
 	}
