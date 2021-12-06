@@ -26,6 +26,23 @@ public class DummyPiezaFactory {
 	}
 	
 	// ##
+	// ##
+	public static Pieza createO() {
+		return new Pieza("O", 
+				Arrays.asList(
+				new Celda(new Position(1, 1), true),
+				new Celda(new Position(2, 1), true),
+				new Celda(new Position(2, 2), true),
+				new Celda(new Position(1, 2), true)),
+				Arrays.asList(
+				new Celda(new Position(1, 1), true),
+				new Celda(new Position(2, 1), true),
+				new Celda(new Position(2, 2), true),
+				new Celda(new Position(1, 2), true)));
+		
+	}
+	
+	// ##
 	//  ##
 	public static Pieza createZ() {
 		return new Pieza("Z", 

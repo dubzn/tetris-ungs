@@ -52,6 +52,22 @@ public class DefaultMovementStrategyTest {
 	}
 	
 	@Test
+	public void cannotMoveIzquierdaReturnsSameTableroTest() {
+		Tablero input = DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT());
+		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		Pieza pieza = DummyPiezaFactory.createT();
+		piezaEnTablero.put(new Position(5, 1), pieza);
+		
+		when(colision.canMove(input, piezaEnTablero, Movimiento.IZQUIERDA)).thenReturn(false);
+		
+		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.IZQUIERDA);
+		
+		Tablero expected = DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT());
+		
+		assertEquals(expected.getCeldas(), actual.getCeldas());
+	}
+	
+	@Test
 	public void moverAbajoTest() {
 		Tablero input = DummyTableroFactory.withPieza(new Position(5, 7), DummyPiezaFactory.createL());
 		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
@@ -68,6 +84,23 @@ public class DefaultMovementStrategyTest {
 	}
 	
 	@Test
+	public void cannotMoveAbajoReturnsSameTableroTest() {
+		Tablero input = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createO());
+		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		Pieza pieza = DummyPiezaFactory.createO();
+		piezaEnTablero.put(new Position(1, 5), pieza);
+		
+		when(colision.canMove(input, piezaEnTablero, Movimiento.ABAJO)).thenReturn(false);
+	
+		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.ABAJO);
+		
+		Tablero expected = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createO());
+		
+		assertEquals(expected.getCeldas(), actual.getCeldas());
+	}
+	
+	
+	@Test
 	public void moverDerechaTest() {
 		Tablero input = DummyTableroFactory.withPieza(new Position(1, 7), DummyPiezaFactory.createZ());
 		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
@@ -79,6 +112,22 @@ public class DefaultMovementStrategyTest {
 		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.DERECHA);
 		
 		Tablero expected = DummyTableroFactory.withPieza(new Position(2, 7), DummyPiezaFactory.createZ());
+		
+		assertEquals(expected.getCeldas(), actual.getCeldas());
+	}
+	
+	@Test
+	public void cannotMoveDerechaReturnsSameTableroTest() {
+		Tablero input = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createL());
+		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		Pieza pieza = DummyPiezaFactory.createL();
+		piezaEnTablero.put(new Position(1, 5), pieza);
+		
+		when(colision.canMove(input, piezaEnTablero, Movimiento.DERECHA)).thenReturn(false);
+		
+		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.DERECHA);
+		
+		Tablero expected = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createL());
 		
 		assertEquals(expected.getCeldas(), actual.getCeldas());
 	}
