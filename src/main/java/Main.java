@@ -2,8 +2,8 @@ import configurator.Configurador;
 import model.Juego;
 import model.ModoJuego;
 import model.Tablero;
-import service.GameService;
-import service.LitiEngineService;
+import view.GameService;
+import view.JavaFXService;
 
 public class Main {
 
@@ -12,9 +12,9 @@ public class Main {
 		Configurador config = new Configurador(defaultTablero, ModoJuego.SUPERVIVENCIA);
 		Juego juego = config.inicializar();
 		
-		GameService game = new LitiEngineService();
+		GameService game = new JavaFXService();
+		
 		game.init(args);
-		game.start(juego);
 	}
 
 }

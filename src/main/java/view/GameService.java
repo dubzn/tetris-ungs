@@ -1,4 +1,4 @@
-package service;
+package view;
 
 import model.Juego;
 
@@ -9,13 +9,7 @@ public interface GameService {
 	 * @param juego - datos necesarios para poder inicializar el juego Tetris
 	 */
 	void init(String... args);
-	
 	/**
-	 * Se encarga de comenzar el juego
-	 * @param juego - datos necesarios para poder inicializar el juego Tetris
-	 */
-	void start(Juego juego);
-	
 	
 	/**
 	 * Debe encargarse de manejar cuando el juego termine o sea necesario cerrarlo
@@ -27,5 +21,5 @@ public interface GameService {
 	 * Tiene la responsabilidad de rendirzar en pantalla tomando los datos del juego
 	 * @param juego - datos necesarios para poder renderizar los componentes del Tetris
 	 */
-	void render(Juego juego);
+	void update(Juego juego);
 }

@@ -7,6 +7,14 @@
   <description>Proyecto del diseño del juego tetris para el final de la materia PP2</description>
   <dependencies>
 	
+	<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
+	<dependency>
+	    <groupId>org.openjfx</groupId>
+	    <artifactId>javafx-swing</artifactId>
+	    <version>18-ea+7</version>
+	</dependency>
+	
+	
 	<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
 	<dependency>
 	    <groupId>org.mockito</groupId>

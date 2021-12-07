@@ -8,6 +8,7 @@ import model.Juego;
 import model.Pieza;
 import model.Position;
 import model.Tablero;
+import view.GameService;
 
 public class DefaultOrchestrator implements Orquestador {
 	
@@ -46,7 +47,7 @@ public class DefaultOrchestrator implements Orquestador {
 		
 		partida.setTablero(gravedad.run(partida.getTablero()));
 		
-		game.render(partida);
+		game.update(partida);
 	}
 
 }
