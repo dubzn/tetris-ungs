@@ -1,21 +1,25 @@
 package service;
 
-import de.gurkenlabs.litiengine.Game;
 import model.Juego;
 
 public class LitiEngineService implements GameService {
 
+	@Override
 	public void init(String... args) {
-		Game.init(args);
-		Game.start();		
 	}
 
+	@Override
 	public void finish(Juego juego) {
-		Game.exit();
 	}
 
+	@Override
 	public void render(Juego juego) {
 		
 	}
+
+	@Override
+	public void start(Juego juego) {
+	}
+
 
 }

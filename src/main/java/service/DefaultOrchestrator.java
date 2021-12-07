@@ -3,7 +3,7 @@ package service;
 import java.util.HashMap;
 import java.util.Map;
 
-import factory.GeneradorPieza;
+import factory.PiezaFactory;
 import model.Juego;
 import model.Pieza;
 import model.Position;
@@ -16,18 +16,18 @@ public class DefaultOrchestrator implements Orquestador {
 	private final BorradorLineasService borrador;
 	private final MovimientoService movimiento;
 	private final GameService game;
-	private final GeneradorPieza generador;
+	private final PiezaFactory factory;
 	
 	private Map<Position, Pieza> piezaEnJuego;
 	private double tiempo;
 	
-	public DefaultOrchestrator(Juego partida, GravedadService gravedad, BorradorLineasService borrador, MovimientoService movimiento, GameService game, GeneradorPieza generador) {
+	public DefaultOrchestrator(Juego partida, GravedadService gravedad, BorradorLineasService borrador, MovimientoService movimiento, GameService game, PiezaFactory generador) {
 		this.partida = partida;
 		this.gravedad = gravedad;
 		this.borrador = borrador;
 		this.movimiento = movimiento;
 		this.game = game;
-		this.generador = generador;
+		this.factory = generador;
 
 		this.tiempo = 0;	
 	}
@@ -36,19 +36,15 @@ public class DefaultOrchestrator implements Orquestador {
 		for(Position position : piezaEnJuego.keySet()) {
 			if(!piezaEnJuego.get(position).getEstado().getEstaFlotando()) { 
 				piezaEnJuego = new HashMap<Position, Pieza>();		
-				piezaEnJuego.put(new Position(5, 1), generador.crear());
+				piezaEnJuego.put(new Position(5, 1), factory.createRandom());
 			}
 		}
-				
-		Tablero tablero = partida.getTablero();
 		
-		tablero = movimiento.run(tablero, piezaEnJuego);
+		partida.setTablero(movimiento.run(partida.getTablero(), piezaEnJuego)); 
 		
-		tablero = borrador.run(tablero);		
+		partida.setTablero(borrador.run(partida.getTablero()));		
 		
-		tablero = gravedad.run(tablero);
-	
-		partida.setTablero(tablero);
+		partida.setTablero(gravedad.run(partida.getTablero()));
 		
 		game.render(partida);
 	}

@@ -11,6 +11,13 @@ public interface GameService {
 	void init(String... args);
 	
 	/**
+	 * Se encarga de comenzar el juego
+	 * @param juego - datos necesarios para poder inicializar el juego Tetris
+	 */
+	void start(Juego juego);
+	
+	
+	/**
 	 * Debe encargarse de manejar cuando el juego termine o sea necesario cerrarlo
 	 * @param juego - datos necesarios para poder finalizar el juego Tetris
 	 */

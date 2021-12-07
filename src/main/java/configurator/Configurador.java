@@ -1,19 +1,21 @@
 package configurator;
 
-import java.util.List;
-
 import model.Juego;
 import model.Jugador;
-import model.Pieza;
+import model.ModoJuego;
 import model.Tablero;
 
 public class Configurador {
 
 	private Tablero tablero;
-	private List<Pieza> piezasDisponibles;
-	private Jugador jugador;
+	private ModoJuego modoJuego;
+	
+	public Configurador(Tablero tablero, ModoJuego modoJuego) {
+		this.tablero = tablero;
+		this.modoJuego = modoJuego;
+	}
 	
 	public Juego inicializar() {
-		return null;
+		return new Juego(tablero, modoJuego);
 	}
 }

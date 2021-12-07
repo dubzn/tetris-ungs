@@ -6,11 +6,6 @@
   <name>tetris-ungs</name>
   <description>Proyecto del diseño del juego tetris para el final de la materia PP2</description>
   <dependencies>
-	<dependency>
-	  <groupId>de.gurkenlabs</groupId>
-	  <artifactId>litiengine</artifactId>
-	  <version>0.5.1</version>
-	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
 	<dependency>
