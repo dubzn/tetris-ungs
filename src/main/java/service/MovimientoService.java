@@ -3,6 +3,7 @@ package service;
 import java.util.Map;
 import java.util.Stack;
 
+import exception.CeldaNotFoundException;
 import model.Movimiento;
 import model.Pieza;
 import model.Position;
@@ -14,8 +15,9 @@ public abstract class MovimientoService {
 	
 	/**
 	 * En base a la cola de movimientos, debe retornar el tablero modificado
+	 * @throws CeldaNotFoundException 
 	 */
-	abstract Tablero run(Tablero tablero, Map<Position, Pieza> pieza) ;
+	abstract Tablero run(Tablero tablero, Map<Position, Pieza> pieza) throws CeldaNotFoundException ;
 	
 	/**
 	 * Agregar un movimiento a la cola de movimientos pendientes

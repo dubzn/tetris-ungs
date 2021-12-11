@@ -7,8 +7,7 @@ import factory.PiezaFactory;
 import model.Juego;
 import model.Pieza;
 import model.Position;
-import model.Tablero;
-import view.GameService;
+import view.GameViewService;
 
 public class DefaultOrchestrator implements Orquestador {
 	
@@ -16,13 +15,13 @@ public class DefaultOrchestrator implements Orquestador {
 	private final GravedadService gravedad;
 	private final BorradorLineasService borrador;
 	private final MovimientoService movimiento;
-	private final GameService game;
+	private final GameViewService game;
 	private final PiezaFactory factory;
 	
 	private Map<Position, Pieza> piezaEnJuego;
 	private double tiempo;
 	
-	public DefaultOrchestrator(Juego partida, GravedadService gravedad, BorradorLineasService borrador, MovimientoService movimiento, GameService game, PiezaFactory generador) {
+	public DefaultOrchestrator(Juego partida, GravedadService gravedad, BorradorLineasService borrador, MovimientoService movimiento, GameViewService game, PiezaFactory generador) {
 		this.partida = partida;
 		this.gravedad = gravedad;
 		this.borrador = borrador;
@@ -40,14 +39,18 @@ public class DefaultOrchestrator implements Orquestador {
 				piezaEnJuego.put(new Position(5, 1), factory.createRandom());
 			}
 		}
-		
-		partida.setTablero(movimiento.run(partida.getTablero(), piezaEnJuego)); 
-		
-		partida.setTablero(borrador.run(partida.getTablero()));		
-		
-		partida.setTablero(gravedad.run(partida.getTablero()));
-		
-		game.update(partida);
+		try {
+			partida.setTablero(movimiento.run(partida.getTablero(), piezaEnJuego)); 
+			
+			partida.setTablero(borrador.run(partida.getTablero()));		
+			
+			partida.setTablero(gravedad.run(partida.getTablero()));
+			
+			game.update(partida);
+	
+		} catch(Exception e) {
+			//TODO: do something with exception
+		}
 	}
 
 }

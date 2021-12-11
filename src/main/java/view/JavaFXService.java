@@ -3,21 +3,18 @@ package view;
 import java.io.InputStream;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Celda;
 import model.Juego;
 import model.Tablero;
-import service.DefaultMovement;
 
 
-public class JavaFXService extends Application implements GameService {
+public class JavaFXService extends Application implements GameViewService {
 
 	private GraphicsContext graphicsContext;
 	private Group root;
@@ -43,7 +40,9 @@ public class JavaFXService extends Application implements GameService {
 	    this.stage = stage;
 		setupStage(getClass().getResourceAsStream("../resource/frame_icon.png"), "Tetris");
 	    setupScene();
-	    updateTablero(new Tablero());
+	    Tablero tablero = new Tablero();
+	    tablero.getCelda(5, 1).setOcupada(true);
+	    updateTablero(tablero);
 	    stage.show();
 	}
 

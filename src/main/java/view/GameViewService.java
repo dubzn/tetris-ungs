@@ -2,7 +2,7 @@ package view;
 
 import model.Juego;
 
-public interface GameService {
+public interface GameViewService {
 
 	/**
 	 * Se encarga de inicializar la pantalla de Tetris 

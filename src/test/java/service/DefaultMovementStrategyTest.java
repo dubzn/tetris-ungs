@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import exception.CeldaNotFoundException;
 import model.Movimiento;
 import model.Pieza;
 import model.Position;
@@ -36,7 +37,7 @@ public class DefaultMovementStrategyTest {
 	}
 	
 	@Test
-	public void moverIzquierdaTest() {
+	public void moverIzquierdaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT());
 		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
 		Pieza pieza = DummyPiezaFactory.createT();
@@ -52,7 +53,7 @@ public class DefaultMovementStrategyTest {
 	}
 	
 	@Test
-	public void cannotMoveIzquierdaReturnsSameTableroTest() {
+	public void cannotMoveIzquierdaReturnsSameTableroTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT());
 		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
 		Pieza pieza = DummyPiezaFactory.createT();
@@ -68,7 +69,7 @@ public class DefaultMovementStrategyTest {
 	}
 	
 	@Test
-	public void moverAbajoTest() {
+	public void moverAbajoTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.withPieza(new Position(5, 7), DummyPiezaFactory.createL());
 		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
 		Pieza pieza = DummyPiezaFactory.createL();
@@ -84,7 +85,7 @@ public class DefaultMovementStrategyTest {
 	}
 	
 	@Test
-	public void cannotMoveAbajoReturnsSameTableroTest() {
+	public void cannotMoveAbajoReturnsSameTableroTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createO());
 		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
 		Pieza pieza = DummyPiezaFactory.createO();
@@ -101,7 +102,7 @@ public class DefaultMovementStrategyTest {
 	
 	
 	@Test
-	public void moverDerechaTest() {
+	public void moverDerechaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.withPieza(new Position(1, 7), DummyPiezaFactory.createZ());
 		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
 		Pieza pieza = DummyPiezaFactory.createZ();
@@ -117,7 +118,7 @@ public class DefaultMovementStrategyTest {
 	}
 	
 	@Test
-	public void cannotMoveDerechaReturnsSameTableroTest() {
+	public void cannotMoveDerechaReturnsSameTableroTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createL());
 		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
 		Pieza pieza = DummyPiezaFactory.createL();

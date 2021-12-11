@@ -2,7 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
+import exception.CeldaNotFoundException;
 
 public class Tablero {
 	private List<Celda> celdas;
@@ -35,11 +36,12 @@ public class Tablero {
 		this.celdas = celdas;
 	}
 	
-	public Optional<Celda> getCelda(Integer x, Integer y) {
+	public Celda getCelda(Integer x, Integer y) throws CeldaNotFoundException {
 		return celdas
-				.stream()
-				.filter(celda -> celda.getX() == x && celda.getY() == y)
-				.findFirst();
+			.stream()
+			.filter(celda -> celda.getX() == x && celda.getY() == y)
+			.findFirst()
+			.orElseThrow(() -> new CeldaNotFoundException("La celda con posiciones (X: " + x + "Y: "+ y +") no corresponde al tablero de " + ancho + " de ancho y " + alto + "de alto"));
 	}
 
 	@Override
