@@ -1,13 +1,13 @@
 package service;
 
-import model.Tablero;
+import model.Juego;
 
 public interface BorradorLineasService {
 
 	/**
-	 * Debe revisar el tablero y si encuentra una línea horizontal completa, debe limpiarla
+	 * Debe revisar el tablero y si encuentra una lï¿½nea horizontal completa, debe limpiarla
 	 * @param tablero
 	 * @return
 	 */
-	Tablero run(Tablero tablero);	
+	Juego run(Juego juego);	
 }

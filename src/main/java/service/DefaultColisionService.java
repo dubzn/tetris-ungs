@@ -1,111 +1,74 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import exception.CeldaNotFoundException;
 import model.Celda;
+import model.Juego;
 import model.Movimiento;
 import model.Orientacion;
-import model.Pieza;
-import model.Position;
 import model.Tablero;
 
 public class DefaultColisionService implements ColisionService {
 
 	@Override
-	public boolean canMove(Tablero tablero, Map<Position, Pieza> pieza, Movimiento movimiento) {
-		Tablero tableroSinPiezaEnJuego = removePieza(tablero, pieza);
+	public boolean canMove(Juego juego, Movimiento movimiento) throws CeldaNotFoundException {
+		appearPiezaEnJuego(juego, false);
 		
-		return !colisionaConBorde(tableroSinPiezaEnJuego, pieza, movimiento) && 
-			   !colisionaConPieza(tableroSinPiezaEnJuego, pieza, movimiento);		
+		boolean ret = !colisionaConBorde(juego, movimiento) && !colisionaConPieza(juego, movimiento);	
+		
+		appearPiezaEnJuego(juego, true);
+		
+		return ret;
 	}
 
-	private Tablero removePieza(Tablero tablero, Map<Position, Pieza> pieza) {
-		Map.Entry<Position,Pieza> mapPieza = pieza.entrySet().iterator().next();
-		Position position = mapPieza.getKey();
-		Pieza piezaEnJuego = mapPieza.getValue();
-		
-		List<Celda> celdasPieza = piezaEnJuego
+	private void appearPiezaEnJuego(Juego juego, boolean appear) throws CeldaNotFoundException {	
+		List<Celda> celdasPieza = juego.getPiezaEnJuego()
 				 .getEstado()
 				 .getOrientacion()
-				 .equals(Orientacion.HORIZONTAL) ? piezaEnJuego.getPiezaHorizontal() : piezaEnJuego.getPiezaVertical();
+				 .equals(Orientacion.HORIZONTAL) ? juego.getPiezaEnJuego().getPiezaHorizontal() : juego.getPiezaEnJuego().getPiezaVertical();
 		
-		try {
-			for(Celda celda : celdasPieza) {
-				tablero.getCelda(celda.getX() + position.getX(), celda.getY() + position.getY()).setOcupada(false);
-			}
-		} catch (CeldaNotFoundException e) {
-			e.printStackTrace();
-		}		
-		return tablero;
+		for(Celda celda : celdasPieza) {
+			juego.getTablero().getCelda(celda.getX() + juego.getPiezaEnJuego().getX(), celda.getY() + juego.getPiezaEnJuego().getY()).setOcupada(appear);
+		}
 	}
 
-	private boolean colisionaConPieza(Tablero tablero, Map<Position, Pieza> pieza, Movimiento movimiento) {
-		Map.Entry<Position,Pieza> mapPieza = pieza.entrySet().iterator().next();
-		Position position = mapPieza.getKey();
-		Pieza piezaEnJuego = mapPieza.getValue();
-		
-		List<Celda> celdasPieza = piezaEnJuego
+	private boolean colisionaConPieza(Juego juego, Movimiento movimiento) {
+		List<Celda> celdasPieza = juego.getPiezaEnJuego()
 				 .getEstado()
 				 .getOrientacion()
-				 .equals(Orientacion.HORIZONTAL) ? piezaEnJuego.getPiezaHorizontal() : piezaEnJuego.getPiezaVertical();
+				 .equals(Orientacion.HORIZONTAL) ? juego.getPiezaEnJuego().getPiezaHorizontal() : juego.getPiezaEnJuego().getPiezaVertical();
 		
-		switch(movimiento) {
-			case IZQUIERDA:
-				return celdasPieza.stream().anyMatch(celda -> canMoveIzquierda(tablero, celda, position));
-			case DERECHA:
-				return celdasPieza.stream().anyMatch(celda -> canMoveDerecha(tablero, celda, position));
-			case ABAJO:			
-				return celdasPieza.stream().anyMatch(celda -> canMoveAbajo(tablero, celda, position));
-		}
-		return false;
+		return celdasPieza.stream().anyMatch(celda -> resolve(juego, celda, movimiento));
 	}
 
-	private boolean canMoveIzquierda(Tablero tablero, Celda celdaPieza, Position position) {
-		try {
-			return tablero.getCelda(celdaPieza.getX() + position.getX() - 1, celdaPieza.getY() + position.getY()).estaOcupada();		
-		} catch (CeldaNotFoundException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 	
-	private boolean canMoveDerecha(Tablero tablero, Celda celdaPieza, Position position) {
+	private boolean resolve(Juego juego, Celda celda, Movimiento movimiento) {
 		try {
-			return tablero.getCelda(celdaPieza.getX() + position.getX() + 1, celdaPieza.getY() + position.getY()).estaOcupada();		
+			return juego.getTablero().getCelda(celda.getX() + juego.getPiezaEnJuego().getX() + movimiento.getMovementX(), 
+											   celda.getY() + juego.getPiezaEnJuego().getY() + movimiento.getMovementY())
+					.estaOcupada();		
 		} catch (CeldaNotFoundException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	private boolean canMoveAbajo(Tablero tablero, Celda celdaPieza, Position position) {
-		try {
-			return tablero.getCelda(celdaPieza.getX() + position.getX(), celdaPieza.getY() + position.getY() + 1).estaOcupada();		
-		} catch (CeldaNotFoundException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	private boolean colisionaConBorde(Tablero tablero, Map<Position, Pieza> pieza, Movimiento movimiento) {
-		Map.Entry<Position,Pieza> mapPieza = pieza.entrySet().iterator().next();
-		Position position = mapPieza.getKey();
-		Pieza piezaEnJuego = mapPieza.getValue();
-		
-		List<Celda> celdasPieza = piezaEnJuego
-				 .getEstado()
-				 .getOrientacion()
-				 .equals(Orientacion.HORIZONTAL) ? piezaEnJuego.getPiezaHorizontal() : piezaEnJuego.getPiezaVertical();
-		
+	private boolean colisionaConBorde(Juego juego, Movimiento movimiento) {
+		System.out.println("MOVEMENT: "+movimiento.getNombre() + "X: "+movimiento.getMovementX() + "Y:" + movimiento.getMovementY());
+		System.out.println("Position:" + juego.getPiezaEnJuego().getY());
+		System.out.println("Y: "+(juego.getPiezaEnJuego().getY() + juego.getPiezaEnJuego().getAlto() + movimiento.getMovementY()));
 		switch(movimiento) {
 			case IZQUIERDA:
-				return celdasPieza.stream().anyMatch(celda -> !(celda.getX() + position.getX() - 1>= 1));
+				return !(juego.getPiezaEnJuego().getX() - juego.getPiezaEnJuego().getAncho() + movimiento.getMovementX() >= 1);
+				//return celdasPieza.stream().anyMatch(celda -> !(celda.getX() + juego.getPiezaEnJuego().getX() + movimiento.getMovementX() >= 1));
 			case DERECHA:
-				return celdasPieza.stream().anyMatch(celda -> !(celda.getX() + position.getX() + 1 <= tablero.getAncho()));
+				return !(juego.getPiezaEnJuego().getX() + juego.getPiezaEnJuego().getAncho() + movimiento.getMovementX() <= juego.getTablero().getAncho());
+				//return celdasPieza.stream().anyMatch(celda -> !(celda.getX() + juego.getPiezaEnJuego().getX() + movimiento.getMovementX() <= juego.getTablero().getAncho()));
 			case ABAJO:			
-				return celdasPieza.stream().anyMatch(celda -> !(celda.getY() + position.getY() + 1 <= tablero.getAlto()));
+				return !(juego.getPiezaEnJuego().getY() + juego.getPiezaEnJuego().getAlto() + movimiento.getMovementY() <= juego.getTablero().getAlto());
+				//return celdasPieza.stream().anyMatch(celda -> !(celda.getY() + juego.getPiezaEnJuego().getY() + movimiento.getMovementY()  <= juego.getTablero().getAlto()));
 		}
 		return false;
 	}

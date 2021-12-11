@@ -1,13 +1,16 @@
 package strategy;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import exception.CeldaNotFoundException;
 import model.Celda;
+import model.Juego;
 import model.Movimiento;
 import model.Orientacion;
 import model.Pieza;
+import model.PiezaEnJuego;
 import model.Position;
 import model.Tablero;
 import service.ColisionService;
@@ -20,84 +23,28 @@ public class DefaultMovementStrategy implements MovementStrategy {
 		this.colision = colision;
 	}
 
-	public Tablero execute(Tablero tablero, Map<Position, Pieza> pieza, Movimiento movimiento) throws CeldaNotFoundException {
-		try {
-			switch (movimiento) {
-			case IZQUIERDA:
-				return izquierda(tablero, pieza);
-			case DERECHA:
-				return derecha(tablero, pieza);
-			case ABAJO:
-				return abajo(tablero, pieza);
-			default:
-				return tablero;
-			}	
-		} catch(CeldaNotFoundException e) {
-			throw new CeldaNotFoundException(e.getMessage());
-		}	
-	}
-
-	private Tablero izquierda(Tablero tablero, Map<Position, Pieza> pieza) throws CeldaNotFoundException {
-		if(colision.canMove(tablero, pieza, Movimiento.IZQUIERDA)) {
-			 Map.Entry<Position,Pieza> mapPieza = pieza.entrySet().iterator().next();
-			 Celda celda = tablero.getCelda(mapPieza.getKey().getX(), mapPieza.getKey().getY());
+	public Juego execute(Juego juego, Movimiento movimiento) throws CeldaNotFoundException {
+		if(colision.canMove(juego, movimiento)) {
+			PiezaEnJuego pieza = juego.getPiezaEnJuego();
 			
-			 List<Celda> celdasPieza = mapPieza
-					 .getValue()
+			List<Celda> celdasPieza = pieza
 					 .getEstado()
 					 .getOrientacion()
-					 .equals(Orientacion.HORIZONTAL) ? mapPieza.getValue().getPiezaHorizontal() : mapPieza.getValue().getPiezaVertical();
-			 for(Celda celdaPieza : celdasPieza) {
-				 tablero.getCelda(celda.getX() + celdaPieza.getX(), celda.getY() + celdaPieza.getY()).setOcupada(false);
-			 }
-			 
-			 for(Celda celdaPieza : celdasPieza) {
-				 tablero.getCelda(celda.getX() + celdaPieza.getX() - 1, celda.getY() + celdaPieza.getY()).setOcupada(true);
-			 }
+					 .equals(Orientacion.HORIZONTAL) ? juego.getPiezaEnJuego().getPiezaHorizontal() : juego.getPiezaEnJuego().getPiezaVertical();
+					 
+			for(Celda celda : celdasPieza) {
+				juego.getTablero().getCelda(celda.getX() + pieza.getX(), celda.getY() + pieza.getY()).setOcupada(false);
+			}	
+			
+			for(Celda celda : celdasPieza) {
+				Integer posicionNuevaX = celda.getX() + pieza.getX() + movimiento.getMovementX();
+				Integer posicionNuevaY = celda.getY() + pieza.getY() + movimiento.getMovementY();
+				
+				juego.getTablero().getCelda(posicionNuevaX, posicionNuevaY).setOcupada(true);
+				juego.getPiezaEnJuego().setPosition(new Position(posicionNuevaX, posicionNuevaY));
+			}
 		}
-		return tablero;
+		return juego;
 	}
 	
-	private Tablero derecha(Tablero tablero, Map<Position, Pieza> pieza) throws CeldaNotFoundException {
-		if(colision.canMove(tablero, pieza, Movimiento.DERECHA)) {
-			Map.Entry<Position,Pieza> mapPieza = pieza.entrySet().iterator().next();
-			Celda celda = tablero.getCelda(mapPieza.getKey().getX(), mapPieza.getKey().getY());
-			 
-			List<Celda> celdasPieza = mapPieza
-				 .getValue()
-				 .getEstado()
-				 .getOrientacion()
-				 .equals(Orientacion.HORIZONTAL) ? mapPieza.getValue().getPiezaHorizontal() : mapPieza.getValue().getPiezaVertical();
-			for(Celda celdaPieza : celdasPieza) {
-				 tablero.getCelda(celda.getX() + celdaPieza.getX(), celda.getY() + celdaPieza.getY()).setOcupada(false);
-			 }
-			 
-			 for(Celda celdaPieza : celdasPieza) {
-				 tablero.getCelda(celda.getX() + celdaPieza.getX() + 1, celda.getY() + celdaPieza.getY()).setOcupada(true);
-			 } 
-		}
-		return tablero;
-	}
-	
-	private Tablero abajo(Tablero tablero, Map<Position, Pieza> pieza) throws CeldaNotFoundException {
-		if(colision.canMove(tablero, pieza, Movimiento.ABAJO)) {
-			Map.Entry<Position,Pieza> mapPieza = pieza.entrySet().iterator().next();
-			Celda celda = tablero.getCelda(mapPieza.getKey().getX(), mapPieza.getKey().getY());
-			List<Celda> celdasPieza = mapPieza
-				 .getValue()
-				 .getEstado()
-				 .getOrientacion()
-				 .equals(Orientacion.HORIZONTAL) ? mapPieza.getValue().getPiezaHorizontal() : mapPieza.getValue().getPiezaVertical();
-			for(Celda celdaPieza : celdasPieza) {
-				tablero.getCelda(celda.getX() + celdaPieza.getX(), celda.getY() + celdaPieza.getY()).setOcupada(false);
-			}
-			 
-			for(Celda celdaPieza : celdasPieza) {
-				tablero.getCelda(celda.getX() + celdaPieza.getX(), celda.getY() + celdaPieza.getY() + 1 ).setOcupada(true);
-			}
-			 
-		}
-		return tablero;
-	}
-
 }

@@ -1,12 +1,10 @@
 package service;
 
-import java.util.Map;
+import java.util.Stack;
 
 import exception.CeldaNotFoundException;
+import model.Juego;
 import model.Movimiento;
-import model.Pieza;
-import model.Position;
-import model.Tablero;
 import strategy.MovementStrategy;
 
 
@@ -15,16 +13,18 @@ public class DefaultMovement extends MovimientoService {
 	private final MovementStrategy strategy;
 	
 	public DefaultMovement(MovementStrategy strategy) {
+		this.queue = new Stack<>();
 		this.strategy = strategy;	
 	}
 	
 	@Override
-	Tablero run(Tablero tablero, Map<Position, Pieza> pieza) throws CeldaNotFoundException {
-		Movimiento nextMove = this.queue.pop(); 
+	Juego run(Juego juego) throws CeldaNotFoundException {
+		if(!this.queue.isEmpty()) {
+			Movimiento nextMove = this.queue.pop(); 
+			juego = strategy.execute(juego, nextMove);		
+		}
 		
-		tablero = strategy.execute(tablero, pieza, nextMove);
-		
-		return tablero;
+		return juego;
 	}
 
 }

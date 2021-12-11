@@ -1,67 +1,68 @@
 package service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 import factory.PiezaFactory;
 import model.Juego;
 import model.Pieza;
+import model.PiezaEnJuego;
 import model.Position;
 import view.GameViewService;
 
 public class DefaultOrchestrator implements Orquestador {
 	
 	private Juego partida;
-	private final GravedadService gravedad;
 	private final BorradorLineasService borrador;
-	private final MovimientoService movimiento;
 	private final GameViewService game;
+	private final GravedadService gravedad;
+	private final MovimientoService movimiento;
 	private final PiezaFactory factory;
 	
-	private Map<Position, Pieza> piezaEnJuego;
 	private double tiempo;
 	
 	public DefaultOrchestrator(Juego partida, GravedadService gravedad, BorradorLineasService borrador, MovimientoService movimiento, GameViewService game, PiezaFactory generador) {
 		this.partida = partida;
-		this.gravedad = gravedad;
 		this.borrador = borrador;
-		this.movimiento = movimiento;
 		this.game = game;
+		this.gravedad = gravedad;
+		this.movimiento = movimiento;
 		this.factory = generador;
 
 		this.tiempo = 0;	
 	}
 
 	public void run() {
-		if(piezaEnJuego == null) {
-			piezaEnJuego = new HashMap<Position, Pieza>();		
-			piezaEnJuego.put(new Position(5, 1), factory.createRandom());
-			try {
-				partida.getTablero().getCelda(5, 1).setOcupada(true);;	
-			} catch(Exception e) {
-				
-			}
-		}
-		for(Position position : piezaEnJuego.keySet()) {
-			if(!piezaEnJuego.get(position).getEstado().getEstaFlotando()) { 
-				piezaEnJuego = new HashMap<Position, Pieza>();		
-				piezaEnJuego.put(new Position(5, 1), factory.createRandom());
-			}
-		}
 		try {
 			System.out.println(partida.getTablero());
+			partida.setPiezaEnJuego(actualizarPiezaEnJuego());
 			
-			partida.setTablero(movimiento.run(partida.getTablero(), piezaEnJuego)); 
-			
-			partida.setTablero(borrador.run(partida.getTablero()));		
-			
-			partida.setTablero(gravedad.run(partida.getTablero()));
-			
-			game.update(partida);
-	
+			System.out.println("pieza: "+partida.getPiezaEnJuego().getPiezaHorizontal());
+			System.out.println(partida.getPiezaEnJuego().getNombre()+" position: x="+partida.getPiezaEnJuego().getX() + " y="+partida.getPiezaEnJuego().getY()+" alto: "+partida.getPiezaEnJuego().getAlto()+" floating: "+partida.getPiezaEnJuego().getEstado().getEstaFlotando());
+			//partida = movimiento.run(partida);
+			//partida = borrador.run(partida);
+			partida = gravedad.run(partida);
 		} catch(Exception e) {
-			//TODO: do something with exception
+			e.printStackTrace();
 		}
+	}
+
+	private PiezaEnJuego actualizarPiezaEnJuego() {
+		if(Objects.isNull(partida.getPiezaEnJuego())) {
+			System.out.println("Pieza en juego es null creando una nueva");
+			return crearPiezaEnPosicion(5, 15);
+		}
+		
+		if(!partida.getPiezaEnJuego().getEstado().getEstaFlotando()) {
+			System.out.println("La pieza ya no esta flotando creando una nueva");
+			return crearPiezaEnPosicion(5, 1);
+		}
+		
+		return partida.getPiezaEnJuego();
+	}
+
+	private PiezaEnJuego crearPiezaEnPosicion(Integer x, Integer y) {
+		Pieza pieza = factory.createRandom();
+		return new PiezaEnJuego(pieza.getNombre(), new Position(x, y), pieza.getPiezaHorizontal(), pieza.getPiezaVertical());
 	}
 
 }

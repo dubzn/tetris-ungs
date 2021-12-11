@@ -38,12 +38,14 @@ public class DefaultMovementStrategyTest {
 	
 	@Test
 	public void moverIzquierdaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT());
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
-		Pieza pieza = DummyPiezaFactory.createT();
-		piezaEnTablero.put(new Position(5, 1), pieza);
+		Position initialPosition = new Position(5, 1);
+		Pieza T = DummyPiezaFactory.createT();
+		Tablero input = DummyTableroFactory.withPieza(initialPosition, T);
 		
-		when(colision.canMove(input, piezaEnTablero, Movimiento.IZQUIERDA)).thenReturn(true);
+		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		piezaEnTablero.put(initialPosition, T);
+		
+		when(colision.canMove(input, initialPosition, T, Movimiento.IZQUIERDA)).thenReturn(true);
 		
 		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.IZQUIERDA);
 		
@@ -54,12 +56,14 @@ public class DefaultMovementStrategyTest {
 	
 	@Test
 	public void cannotMoveIzquierdaReturnsSameTableroTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT());
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
-		Pieza pieza = DummyPiezaFactory.createT();
-		piezaEnTablero.put(new Position(5, 1), pieza);
+		Position initialPosition = new Position(5, 1);
+		Pieza T = DummyPiezaFactory.createT();
+		Tablero input = DummyTableroFactory.withPieza(initialPosition, T);
 		
-		when(colision.canMove(input, piezaEnTablero, Movimiento.IZQUIERDA)).thenReturn(false);
+		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		piezaEnTablero.put(initialPosition, T);
+		
+		when(colision.canMove(input, initialPosition, T, Movimiento.IZQUIERDA)).thenReturn(false);
 		
 		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.IZQUIERDA);
 		
@@ -70,12 +74,14 @@ public class DefaultMovementStrategyTest {
 	
 	@Test
 	public void moverAbajoTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.withPieza(new Position(5, 7), DummyPiezaFactory.createL());
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
-		Pieza pieza = DummyPiezaFactory.createL();
-		piezaEnTablero.put(new Position(5, 7), pieza);
+		Position position = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		Tablero input = DummyTableroFactory.withPieza(position, L);
 		
-		when(colision.canMove(input, piezaEnTablero, Movimiento.ABAJO)).thenReturn(true);
+		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		piezaEnTablero.put(position, L);
+		
+		when(colision.canMove(input, position, L, Movimiento.ABAJO)).thenReturn(true);
 		
 		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.ABAJO);
 		
@@ -86,12 +92,14 @@ public class DefaultMovementStrategyTest {
 	
 	@Test
 	public void cannotMoveAbajoReturnsSameTableroTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createO());
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
-		Pieza pieza = DummyPiezaFactory.createO();
-		piezaEnTablero.put(new Position(1, 5), pieza);
+		Position position = new Position(1, 5);
+		Pieza O = DummyPiezaFactory.createO();
+		Tablero input = DummyTableroFactory.withPieza(position, O);
 		
-		when(colision.canMove(input, piezaEnTablero, Movimiento.ABAJO)).thenReturn(false);
+		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		piezaEnTablero.put(position, O);
+		
+		when(colision.canMove(input, position, O, Movimiento.ABAJO)).thenReturn(false);
 	
 		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.ABAJO);
 		
@@ -103,15 +111,17 @@ public class DefaultMovementStrategyTest {
 	
 	@Test
 	public void moverDerechaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.withPieza(new Position(1, 7), DummyPiezaFactory.createZ());
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
-		Pieza pieza = DummyPiezaFactory.createZ();
-		piezaEnTablero.put(new Position(1, 7), pieza);
+		Position position = new Position(1, 7);
+		Pieza Z = DummyPiezaFactory.createZ();
+		Tablero input = DummyTableroFactory.withPieza(position, Z);
 		
-		when(colision.canMove(input, piezaEnTablero, Movimiento.DERECHA)).thenReturn(true);
+		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		piezaEnTablero.put(position, Z);
+		System.out.println(input);
+		when(colision.canMove(input, position, Z, Movimiento.DERECHA)).thenReturn(true);
 		
 		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.DERECHA);
-		
+		System.out.println(actual);
 		Tablero expected = DummyTableroFactory.withPieza(new Position(2, 7), DummyPiezaFactory.createZ());
 		
 		assertEquals(expected.getCeldas(), actual.getCeldas());
@@ -119,12 +129,14 @@ public class DefaultMovementStrategyTest {
 	
 	@Test
 	public void cannotMoveDerechaReturnsSameTableroTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createL());
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
-		Pieza pieza = DummyPiezaFactory.createL();
-		piezaEnTablero.put(new Position(1, 5), pieza);
+		Position position = new Position(1, 5);
+		Pieza L = DummyPiezaFactory.createL();
+		Tablero input = DummyTableroFactory.withPieza(position, L);
 		
-		when(colision.canMove(input, piezaEnTablero, Movimiento.DERECHA)).thenReturn(false);
+		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		piezaEnTablero.put(position, L);
+		
+		when(colision.canMove(input, position, L, Movimiento.DERECHA)).thenReturn(false);
 		
 		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.DERECHA);
 		

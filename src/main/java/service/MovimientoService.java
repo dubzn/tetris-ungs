@@ -1,13 +1,10 @@
 package service;
 
-import java.util.Map;
 import java.util.Stack;
 
 import exception.CeldaNotFoundException;
+import model.Juego;
 import model.Movimiento;
-import model.Pieza;
-import model.Position;
-import model.Tablero;
 
 public abstract class MovimientoService {
 	
@@ -17,7 +14,7 @@ public abstract class MovimientoService {
 	 * En base a la cola de movimientos, debe retornar el tablero modificado
 	 * @throws CeldaNotFoundException 
 	 */
-	abstract Tablero run(Tablero tablero, Map<Position, Pieza> pieza) throws CeldaNotFoundException ;
+	abstract Juego run(Juego juego) throws CeldaNotFoundException ;
 	
 	/**
 	 * Agregar un movimiento a la cola de movimientos pendientes

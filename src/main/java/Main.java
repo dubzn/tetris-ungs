@@ -17,7 +17,7 @@ public class Main {
 		
 		Orquestador orquestrador = 
 				new DefaultOrchestrator(config.inicializar(), 
-				new DefaultGravity(), 
+				new DefaultGravity(new DefaultColisionService()), 
 				new DefaultBorrador(), 
 				new DefaultMovement(new DefaultMovementStrategy(new DefaultColisionService())), 
 				new JavaFXService(),
@@ -27,7 +27,7 @@ public class Main {
 			try
 			{
 				orquestrador.run();
-				Thread.sleep(2000);
+				Thread.sleep(500);
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}

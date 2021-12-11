@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import model.Celda;
+import model.Juego;
 import model.Tablero;
 
 public class DefaultBorrador implements BorradorLineasService {
 
-	public Tablero run(Tablero tablero) {
-		List<Celda> celdas = tablero.getCeldas();
+	public Juego run(Juego juego) {
+		List<Celda> celdas = juego.getTablero().getCeldas();
 		Map<Integer, Integer> contadorCeldaOcupada = new HashMap<Integer, Integer>();
 		
 		for (Celda celda : celdas) {
@@ -24,12 +25,12 @@ public class DefaultBorrador implements BorradorLineasService {
 		}
 
 		for(Integer posY : contadorCeldaOcupada.keySet()) {
-			if(contadorCeldaOcupada.get(posY) == tablero.getAncho()) {
-				tablero = removeLine(tablero, posY);
+			if(contadorCeldaOcupada.get(posY) == juego.getTablero().getAncho()) {
+				juego.setTablero(removeLine(juego.getTablero(), posY));
 			}
 		}
 		
-		return tablero;
+		return juego;
 	}
 
 	private Tablero removeLine(Tablero tablero, Integer lineNumber) {

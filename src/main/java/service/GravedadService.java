@@ -1,7 +1,7 @@
 package service;
 
 import exception.CeldaNotFoundException;
-import model.Tablero;
+import model.Juego;
 
 public interface GravedadService {
 
@@ -11,5 +11,5 @@ public interface GravedadService {
 	 * @param tablero - Es el tablero al que se le debe aplicar la gravedad dejando caer las piezas
 	 * @throws CeldaNotFoundException 
 	 */
-	Tablero run(Tablero tablero) throws CeldaNotFoundException;
+	Juego run(Juego juego) throws CeldaNotFoundException;
 }

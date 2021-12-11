@@ -28,23 +28,23 @@ public class DefaultColisionTest {
 	@Test
 	public void canMoveIzquierdaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 1), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 1), DummyPiezaFactory.createL());
+		Position initialPosition = new Position(5, 1);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, initialPosition, L);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.IZQUIERDA);
-
+		boolean actual = colision.canMove(input, initialPosition, L, Movimiento.IZQUIERDA);
+		
 		assertTrue(actual);
 	}
 	
 	@Test
 	public void colisionConParedMoveIzquierdaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(1, 1), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(1, 1), DummyPiezaFactory.createL());
+		Position initialPosition = new Position(1, 1);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, initialPosition, L);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.IZQUIERDA);
+		boolean actual = colision.canMove(input, initialPosition, L, Movimiento.IZQUIERDA);
 
 		assertFalse(actual);
 	}
@@ -52,12 +52,15 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConPiezaMoveIzquierdaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
-		DummyTableroFactory.addPieza(input, new Position(4, 7), DummyPiezaFactory.createI());
+		Position positionL = new Position(5, 7);
+		Position positionI = new Position(4, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		Pieza I = DummyPiezaFactory.createI();
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.IZQUIERDA);
+		DummyTableroFactory.addPieza(input, positionL, L);
+		DummyTableroFactory.addPieza(input, positionI, I);
+		
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.IZQUIERDA);
 
 		assertFalse(actual);
 	}
@@ -65,12 +68,14 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConCelda1MoveIzquierdaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
+		
+		//Setting a single collision to check if can detect collision
 		input.getCelda(4, 7).setOcupada(true);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.IZQUIERDA);
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.IZQUIERDA);
 
 		assertFalse(actual);
 	}
@@ -78,12 +83,14 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConCelda2MoveIzquierdaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
+
+		//Setting a single collision to check if can detect collision
 		input.getCelda(4, 8).setOcupada(true);
-		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.IZQUIERDA);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.IZQUIERDA);
 
 		assertFalse(actual);
 	}
@@ -91,12 +98,14 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConCelda3MoveIzquierdaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
+
+		//Setting a single collision to check if can detect collision
 		input.getCelda(4, 9).setOcupada(true);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.IZQUIERDA);
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.IZQUIERDA);
 
 		assertFalse(actual);
 	}
@@ -104,12 +113,14 @@ public class DefaultColisionTest {
 	@Test
 	public void noColisionConCelda4MoveIzquierdaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
+
+		//Setting a single collision to check if can detect collision
 		input.getCelda(4, 10).setOcupada(true);
-		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.IZQUIERDA);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.IZQUIERDA);
 
 		assertTrue(actual);
 	}
@@ -117,11 +128,11 @@ public class DefaultColisionTest {
 	@Test
 	public void canMoveDerechaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 1), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 1), DummyPiezaFactory.createL());
+		Position positionL = new Position(5, 1);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.DERECHA);
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
 
 		assertTrue(actual);
 	}
@@ -129,11 +140,11 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConParedMoveDerechaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(9, 1), DummyPiezaFactory.createO());	
-		DummyTableroFactory.addPieza(input, new Position(9, 1), DummyPiezaFactory.createO());
+		Position positionL = new Position(9, 1);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.DERECHA);
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
 
 		assertFalse(actual);
 	}
@@ -141,12 +152,15 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConPiezaMoveDerechaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
-		DummyTableroFactory.addPieza(input, new Position(6, 7), DummyPiezaFactory.createI());
+		Position positionL = new Position(5, 7);
+		Position positionI = new Position(6, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		Pieza I = DummyPiezaFactory.createL();
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.DERECHA);
+		DummyTableroFactory.addPieza(input, positionL, L);
+		DummyTableroFactory.addPieza(input, positionI, I);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
 
 		assertFalse(actual);
 	}
@@ -154,12 +168,14 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConCelda1MoveDerechaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
+		
+		//Setting a single collision to check if can detect collision
 		input.getCelda(6, 7).setOcupada(true);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.DERECHA);
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
 
 		assertFalse(actual);
 	}
@@ -167,12 +183,14 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConCelda2MoveDerechaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
-		input.getCelda(6, 8).setOcupada(true);
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.DERECHA);
+		//Setting a single collision to check if can detect collision
+		input.getCelda(6, 8).setOcupada(true);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
 
 		assertFalse(actual);
 	}
@@ -180,12 +198,14 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConCelda3MoveDerechaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
-		input.getCelda(7, 9).setOcupada(true);
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.DERECHA);
+		//Setting a single collision to check if can detect collision
+		input.getCelda(7, 9).setOcupada(true);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
 
 		assertFalse(actual);
 	}
@@ -193,12 +213,14 @@ public class DefaultColisionTest {
 	@Test
 	public void noColisionConCelda4MoveDerechaTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
-		input.getCelda(6, 10).setOcupada(true);
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.DERECHA);
+		//Setting a single collision to check if can detect collision
+		input.getCelda(6, 10).setOcupada(true);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
 
 		assertTrue(actual);
 	}
@@ -206,11 +228,11 @@ public class DefaultColisionTest {
 	@Test
 	public void canMoveAbajoTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 1), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 1), DummyPiezaFactory.createL());
-		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.ABAJO);
+		Position positionL = new Position(5, 1);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.ABAJO);
 
 		assertTrue(actual);
 	}
@@ -218,11 +240,11 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConParedMoveAbajoTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 21), DummyPiezaFactory.createO());	
-		DummyTableroFactory.addPieza(input, new Position(5, 21), DummyPiezaFactory.createO());
-		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.ABAJO);
+		Position positionO = new Position(5, 21);
+		Pieza O = DummyPiezaFactory.createO();
+		DummyTableroFactory.addPieza(input, positionO, O);
+
+		boolean actual = colision.canMove(input, positionO, O, Movimiento.ABAJO);
 
 		assertFalse(actual);
 	}
@@ -230,12 +252,15 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConPiezaMoveAbajoTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
-		DummyTableroFactory.addPieza(input, new Position(5, 10), DummyPiezaFactory.createI());
+		Position positionL = new Position(5, 7);
+		Position positionI = new Position(5, 10);
+		Pieza L = DummyPiezaFactory.createL();
+		Pieza I = DummyPiezaFactory.createL();
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.ABAJO);
+		DummyTableroFactory.addPieza(input, positionL, L);
+		DummyTableroFactory.addPieza(input, positionI, I);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.ABAJO);
 
 		assertFalse(actual);
 	}
@@ -243,12 +268,14 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConCelda1MoveAbajoTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
-		input.getCelda(5, 10).setOcupada(true);
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.ABAJO);
+		//Setting a single collision to check if can detect collision
+		input.getCelda(5, 10).setOcupada(true);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.ABAJO);
 
 		assertFalse(actual);
 	}
@@ -256,12 +283,14 @@ public class DefaultColisionTest {
 	@Test
 	public void colisionConCelda2MoveAbajoTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
-		input.getCelda(6, 10).setOcupada(true);
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.ABAJO);
+		//Setting a single collision to check if can detect collision
+		input.getCelda(6, 10).setOcupada(true);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.ABAJO);
 
 		assertFalse(actual);
 	}
@@ -269,12 +298,14 @@ public class DefaultColisionTest {
 	@Test
 	public void noColisionConCelda4MoveAbajoTest() throws CeldaNotFoundException {
 		Tablero input = DummyTableroFactory.create();
-		Map<Position, Pieza> piezaEnJuego = new HashMap<>();
-		piezaEnJuego.put(new Position(5, 7), DummyPiezaFactory.createL());	
-		DummyTableroFactory.addPieza(input, new Position(5, 7), DummyPiezaFactory.createL());
-		input.getCelda(4, 10).setOcupada(true);
+		Position positionL = new Position(5, 7);
+		Pieza L = DummyPiezaFactory.createL();
+		DummyTableroFactory.addPieza(input, positionL, L);
 		
-		boolean actual = colision.canMove(input, piezaEnJuego, Movimiento.ABAJO);
+		//Setting a single collision to check if can detect collision
+		input.getCelda(4, 10).setOcupada(true);
+
+		boolean actual = colision.canMove(input, positionL, L, Movimiento.ABAJO);
 
 		assertTrue(actual);
 	}

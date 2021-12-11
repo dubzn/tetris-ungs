@@ -1,12 +1,8 @@
 package service;
 
-import java.util.Map;
-
 import exception.CeldaNotFoundException;
+import model.Juego;
 import model.Movimiento;
-import model.Pieza;
-import model.Position;
-import model.Tablero;
 
 public interface ColisionService {
 
@@ -18,5 +14,5 @@ public interface ColisionService {
 	 * @return
 	 * @throws CeldaNotFoundException 
 	 */
-	boolean canMove(Tablero tablero, Map<Position, Pieza> pieza, Movimiento movimiento);
+	boolean canMove(Juego juego, Movimiento movimiento) throws CeldaNotFoundException;
 }
