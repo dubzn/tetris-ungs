@@ -1,20 +1,38 @@
 import configurator.Configurador;
-import model.Juego;
+import factory.ClassicTetrisPiezaFactory;
 import model.ModoJuego;
 import model.Tablero;
-import view.GameViewService;
+import service.DefaultBorrador;
+import service.DefaultColisionService;
+import service.DefaultGravity;
+import service.DefaultMovement;
+import service.DefaultOrchestrator;
+import service.Orquestador;
+import strategy.DefaultMovementStrategy;
 import view.JavaFXService;
 
 public class Main {	
 	public static void main(String[] args) {
-		Tablero defaultTablero = new Tablero();
-		Configurador config = new Configurador(defaultTablero, ModoJuego.SUPERVIVENCIA);
-		Juego juego = config.inicializar();
+		Configurador config = new Configurador(new Tablero(), ModoJuego.SUPERVIVENCIA);
 		
-		GameViewService game = new JavaFXService();
-		game.init(args);	
+		Orquestador orquestrador = 
+				new DefaultOrchestrator(config.inicializar(), 
+				new DefaultGravity(), 
+				new DefaultBorrador(), 
+				new DefaultMovement(new DefaultMovementStrategy(new DefaultColisionService())), 
+				new JavaFXService(),
+				new ClassicTetrisPiezaFactory());
+		
+		while(true) { 
+			try
+			{
+				orquestrador.run();
+				Thread.sleep(2000);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+		}
 		
 		
-		//Orquestador orquestrador = new DefaultOrchestrator(juego, new DefaultGravity(), new DefaultBorrador(), new DefaultMovement(new DefaultMovementStrategy(new DefaultColisi)));
 	}
 }

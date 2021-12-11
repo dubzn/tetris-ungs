@@ -33,6 +33,15 @@ public class DefaultOrchestrator implements Orquestador {
 	}
 
 	public void run() {
+		if(piezaEnJuego == null) {
+			piezaEnJuego = new HashMap<Position, Pieza>();		
+			piezaEnJuego.put(new Position(5, 1), factory.createRandom());
+			try {
+				partida.getTablero().getCelda(5, 1).setOcupada(true);;	
+			} catch(Exception e) {
+				
+			}
+		}
 		for(Position position : piezaEnJuego.keySet()) {
 			if(!piezaEnJuego.get(position).getEstado().getEstaFlotando()) { 
 				piezaEnJuego = new HashMap<Position, Pieza>();		
@@ -40,6 +49,8 @@ public class DefaultOrchestrator implements Orquestador {
 			}
 		}
 		try {
+			System.out.println(partida.getTablero());
+			
 			partida.setTablero(movimiento.run(partida.getTablero(), piezaEnJuego)); 
 			
 			partida.setTablero(borrador.run(partida.getTablero()));		
