@@ -16,7 +16,7 @@ public class DefaultBorradorTest {
 	
 	@Before
 	public void setUp() {
-		borrador = new DefaultBorrador();
+		borrador = new DefaultBorradorService();
 	}
 	
 	@Test

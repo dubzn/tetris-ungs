@@ -21,7 +21,7 @@ public class DefaultGravityTest {
 	
 	@Before
 	public void setUp() {
-		this.gravedad = new DefaultGravity(colision);
+		this.gravedad = new DefaultGravityService(colision);
 	}
 
 	@Test

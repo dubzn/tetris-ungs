@@ -1,6 +1,7 @@
-package strategy;
+package service;
 
 import java.util.List;
+import java.util.Stack;
 
 import exception.CeldaNotFoundException;
 import model.Celda;
@@ -9,17 +10,28 @@ import model.Movimiento;
 import model.Orientacion;
 import model.PiezaEnJuego;
 import model.Position;
-import service.ColisionService;
 
-public class DefaultMovementStrategy implements MovementStrategy {
-	
+
+public class DefaultMovementService extends MovimientoService {
+
 	private final ColisionService colision;
 	
-	public DefaultMovementStrategy(ColisionService colision) {
-		this.colision = colision;
+	public DefaultMovementService(ColisionService colision) {
+		this.queue = new Stack<>();
+		this.colision = colision;	
+	}
+	
+	@Override
+	Juego run(Juego juego) throws CeldaNotFoundException {
+		if(!this.queue.isEmpty()) {
+			Movimiento nextMove = this.queue.pop(); 
+			juego = resolve(juego, nextMove);		
+		}
+		
+		return juego;
 	}
 
-	public Juego execute(Juego juego, Movimiento movimiento) throws CeldaNotFoundException {
+	private Juego resolve(Juego juego, Movimiento movimiento) throws CeldaNotFoundException {
 		if(colision.canMove(juego, movimiento)) {
 			PiezaEnJuego pieza = juego.getPiezaEnJuego();
 			
@@ -42,5 +54,4 @@ public class DefaultMovementStrategy implements MovementStrategy {
 		}
 		return juego;
 	}
-	
 }

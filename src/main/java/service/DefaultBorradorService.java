@@ -8,7 +8,7 @@ import model.Celda;
 import model.Juego;
 import model.Tablero;
 
-public class DefaultBorrador implements BorradorLineasService {
+public class DefaultBorradorService implements BorradorLineasService {
 
 	public Juego run(Juego juego) {
 		List<Celda> celdas = juego.getTablero().getCeldas();

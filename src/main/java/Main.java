@@ -2,25 +2,21 @@ import configurator.Configurador;
 import factory.ClassicTetrisPiezaFactory;
 import model.ModoJuego;
 import model.Tablero;
-import service.ConsoleViewService;
-import service.DefaultBorrador;
+import service.DefaultBorradorService;
 import service.DefaultColisionService;
-import service.DefaultGravity;
-import service.DefaultMovement;
+import service.DefaultGravityService;
+import service.DefaultMovementService;
 import service.DefaultOrchestrator;
 import service.KeyboardService;
 import service.Orquestador;
 import strategy.DefaultMovementStrategy;
-import view.JavaFXService;
 import view.SwingGameView;
 
 public class Main {	
 	public static void main(String[] args) {
 		Configurador config = new Configurador(new Tablero(), ModoJuego.SUPERVIVENCIA);
 		
-		DefaultMovement movimientoService = new DefaultMovement(
-				new DefaultMovementStrategy(
-						new DefaultColisionService()));
+		DefaultMovementService movimientoService = new DefaultMovementService(new DefaultColisionService());
 		
 		SwingGameView view = new SwingGameView();
 		KeyboardService keyboard = new KeyboardService(movimientoService);
@@ -28,8 +24,8 @@ public class Main {
 		Orquestador orquestrador = 
 				new DefaultOrchestrator(
 					config.inicializar(), 
-					new DefaultBorrador(), 
-					new DefaultGravity(new DefaultColisionService()),
+					new DefaultBorradorService(), 
+					new DefaultGravityService(new DefaultColisionService()),
 					view,
 					keyboard,
 					movimientoService, 

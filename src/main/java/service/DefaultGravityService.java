@@ -11,11 +11,11 @@ import model.Orientacion;
 import model.Position;
 import model.Tablero;
 
-public class DefaultGravity implements GravedadService {
+public class DefaultGravityService implements GravedadService {
 	
 	private final ColisionService colision;
 	
-	public DefaultGravity(ColisionService colision) {
+	public DefaultGravityService(ColisionService colision) {
 		this.colision = colision;
 	}
 	
