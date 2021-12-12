@@ -9,7 +9,6 @@ import service.DefaultMovementService;
 import service.DefaultOrchestrator;
 import service.KeyboardService;
 import service.Orquestador;
-import strategy.DefaultMovementStrategy;
 import view.SwingGameView;
 
 public class Main {	
