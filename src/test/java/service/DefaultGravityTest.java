@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import exception.CeldaNotFoundException;
 import model.Tablero;
@@ -15,9 +16,12 @@ public class DefaultGravityTest {
 
 	private GravedadService gravedad;
 
+	@Mock
+	private ColisionService colision;
+	
 	@Before
 	public void setUp() {
-		this.gravedad = new DefaultGravity();
+		this.gravedad = new DefaultGravity(colision);
 	}
 
 	@Test

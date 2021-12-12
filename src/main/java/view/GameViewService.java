@@ -1,6 +1,7 @@
 package view;
 
 import model.Juego;
+import service.ControlService;
 
 public interface GameViewService {
 

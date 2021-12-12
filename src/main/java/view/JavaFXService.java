@@ -8,21 +8,26 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Celda;
 import model.Juego;
 import model.Tablero;
+import model.Movimiento;
+import service.ControlService;
 
 
-public class JavaFXService extends Application implements GameViewService {
+public class JavaFXService extends Application implements GameViewService  {
 
 	private GraphicsContext graphicsContext;
 	private Group root;
 	private Stage stage;
+	private ControlService control;
 	
 	@Override
 	public void init(String... args) {
-	    Application.launch(args);
+		System.out.println("CREEANDO INIT: "+control);
+		launch(args);
 	}
 
 	@Override
@@ -34,16 +39,33 @@ public class JavaFXService extends Application implements GameViewService {
 	public void update(Juego juego) {
 		updateTablero(juego.getTablero());
 	}
-
+	
 	@Override
-	public void start(Stage stage) throws Exception {
+	public void start(Stage stage) throws Exception {	
 	    this.stage = stage;
 		setupStage(getClass().getResourceAsStream("../resource/frame_icon.png"), "Tetris");
 	    setupScene();
-	    Tablero tablero = new Tablero();
-	    tablero.getCelda(5, 1).setOcupada(true);
-	    updateTablero(tablero);
+	    addKeyboardListener();
+	    updateTablero(new Tablero());
 	    stage.show();
+	}
+
+	private void addKeyboardListener() {
+		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
+            switch(event.getCode()) {
+            case LEFT:
+            	break;
+            case RIGHT:
+            	break;
+            case DOWN:
+            	break;
+            case ESCAPE:
+            	stage.close();
+            default:
+            	break;
+            }
+            event.consume();
+        });
 	}
 
 	private void setupStage(InputStream icon, String title) {
@@ -72,7 +94,7 @@ public class JavaFXService extends Application implements GameViewService {
 	private void updateTablero(Tablero tablero) { 
 		for(Celda celda : tablero.getCeldas()) {
 			Image celdaImg = celda.estaOcupada() ? getImageByColor(celda) : new Image(getClass().getResourceAsStream("../resource/celda_no_ocupada.png"), 40.0, 0.0, true, true);
-			graphicsContext.drawImage(celdaImg, 10 + celda.getX() * 40, celda.getY() * 40);
+			//graphicsContext.drawImage(celdaImg, 10 + celda.getX() * 40, celda.getY() * 40);
 		}
 	}
 

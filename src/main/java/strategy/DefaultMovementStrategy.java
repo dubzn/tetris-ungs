@@ -1,18 +1,14 @@
 package strategy;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import exception.CeldaNotFoundException;
 import model.Celda;
 import model.Juego;
 import model.Movimiento;
 import model.Orientacion;
-import model.Pieza;
 import model.PiezaEnJuego;
 import model.Position;
-import model.Tablero;
 import service.ColisionService;
 
 public class DefaultMovementStrategy implements MovementStrategy {

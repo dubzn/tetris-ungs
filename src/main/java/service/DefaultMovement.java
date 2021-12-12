@@ -13,6 +13,7 @@ public class DefaultMovement extends MovimientoService {
 	private final MovementStrategy strategy;
 	
 	public DefaultMovement(MovementStrategy strategy) {
+		System.out.println("CREANDO MOVEMENT DEFAULT");
 		this.queue = new Stack<>();
 		this.strategy = strategy;	
 	}
