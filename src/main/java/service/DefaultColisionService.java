@@ -10,6 +10,16 @@ import model.Orientacion;
 
 public class DefaultColisionService implements ColisionService {
 
+
+	@Override
+	public boolean canRotate(Juego juego) throws CeldaNotFoundException {
+		appearPiezaEnJuego(juego, false);
+		boolean ret = true;
+		appearPiezaEnJuego(juego, true);
+
+		return ret;
+	}
+	
 	@Override
 	public boolean canMove(Juego juego, Movimiento movimiento) throws CeldaNotFoundException {
 		appearPiezaEnJuego(juego, false);
@@ -43,7 +53,7 @@ public class DefaultColisionService implements ColisionService {
 			return juego.getTablero()
 					.getCelda(celda.getX() + juego.getPiezaEnJuego().getX() + movimiento.getMovementX(),
 							celda.getY() + juego.getPiezaEnJuego().getY() + movimiento.getMovementY())
-					.estaOcupada();
+					.getOcupada();
 		} catch (CeldaNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -51,23 +61,17 @@ public class DefaultColisionService implements ColisionService {
 	}
 
 	private boolean colisionaConBorde(Juego juego, Movimiento movimiento) {
-		// System.out.println("MOVEMENT: "+movimiento.getNombre() + "X:
-		// "+movimiento.getMovementX() + "Y:" + movimiento.getMovementY());
-		// System.out.println("Position:" + juego.getPiezaEnJuego().getY());
-		// System.out.println("Y: "+(juego.getPiezaEnJuego().getY() +
-		// juego.getPiezaEnJuego().getAlto() + movimiento.getMovementY()));
 		switch (movimiento) {
 		case IZQUIERDA:
-			return !(juego.getPiezaEnJuego().getX() - juego.getPiezaEnJuego().getAncho()
-					+ movimiento.getMovementX() >= 1);
+			return !(juego.getPiezaEnJuego().getX() + movimiento.getMovementX() >= 1);
 		case DERECHA:
-			return !(juego.getPiezaEnJuego().getX() + juego.getPiezaEnJuego().getAncho()
-					+ movimiento.getMovementX() <= juego.getTablero().getAncho());
+			return !(juego.getPiezaEnJuego().getX() + juego.getPiezaEnJuego().getAncho() <= juego.getTablero().getAncho());
 		case ABAJO:
-			return !(juego.getPiezaEnJuego().getY() + juego.getPiezaEnJuego().getAlto()
-					+ movimiento.getMovementY() <= juego.getTablero().getAlto());
+			return !(juego.getPiezaEnJuego().getY() + juego.getPiezaEnJuego().getAlto() <= juego.getTablero().getAlto());
+		default:
+			return false;
 		}
-		return false;
 	}
+
 
 }

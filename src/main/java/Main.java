@@ -1,4 +1,6 @@
 import configurator.Configurador;
+import controller.SwingKeyboardController;
+import controller.SwingMainController;
 import factory.ClassicTetrisPiezaFactory;
 import model.ModoJuego;
 import model.Tablero;
@@ -9,34 +11,32 @@ import service.DefaultMovementService;
 import service.DefaultOrchestrator;
 import service.KeyboardService;
 import service.Orquestador;
-import view.SwingGameView;
 
 public class Main {	
 	public static void main(String[] args) {
 		Configurador config = new Configurador(new Tablero(), ModoJuego.SUPERVIVENCIA);
 		
 		DefaultMovementService movimientoService = new DefaultMovementService(new DefaultColisionService());
-		
-		SwingGameView view = new SwingGameView();
 		KeyboardService keyboard = new KeyboardService(movimientoService);
+		SwingKeyboardController keyboardController = new SwingKeyboardController(movimientoService, keyboard);
 		
-		Orquestador orquestrador = 
-				new DefaultOrchestrator(
+		SwingMainController viewController = new SwingMainController(keyboardController);
+		
+		Orquestador orquestrador = new DefaultOrchestrator(
 					config.inicializar(), 
 					new DefaultBorradorService(), 
 					new DefaultGravityService(new DefaultColisionService()),
-					view,
-					keyboard,
+					viewController,
 					movimientoService, 
 					new ClassicTetrisPiezaFactory());	
-		
 		try
 		{
+			viewController.start();
 			int iteraciones = 0;
 			while(true) {
 				System.out.println(iteraciones);
 				orquestrador.run();
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				iteraciones++;
 			
 			}

@@ -17,41 +17,40 @@ public class DefaultOrchestrator implements Orquestador {
 	private final GravedadService gravedad;
 	private final MovimientoService movimiento;
 	private final PiezaFactory factory;
-	private final ControlService control;
-
-	private double tiempo;
-
+	private TimeService time;
+	
 	public DefaultOrchestrator(Juego partida, BorradorLineasService borrador, GravedadService gravedad,
-			GameViewService view, ControlService control, MovimientoService movimiento, PiezaFactory generador) {
+			GameViewService view, MovimientoService movimiento, PiezaFactory generador) {
 
 		this.partida = partida;
 		this.borrador = borrador;
 		this.gravedad = gravedad;
 		this.view = view;
-		this.control = control;
 		this.movimiento = movimiento;
 		this.factory = generador;
 
-		this.tiempo = 0;
+		this.time = new TimeService();
 	}
 
 	public void run() {
 		try {
+			System.out.println("Time: "+time.getActualDuration().getSeconds());
 			partida.setPiezaEnJuego(actualizarPiezaEnJuego());
 
-			System.out
-					.println(partida.getPiezaEnJuego().getNombre() + " position: x=" + partida.getPiezaEnJuego().getX()
-							+ " y=" + partida.getPiezaEnJuego().getY() + " alto: " + partida.getPiezaEnJuego().getAlto()
-							+ " floating: " + partida.getPiezaEnJuego().getEstado().getEstaFlotando());
+			//System.out.println(partida.getPiezaEnJuego().getNombre() + " position: x=" + partida.getPiezaEnJuego().getX()
+			//				+ " y=" + partida.getPiezaEnJuego().getY() + " alto: " + partida.getPiezaEnJuego().getAlto()
+			//				+ " floating: " + partida.getPiezaEnJuego().getEstado().getEstaFlotando());
 
 			// check if player do a movement
 			partida = movimiento.run(partida);
 
-			// check if has completed lines
-			partida = borrador.run(partida);
-
-			// apply gravity service
-			partida = gravedad.run(partida);
+			if(time.getActualDuration().getSeconds() % partida.getVelocidadGravedad() == 0) { 
+				partida = gravedad.run(partida);	
+			}
+			
+			if(!partida.getPiezaEnJuego().getEstado().getEstaFlotando()) {
+				partida = borrador.run(partida);
+			}
 
 			view.update(partida);
 		} catch (Exception e) {

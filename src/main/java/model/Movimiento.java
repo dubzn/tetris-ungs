@@ -4,7 +4,8 @@ public enum Movimiento {
 	
 	IZQUIERDA("izquierda", -1, 0),
 	DERECHA("derecha", 1, 0),
-	ABAJO("abajo", 0, 1);
+	ABAJO("abajo", 0, 1),
+	ROTAR("rotar", 0, 0);
 	
 	private String nombre;
 	private Integer movX;

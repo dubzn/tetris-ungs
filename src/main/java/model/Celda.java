@@ -22,7 +22,7 @@ public class Celda {
 		this.posicion.setY(y);
 	}
 	
-	public Boolean estaOcupada() {
+	public Boolean getOcupada() {
 		return ocupada;
 	}
 	

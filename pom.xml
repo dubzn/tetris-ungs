@@ -7,6 +7,14 @@
   <description>Proyecto del diseño del juego tetris para el final de la materia PP2</description>
   <dependencies>
 	
+	<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
+	<dependency>
+	    <groupId>org.modelmapper</groupId>
+	    <artifactId>modelmapper</artifactId>
+	    <version>2.4.5</version>
+	</dependency>
+		
+	
 	<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
 	<dependency>
 	    <groupId>org.mockito</groupId>

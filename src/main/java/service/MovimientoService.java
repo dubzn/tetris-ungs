@@ -28,7 +28,13 @@ public abstract class MovimientoService {
 			queue = stack;
 		}
 		else {
-			this.queue.push(mov);		
+			if(this.queue.size() < 2) {
+				this.queue.push(mov);					
+			}
+			if(this.queue.size() == 2) {
+				this.queue.clear();
+				this.queue.push(mov);
+			}
 		}
 		
 		return this.queue;

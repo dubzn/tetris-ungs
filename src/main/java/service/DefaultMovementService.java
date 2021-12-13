@@ -25,13 +25,32 @@ public class DefaultMovementService extends MovimientoService {
 	Juego run(Juego juego) throws CeldaNotFoundException {
 		if(!this.queue.isEmpty()) {
 			Movimiento nextMove = this.queue.pop(); 
+			appearPiezaEnJuego(juego, false);
 			juego = resolve(juego, nextMove);		
+			appearPiezaEnJuego(juego, true);
 		}
-		
+
 		return juego;
 	}
 
+	private void appearPiezaEnJuego(Juego juego, boolean appear) throws CeldaNotFoundException {	
+		List<Celda> celdasPieza = juego.getPiezaEnJuego()
+				 .getEstado()
+				 .getOrientacion()
+				 .equals(Orientacion.HORIZONTAL) ? juego.getPiezaEnJuego().getPiezaHorizontal() : juego.getPiezaEnJuego().getPiezaVertical();
+		
+		for(Celda celda : celdasPieza) {
+			juego.getTablero().getCelda(celda.getX() + juego.getPiezaEnJuego().getX(), celda.getY() + juego.getPiezaEnJuego().getY()).setOcupada(appear);
+		}
+	}
+
 	private Juego resolve(Juego juego, Movimiento movimiento) throws CeldaNotFoundException {
+		if(movimiento.equals(Movimiento.ROTAR)) {
+			Orientacion nextOrientacion = juego.getPiezaEnJuego().getEstado().getOrientacion().equals(Orientacion.HORIZONTAL) ? Orientacion.VERTICAL : Orientacion.HORIZONTAL; 
+			juego.getPiezaEnJuego().getEstado().setOrientacion(nextOrientacion);
+			return juego;
+		}
+		
 		if(colision.canMove(juego, movimiento)) {
 			PiezaEnJuego pieza = juego.getPiezaEnJuego();
 			
@@ -47,10 +66,10 @@ public class DefaultMovementService extends MovimientoService {
 			for(Celda celda : celdasPieza) {
 				Integer posicionNuevaX = celda.getX() + pieza.getX() + movimiento.getMovementX();
 				Integer posicionNuevaY = celda.getY() + pieza.getY() + movimiento.getMovementY();
-				
 				juego.getTablero().getCelda(posicionNuevaX, posicionNuevaY).setOcupada(true);
-				juego.getPiezaEnJuego().setPosition(new Position(posicionNuevaX, posicionNuevaY));
 			}
+			System.out.println("SETTING NEW POSITION: x="+(pieza.getX() + movimiento.getMovementX())+" y="+(pieza.getY() + movimiento.getMovementY()));
+			pieza.setPosition(new Position(pieza.getX() + movimiento.getMovementX(), pieza.getY() + movimiento.getMovementY()));
 		}
 		return juego;
 	}

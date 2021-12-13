@@ -18,10 +18,10 @@ public class Pieza {
 		this.piezaVertical = piezaVertical;
 		this.estado = new EstadoPieza(Orientacion.HORIZONTAL, true);
 
-		this.anchoHorizontal = piezaHorizontal.stream().max((c1,c2) -> c1.getX().compareTo(c2.getX())).get().getX();
-		this.altoHorizontal = piezaHorizontal.stream().max((c1,c2) -> c1.getY().compareTo(c2.getY())).get().getY();
-		this.anchoVertical = piezaVertical.stream().max((c1,c2) -> c1.getX().compareTo(c2.getX())).get().getX();
-		this.altoVertical = piezaVertical.stream().max((c1,c2) -> c1.getY().compareTo(c2.getY())).get().getY();
+		this.anchoHorizontal = piezaHorizontal.stream().max((c1,c2) -> c1.getX().compareTo(c2.getX())).get().getX()+1;
+		this.altoHorizontal = piezaHorizontal.stream().max((c1,c2) -> c1.getY().compareTo(c2.getY())).get().getY()+1;
+		this.anchoVertical = piezaVertical.stream().max((c1,c2) -> c1.getX().compareTo(c2.getX())).get().getX()+1;
+		this.altoVertical = piezaVertical.stream().max((c1,c2) -> c1.getY().compareTo(c2.getY())).get().getY()+1;
 	}
 	
 	public String getNombre() {

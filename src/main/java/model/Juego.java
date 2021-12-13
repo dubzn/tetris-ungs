@@ -10,11 +10,13 @@ public class Juego {
 	private PiezaEnJuego pieza;
 	private ModoJuego modoJuego;
 	private Integer puntaje;
+	private Integer velocidadGravedad;
 	
 	public Juego(Tablero tablero, ModoJuego modoJuego) {
 		this.tablero = tablero;
 		this.modoJuego = modoJuego; 
 		this.puntaje = 0;
+		this.velocidadGravedad = 1;
 	}
 	
 	public Tablero getTablero() {
@@ -52,5 +54,14 @@ public class Juego {
 	public void setPuntaje(Integer puntaje) {
 		this.puntaje = puntaje;
 	}
+
+	public Integer getVelocidadGravedad() {
+		return velocidadGravedad;
+	}
+
+	public void setVelocidadGravedad(Integer velocidadGravedad) {
+		this.velocidadGravedad = velocidadGravedad;
+	}
+
 		
 }

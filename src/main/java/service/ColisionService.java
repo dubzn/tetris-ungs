@@ -15,4 +15,14 @@ public interface ColisionService {
 	 * @throws CeldaNotFoundException 
 	 */
 	boolean canMove(Juego juego, Movimiento movimiento) throws CeldaNotFoundException;
+	
+	/**
+	 * 
+	 * @param tablero
+	 * @param pieza
+	 * @param movimiento
+	 * @return
+	 * @throws CeldaNotFoundException 
+	 */
+	boolean canRotate(Juego juego) throws CeldaNotFoundException;
 }

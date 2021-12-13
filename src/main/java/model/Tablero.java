@@ -41,7 +41,7 @@ public class Tablero {
 			.stream()
 			.filter(celda -> celda.getX() == x && celda.getY() == y)
 			.findFirst()
-			.orElseThrow(() -> new CeldaNotFoundException("La celda con posiciones (X: " + x + "Y: "+ y +") no corresponde al tablero de " + ancho + " de ancho y " + alto + "de alto"));
+			.orElseThrow(() -> new CeldaNotFoundException("La celda con posiciones (X: " + x + " Y: "+ y +") no corresponde al tablero de " + ancho + " de ancho y " + alto + "de alto"));
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class Tablero {
 			if(celda.getX() == 1) {
 				ret = celda.getY() >= 10 ? ret + + celda.getY() : ret +"0" + celda.getY();
 			}
-			String ocupada = celda.estaOcupada() ? "█" : "░";
+			String ocupada = celda.getOcupada() ? "█" : "░";
 			ret = ret + ocupada;
 			if(celda.getX() == ancho) {
 				ret = ret +"\n";
