@@ -2,49 +2,49 @@ package service;
 
 import java.util.List;
 
-import exception.CeldaNotFoundException;
-import model.Celda;
-import model.Juego;
-import model.Movimiento;
-import model.Orientacion;
+import exception.SquareNotFoundException;
+import model.Square;
+import model.Game;
+import model.Movement;
+import model.Orientation;
 import model.Position;
 
-public class DefaultGravityService implements GravedadService {
+public class DefaultGravityService implements GravityService {
 	
-	private final ColisionService colision;
+	private final CollisionService collision;
 	
-	public DefaultGravityService(ColisionService colision) {
-		this.colision = colision;
+	public DefaultGravityService(CollisionService collision) {
+		this.collision = collision;
 	}
 	
-	public Juego run(Juego juego) throws CeldaNotFoundException {
-		if(juego.getPiezaEnJuego().getEstado().getEstaFlotando()) {
-			appearPiezaEnJuego(juego, false);
-			aplicarGravedadAPiezaEnJuego(juego);	
-			appearPiezaEnJuego(juego, true);
+	public Game run(Game game) throws SquareNotFoundException {
+		if(game.getInGameTetromino().getState().getIsFloating()) {
+			appearInGameTetromino(game, false);
+			applyGravityToInGameTetromino(game);	
+			appearInGameTetromino(game, true);
 		}
 
-		return juego;
+		return game;
 	}
 
-	private void appearPiezaEnJuego(Juego juego, boolean appear) throws CeldaNotFoundException {	
-		List<Celda> celdasPieza = juego.getPiezaEnJuego()
-				 .getEstado()
-				 .getOrientacion()
-				 .equals(Orientacion.HORIZONTAL) ? juego.getPiezaEnJuego().getPiezaHorizontal() : juego.getPiezaEnJuego().getPiezaVertical();
+	private void appearInGameTetromino(Game game, boolean appear) throws SquareNotFoundException {	
+		List<Square> celdasPieza = game.getInGameTetromino()
+				 .getState()
+				 .getOrientation()
+				 .equals(Orientation.HORIZONTAL) ? game.getInGameTetromino().getHorizontalForm() : game.getInGameTetromino().getVerticalForm();
 		
-		for(Celda celda : celdasPieza) {
-			juego.getTablero().getCelda(celda.getX() + juego.getPiezaEnJuego().getX(), celda.getY() + juego.getPiezaEnJuego().getY()).setOcupada(appear);
+		for(Square celda : celdasPieza) {
+			game.getBoard().getSquare(celda.getX() + game.getInGameTetromino().getX(), celda.getY() + game.getInGameTetromino().getY()).setOccupied(appear);
 		}
 	}
 	
-	private void aplicarGravedadAPiezaEnJuego(Juego juego) throws CeldaNotFoundException {		
-		if(juego.getPiezaEnJuego().getEstado().getEstaFlotando()) {
-			juego.getPiezaEnJuego().setPosition(new Position(juego.getPiezaEnJuego().getX(), juego.getPiezaEnJuego().getY() + 1));	
+	private void applyGravityToInGameTetromino(Game game) throws SquareNotFoundException {		
+		if(game.getInGameTetromino().getState().getIsFloating()) {
+			game.getInGameTetromino().setPosition(new Position(game.getInGameTetromino().getX(), game.getInGameTetromino().getY() + 1));	
 		}
 		
-		if(!colision.canMove(juego, Movimiento.ABAJO)) {
-			juego.getPiezaEnJuego().getEstado().setEstaFlotando(false);	
+		if(!collision.canMove(game, Movement.DOWN)) {
+			game.getInGameTetromino().getState().setIsFloating(false);	
 		}
 	}
 }

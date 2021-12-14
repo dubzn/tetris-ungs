@@ -2,52 +2,52 @@ package util;
 
 import java.util.List;
 
-import exception.CeldaNotFoundException;
-import model.Celda;
-import model.Orientacion;
-import model.Pieza;
+import exception.SquareNotFoundException;
+import model.Square;
+import model.Orientation;
+import model.Tetromino;
 import model.Position;
-import model.Tablero;
+import model.Board;
 
 public class DummyTableroFactory {
 	
-	public static Tablero create() {
-		return new Tablero();
+	public static Board create() {
+		return new Board();
 	}
 	
 	
-	public static Tablero addPieza(Tablero tablero, Position position, Pieza pieza) throws CeldaNotFoundException {
-		tablero.getCelda(position.getX(), position.getY());
+	public static Board addPieza(Board tablero, Position position, Tetromino pieza) throws SquareNotFoundException {
+		tablero.getSquare(position.getX(), position.getY());
 		
-		List<Celda> celdasPieza = pieza.getEstado().getOrientacion().equals(Orientacion.HORIZONTAL) ? pieza.getPiezaHorizontal() : pieza.getPiezaVertical();
+		List<Square> celdasPieza = pieza.getState().getOrientation().equals(Orientation.HORIZONTAL) ? pieza.getHorizontalForm() : pieza.getVerticalForm();
 		
-		for(Celda celda : celdasPieza) {
-			tablero.getCelda(position.getX() + celda.getX(), position.getY() + celda.getY()).setOcupada(true);
+		for(Square celda : celdasPieza) {
+			tablero.getSquare(position.getX() + celda.getX(), position.getY() + celda.getY()).setOccupied(true);
 		}
 		
 		return tablero;
 	}
 	
-	public static Tablero withPieza(Position position, Pieza pieza) throws CeldaNotFoundException {
-		Tablero tablero = new Tablero();
+	public static Board withPieza(Position position, Tetromino pieza) throws SquareNotFoundException {
+		Board tablero = new Board();
 		
-		tablero.getCelda(position.getX(), position.getY());
+		tablero.getSquare(position.getX(), position.getY());
 		
-		List<Celda> celdasPieza = pieza.getEstado().getOrientacion().equals(Orientacion.HORIZONTAL) ? pieza.getPiezaHorizontal() : pieza.getPiezaVertical();
+		List<Square> celdasPieza = pieza.getState().getOrientation().equals(Orientation.HORIZONTAL) ? pieza.getHorizontalForm() : pieza.getVerticalForm();
 		
-		for(Celda celda : celdasPieza) {
-			tablero.getCelda(position.getX() + celda.getX(), position.getY() + celda.getY()).setOcupada(true);
+		for(Square celda : celdasPieza) {
+			tablero.getSquare(position.getX() + celda.getX(), position.getY() + celda.getY()).setOccupied(true);
 		}
 		
 		return tablero;
 	}
 	
-	public static Tablero create(List<Integer> lineasOcupadas) {
-		Tablero tablero = new Tablero();
+	public static Board create(List<Integer> lineasOcupadas) {
+		Board tablero = new Board();
 		
-		for(Celda celda : tablero.getCeldas()) {
+		for(Square celda : tablero.getAllSquares()) {
 			if(lineasOcupadas.contains(celda.getY())) {
-				celda.setOcupada(true);
+				celda.setOccupied(true);
 			}
 		}
 		

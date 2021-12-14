@@ -9,303 +9,303 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.CeldaNotFoundException;
-import model.Movimiento;
-import model.Pieza;
+import exception.SquareNotFoundException;
+import model.Movement;
+import model.Tetromino;
 import model.Position;
-import model.Tablero;
+import model.Board;
 import util.DummyPiezaFactory;
 import util.DummyTableroFactory;
 
 public class DefaultColisionTest {
 
-	private ColisionService colision;
+	private CollisionService colision;
 	@Before
 	public void setUp() {
-		colision= new DefaultColisionService();
+		colision= new DefaultCollisionService();
 	}
 	
 	@Test
-	public void canMoveIzquierdaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void canMoveIzquierdaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position initialPosition = new Position(5, 1);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, initialPosition, L);
 		
-		boolean actual = colision.canMove(input, initialPosition, L, Movimiento.IZQUIERDA);
+		boolean actual = colision.canMove(input, initialPosition, L, Movement.LEFT);
 		
 		assertTrue(actual);
 	}
 	
 	@Test
-	public void colisionConParedMoveIzquierdaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConParedMoveIzquierdaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position initialPosition = new Position(1, 1);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, initialPosition, L);
 		
-		boolean actual = colision.canMove(input, initialPosition, L, Movimiento.IZQUIERDA);
+		boolean actual = colision.canMove(input, initialPosition, L, Movement.LEFT);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConPiezaMoveIzquierdaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConPiezaMoveIzquierdaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
 		Position positionI = new Position(4, 7);
-		Pieza L = DummyPiezaFactory.createL();
-		Pieza I = DummyPiezaFactory.createI();
+		Tetromino L = DummyPiezaFactory.createL();
+		Tetromino I = DummyPiezaFactory.createI();
 		
 		DummyTableroFactory.addPieza(input, positionL, L);
 		DummyTableroFactory.addPieza(input, positionI, I);
 		
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.IZQUIERDA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.LEFT);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConCelda1MoveIzquierdaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConCelda1MoveIzquierdaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 		
 		//Setting a single collision to check if can detect collision
-		input.getCelda(4, 7).setOcupada(true);
+		input.getSquare(4, 7).setOccupied(true);
 		
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.IZQUIERDA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.LEFT);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConCelda2MoveIzquierdaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConCelda2MoveIzquierdaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 
 		//Setting a single collision to check if can detect collision
-		input.getCelda(4, 8).setOcupada(true);
+		input.getSquare(4, 8).setOccupied(true);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.IZQUIERDA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.LEFT);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConCelda3MoveIzquierdaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConCelda3MoveIzquierdaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 
 		//Setting a single collision to check if can detect collision
-		input.getCelda(4, 9).setOcupada(true);
+		input.getSquare(4, 9).setOccupied(true);
 		
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.IZQUIERDA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.LEFT);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void noColisionConCelda4MoveIzquierdaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void noColisionConCelda4MoveIzquierdaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 
 		//Setting a single collision to check if can detect collision
-		input.getCelda(4, 10).setOcupada(true);
+		input.getSquare(4, 10).setOccupied(true);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.IZQUIERDA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.LEFT);
 
 		assertTrue(actual);
 	}
 	
 	@Test
-	public void canMoveDerechaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void canMoveDerechaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 1);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 		
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.RIGHT);
 
 		assertTrue(actual);
 	}
 	
 	@Test
-	public void colisionConParedMoveDerechaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConParedMoveDerechaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(9, 1);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 		
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.RIGHT);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConPiezaMoveDerechaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConPiezaMoveDerechaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
 		Position positionI = new Position(6, 7);
-		Pieza L = DummyPiezaFactory.createL();
-		Pieza I = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
+		Tetromino I = DummyPiezaFactory.createL();
 		
 		DummyTableroFactory.addPieza(input, positionL, L);
 		DummyTableroFactory.addPieza(input, positionI, I);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.RIGHT);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConCelda1MoveDerechaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConCelda1MoveDerechaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 		
 		//Setting a single collision to check if can detect collision
-		input.getCelda(6, 7).setOcupada(true);
+		input.getSquare(6, 7).setOccupied(true);
 		
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.RIGHT);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConCelda2MoveDerechaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConCelda2MoveDerechaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 		
 		//Setting a single collision to check if can detect collision
-		input.getCelda(6, 8).setOcupada(true);
+		input.getSquare(6, 8).setOccupied(true);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.RIGHT);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConCelda3MoveDerechaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConCelda3MoveDerechaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 		
 		//Setting a single collision to check if can detect collision
-		input.getCelda(7, 9).setOcupada(true);
+		input.getSquare(7, 9).setOccupied(true);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.RIGHT);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void noColisionConCelda4MoveDerechaTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void noColisionConCelda4MoveDerechaTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 		
 		//Setting a single collision to check if can detect collision
-		input.getCelda(6, 10).setOcupada(true);
+		input.getSquare(6, 10).setOccupied(true);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.DERECHA);
+		boolean actual = colision.canMove(input, positionL, L, Movement.RIGHT);
 
 		assertTrue(actual);
 	}
 	
 	@Test
-	public void canMoveAbajoTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void canMoveAbajoTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 1);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.ABAJO);
+		boolean actual = colision.canMove(input, positionL, L, Movement.DOWN);
 
 		assertTrue(actual);
 	}
 	
 	@Test
-	public void colisionConParedMoveAbajoTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConParedMoveAbajoTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionO = new Position(5, 21);
-		Pieza O = DummyPiezaFactory.createO();
+		Tetromino O = DummyPiezaFactory.createO();
 		DummyTableroFactory.addPieza(input, positionO, O);
 
-		boolean actual = colision.canMove(input, positionO, O, Movimiento.ABAJO);
+		boolean actual = colision.canMove(input, positionO, O, Movement.DOWN);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConPiezaMoveAbajoTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConPiezaMoveAbajoTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
 		Position positionI = new Position(5, 10);
-		Pieza L = DummyPiezaFactory.createL();
-		Pieza I = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
+		Tetromino I = DummyPiezaFactory.createL();
 		
 		DummyTableroFactory.addPieza(input, positionL, L);
 		DummyTableroFactory.addPieza(input, positionI, I);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.ABAJO);
+		boolean actual = colision.canMove(input, positionL, L, Movement.DOWN);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConCelda1MoveAbajoTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConCelda1MoveAbajoTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 		
 		//Setting a single collision to check if can detect collision
-		input.getCelda(5, 10).setOcupada(true);
+		input.getSquare(5, 10).setOccupied(true);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.ABAJO);
+		boolean actual = colision.canMove(input, positionL, L, Movement.DOWN);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void colisionConCelda2MoveAbajoTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void colisionConCelda2MoveAbajoTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 		
 		//Setting a single collision to check if can detect collision
-		input.getCelda(6, 10).setOcupada(true);
+		input.getSquare(6, 10).setOccupied(true);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.ABAJO);
+		boolean actual = colision.canMove(input, positionL, L, Movement.DOWN);
 
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void noColisionConCelda4MoveAbajoTest() throws CeldaNotFoundException {
-		Tablero input = DummyTableroFactory.create();
+	public void noColisionConCelda4MoveAbajoTest() throws SquareNotFoundException {
+		Board input = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
+		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(input, positionL, L);
 		
 		//Setting a single collision to check if can detect collision
-		input.getCelda(4, 10).setOcupada(true);
+		input.getSquare(4, 10).setOccupied(true);
 
-		boolean actual = colision.canMove(input, positionL, L, Movimiento.ABAJO);
+		boolean actual = colision.canMove(input, positionL, L, Movement.DOWN);
 
 		assertTrue(actual);
 	}

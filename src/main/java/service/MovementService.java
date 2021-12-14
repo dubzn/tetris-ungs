@@ -2,28 +2,28 @@ package service;
 
 import java.util.Stack;
 
-import exception.CeldaNotFoundException;
-import model.Juego;
-import model.Movimiento;
+import exception.SquareNotFoundException;
+import model.Game;
+import model.Movement;
 
-public abstract class MovimientoService {
+public abstract class MovementService {
 	
-	Stack<Movimiento> queue;
+	Stack<Movement> queue;
 	
 	/**
 	 * En base a la cola de movimientos, debe retornar el tablero modificado
-	 * @throws CeldaNotFoundException 
+	 * @throws SquareNotFoundException 
 	 */
-	abstract Juego run(Juego juego) throws CeldaNotFoundException ;
+	abstract Game run(Game juego) throws SquareNotFoundException ;
 	
 	/**
 	 * Agregar un movimiento a la cola de movimientos pendientes
 	 * @param mov - movimiento realizado por el usuario
 	 * @return
 	 */
-	public Stack<Movimiento> addToQueue(Movimiento mov) {
+	public Stack<Movement> addToQueue(Movement mov) {
 		if(queue == null) {
-			Stack<Movimiento> stack = new Stack<Movimiento>();
+			Stack<Movement> stack = new Stack<Movement>();
 			stack.push(mov);
 			queue = stack;
 		}

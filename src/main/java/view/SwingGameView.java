@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import javax.swing.JPanel;
 
-import dto.CeldaDTO;
+import dto.SquareDTO;
 
 import javax.swing.JLabel;
 
@@ -38,15 +38,15 @@ public class SwingGameView extends JFrame {
 		background.add(backgroundImage);
 	}
 
-	public void update(List<CeldaDTO> celdas) {
+	public void update(List<SquareDTO> celdas) {
 		tablero.removeAll(); 
 		JLabel tableroImage = new JLabel("");
 		tableroImage.setBounds(20, 25, 420, 900);
 		tableroImage.setIcon(new ImageIcon(SwingGameView.class.getResource("/resource/tablero_neon.png")));
 		tablero.add(tableroImage);
-		for(CeldaDTO celda : celdas) {
+		for(SquareDTO celda : celdas) {
 			JLabel celdaSwing;
-			if(!celda.getOcupada()) {
+			if(!celda.getOccupied()) {
 				celdaSwing = new SwingCeldaLabel((celda.getX() * 40) - 10, (celda.getY() * 40) - 5, "empty");
 				
 			} else {

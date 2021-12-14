@@ -1,13 +1,13 @@
 package service;
 
-import model.Juego;
+import model.Game;
 
-public interface BorradorLineasService {
+public interface LineCleanerService {
 
 	/**
 	 * Debe revisar el tablero y si encuentra una l�nea horizontal completa, debe limpiarla
 	 * @param tablero
 	 * @return
 	 */
-	Juego run(Juego juego);	
+	Game run(Game juego);	
 }

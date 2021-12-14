@@ -2,11 +2,11 @@ package model;
 
 import java.util.List;
 
-public class PiezaEnJuego extends Pieza {
+public class InGameTetromino extends Tetromino {
 	
 	private Position position;
 	
-	public PiezaEnJuego(String nombre, Position position, List<Celda> piezaHorizontal, List<Celda> piezaVertical) {
+	public InGameTetromino(String nombre, Position position, List<Square> piezaHorizontal, List<Square> piezaVertical) {
 		super(nombre, piezaHorizontal, piezaVertical);
 		this.setPosition(position);
 	}

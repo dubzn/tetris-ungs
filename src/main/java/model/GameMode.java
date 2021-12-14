@@ -1,6 +1,6 @@
 package model;
 
-public enum ModoJuego {
+public enum GameMode {
 	CARRERA,
 	SUPERVIVENCIA
 }

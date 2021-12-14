@@ -1,13 +1,13 @@
 package exception;
 
-public class CeldaNotFoundException extends Exception {
+public class SquareNotFoundException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public CeldaNotFoundException(String message) {
+	public SquareNotFoundException(String message) {
 		super(message);
 	}
 

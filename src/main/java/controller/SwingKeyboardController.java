@@ -1,19 +1,19 @@
 package controller;
 
-import model.Movimiento;
+import model.Movement;
 import service.ControlService;
-import service.MovimientoService;
+import service.MovementService;
 
 public class SwingKeyboardController {
 
 	private final ControlService control;
 	
-	public SwingKeyboardController(MovimientoService movimiento, ControlService control) {
+	public SwingKeyboardController(MovementService movimiento, ControlService control) {
 		this.control = control;		
 	}
 	
-	public void addMovement(Movimiento movimiento) { 
-		this.control.encolarMovimiento(movimiento);
+	public void addMovement(Movement mov) { 
+		this.control.addMovement(mov);
 	}
 	
 }

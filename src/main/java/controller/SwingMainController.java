@@ -7,9 +7,9 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
-import dto.CeldaDTO;
-import model.Juego;
-import model.Movimiento;
+import dto.SquareDTO;
+import model.Game;
+import model.Movement;
 import view.GameViewService;
 import view.SwingGameView;
 
@@ -32,14 +32,14 @@ public class SwingMainController implements GameViewService {
 	}
 
 	@Override
-	public void update(Juego juego) {
-		List<CeldaDTO> celdasDTO = mapper.map(juego.getTablero().getCeldas(), new TypeToken<List<CeldaDTO>>() {}.getType());
+	public void update(Game juego) {
+		List<SquareDTO> celdasDTO = mapper.map(juego.getBoard().getAllSquares(), new TypeToken<List<SquareDTO>>() {}.getType());
 		gameView.update(celdasDTO);
 	}
 	
 
 	@Override
-	public void finish(Juego juego) {
+	public void finish(Game juego) {
 		gameView.close();
 		
 	}
@@ -47,16 +47,16 @@ public class SwingMainController implements GameViewService {
 	public void addMovement(Integer keycode) { 
 		switch(keycode) {
 		case 32:
-			keyboardController.addMovement(Movimiento.ROTAR);
+			keyboardController.addMovement(Movement.ROTATE);
 			break;
 		case 37:
-			keyboardController.addMovement(Movimiento.IZQUIERDA);
+			keyboardController.addMovement(Movement.LEFT);
 			break;
 		case 39: 
-			keyboardController.addMovement(Movimiento.DERECHA);
+			keyboardController.addMovement(Movement.RIGHT);
 			break;
 		case 40:
-			keyboardController.addMovement(Movimiento.ABAJO);
+			keyboardController.addMovement(Movement.DOWN);
 			break;	
 		}
 	}

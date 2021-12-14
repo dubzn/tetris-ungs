@@ -1,6 +1,6 @@
 package factory;
 
-import model.Pieza;
+import model.Tetromino;
 
 public interface PiezaFactory {
 
@@ -8,6 +8,6 @@ public interface PiezaFactory {
 	 * Generate a random Pieza del pool definido
 	 * @return una Pieza aleatoria de la lista pool
 	 */
-	Pieza createRandom();
+	Tetromino createRandom();
 
 }

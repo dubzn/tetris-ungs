@@ -1,10 +1,10 @@
 package dto;
 
-public class CeldaDTO {
+public class SquareDTO {
 
 	private Integer x;
 	private Integer y;
-	private Boolean ocupada;
+	private Boolean occupied;
 	
 	public Integer getX() {
 		return x;
@@ -22,17 +22,17 @@ public class CeldaDTO {
 		this.y = y;
 	}
 	
-	public Boolean getOcupada() {
-		return ocupada;
+	public Boolean getOccupied() {
+		return occupied;
 	}
 	
-	public void setOcupada(Boolean ocupada) {
-		this.ocupada = ocupada;
+	public void setOccupied(Boolean occupied) {
+		this.occupied = occupied;
 	}
 
 	@Override
 	public String toString() {
-		return "CeldaDTO [x=" + x + ", y=" + y + ", ocupada=" + ocupada + "]";
+		return "CeldaDTO [x=" + x + ", y=" + y + ", occupied=" + occupied + "]";
 	}
 	
 }

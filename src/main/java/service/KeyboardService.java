@@ -1,18 +1,18 @@
 package service;
 
-import model.Movimiento;
+import model.Movement;
 
 public class KeyboardService implements ControlService {
 
-	private MovimientoService movimiento;
+	private MovementService movement;
 	
-	public KeyboardService(MovimientoService movimiento) {
-		this.movimiento = movimiento;
+	public KeyboardService(MovementService movement) {
+		this.movement = movement;
 	}
 
 	@Override
-	public void encolarMovimiento(Movimiento movimiento) {
-		this.movimiento.addToQueue(movimiento);
+	public void addMovement(Movement mov) {
+		this.movement.addToQueue(mov);
 	}
 
 }

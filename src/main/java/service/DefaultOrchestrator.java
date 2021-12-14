@@ -3,24 +3,24 @@ package service;
 import java.util.Objects;
 
 import factory.PiezaFactory;
-import model.Juego;
-import model.Pieza;
-import model.PiezaEnJuego;
+import model.Game;
+import model.Tetromino;
+import model.InGameTetromino;
 import model.Position;
 import view.GameViewService;
 
 public class DefaultOrchestrator implements Orquestador {
 
-	private Juego partida;
-	private final BorradorLineasService borrador;
+	private Game partida;
+	private final LineCleanerService borrador;
 	private final GameViewService view;
-	private final GravedadService gravedad;
-	private final MovimientoService movimiento;
+	private final GravityService gravedad;
+	private final MovementService movimiento;
 	private final PiezaFactory factory;
 	private TimeService time;
 	
-	public DefaultOrchestrator(Juego partida, BorradorLineasService borrador, GravedadService gravedad,
-			GameViewService view, MovimientoService movimiento, PiezaFactory generador) {
+	public DefaultOrchestrator(Game partida, LineCleanerService borrador, GravityService gravedad,
+			GameViewService view, MovementService movimiento, PiezaFactory generador) {
 
 		this.partida = partida;
 		this.borrador = borrador;
@@ -34,8 +34,8 @@ public class DefaultOrchestrator implements Orquestador {
 
 	public void run() {
 		try {
-			System.out.println("Time: "+time.getActualDuration().getSeconds());
-			partida.setPiezaEnJuego(actualizarPiezaEnJuego());
+			System.out.println("Time: "+time.getTimeInSeconds());
+			partida.setInGameTetromino(updateInGameTetromino());
 
 			//System.out.println(partida.getPiezaEnJuego().getNombre() + " position: x=" + partida.getPiezaEnJuego().getX()
 			//				+ " y=" + partida.getPiezaEnJuego().getY() + " alto: " + partida.getPiezaEnJuego().getAlto()
@@ -44,11 +44,11 @@ public class DefaultOrchestrator implements Orquestador {
 			// check if player do a movement
 			partida = movimiento.run(partida);
 
-			if(time.getActualDuration().getSeconds() % partida.getVelocidadGravedad() == 0) { 
+			if(time.getTimeInSeconds() % partida.getGravityVelocity() == 0) {
 				partida = gravedad.run(partida);	
 			}
 			
-			if(!partida.getPiezaEnJuego().getEstado().getEstaFlotando()) {
+			if(!partida.getInGameTetromino().getState().getIsFloating()) {
 				partida = borrador.run(partida);
 			}
 
@@ -58,24 +58,24 @@ public class DefaultOrchestrator implements Orquestador {
 		}
 	}
 
-	private PiezaEnJuego actualizarPiezaEnJuego() {
-		if (Objects.isNull(partida.getPiezaEnJuego())) {
+	private InGameTetromino updateInGameTetromino() {
+		if (Objects.isNull(partida.getInGameTetromino())) {
 			System.out.println("Pieza en juego es null creando una nueva");
-			return crearPiezaEnPosicion(5, 1);
+			return createTetrominoInPosition(5, 1);
 		}
 
-		if (!partida.getPiezaEnJuego().getEstado().getEstaFlotando()) {
+		if (!partida.getInGameTetromino().getState().getIsFloating()) {
 			System.out.println("La pieza ya no esta flotando creando una nueva");
-			return crearPiezaEnPosicion(5, 1);
+			return createTetrominoInPosition(5, 1);
 		}
 
-		return partida.getPiezaEnJuego();
+		return partida.getInGameTetromino();
 	}
 
-	private PiezaEnJuego crearPiezaEnPosicion(Integer x, Integer y) {
-		Pieza pieza = factory.createRandom();
-		return new PiezaEnJuego(pieza.getNombre(), new Position(x, y), pieza.getPiezaHorizontal(),
-				pieza.getPiezaVertical());
+	private InGameTetromino createTetrominoInPosition(Integer x, Integer y) {
+		Tetromino tetromino = factory.createRandom();
+		return new InGameTetromino(tetromino.getName(), new Position(x, y), tetromino.getHorizontalForm(),
+				tetromino.getVerticalForm());
 	}
 
 }

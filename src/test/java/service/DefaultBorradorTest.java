@@ -7,47 +7,47 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.Tablero;
+import model.Board;
 import util.DummyTableroFactory;
 
 public class DefaultBorradorTest {
 
-	private BorradorLineasService borrador;
+	private LineCleanerService borrador;
 	
 	@Before
 	public void setUp() {
-		borrador = new DefaultBorradorService();
+		borrador = new DefaultLineCleanerService();
 	}
 	
 	@Test
 	public void whenTableroHasFullLines9And10_ThenReturnsATableroWithLines9And10Empty() {
-		Tablero input = DummyTableroFactory.create(Arrays.asList(18, 21, 22));
+		Board input = DummyTableroFactory.create(Arrays.asList(18, 21, 22));
 
-		Tablero actual = borrador.run(input);
+		Board actual = borrador.run(input);
 		
-		Tablero expected = DummyTableroFactory.create();
+		Board expected = DummyTableroFactory.create();
 		
-		assertEquals(expected.getCeldas(), actual.getCeldas());
+		assertEquals(expected.getAllSquares(), actual.getAllSquares());
 	}	
 	
 	@Test
 	public void whenTableroHasNoFullLines_ThenReturnsSameTablero() {
-		Tablero input = DummyTableroFactory.create();
-		input.getCeldas().get(10).setOcupada(true);
-		input.getCeldas().get(11).setOcupada(true);
+		Board input = DummyTableroFactory.create();
+		input.getAllSquares().get(10).setOccupied(true);
+		input.getAllSquares().get(11).setOccupied(true);
 		
-		Tablero actual = borrador.run(input);
+		Board actual = borrador.run(input);
 		
-		assertEquals(input.getCeldas(), actual.getCeldas());
+		assertEquals(input.getAllSquares(), actual.getAllSquares());
 	}	
 	
 	@Test
 	public void whenTableroAlmostHasAFullLine_ThenReturnsSameTablero() {
-		Tablero input = DummyTableroFactory.create(Arrays.asList(22));
-		input.getCeldas().get(210).setOcupada(false);
+		Board input = DummyTableroFactory.create(Arrays.asList(22));
+		input.getAllSquares().get(210).setOccupied(false);
 
-		Tablero actual = borrador.run(input);
+		Board actual = borrador.run(input);
 		
-		assertEquals(input.getCeldas(), actual.getCeldas());
+		assertEquals(input.getAllSquares(), actual.getAllSquares());
 	}	
 }

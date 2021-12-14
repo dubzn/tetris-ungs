@@ -1,8 +1,8 @@
 package service;
 
-import model.Movimiento;
+import model.Movement;
 
 public interface ControlService {
 
-	void encolarMovimiento(Movimiento movimiento);
+	void addMovement(Movement mov);
 }

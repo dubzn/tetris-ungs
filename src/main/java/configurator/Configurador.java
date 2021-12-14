@@ -1,21 +1,21 @@
 package configurator;
 
-import model.Juego;
+import model.Game;
 import model.Jugador;
-import model.ModoJuego;
-import model.Tablero;
+import model.GameMode;
+import model.Board;
 
 public class Configurador {
 
-	private Tablero tablero;
-	private ModoJuego modoJuego;
+	private Board tablero;
+	private GameMode modoJuego;
 	
-	public Configurador(Tablero tablero, ModoJuego modoJuego) {
+	public Configurador(Board tablero, GameMode modoJuego) {
 		this.tablero = tablero;
 		this.modoJuego = modoJuego;
 	}
 	
-	public Juego inicializar() {
-		return new Juego(tablero, modoJuego);
+	public Game inicializar() {
+		return new Game(tablero, modoJuego);
 	}
 }

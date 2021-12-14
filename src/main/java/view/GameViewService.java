@@ -1,6 +1,6 @@
 package view;
 
-import model.Juego;
+import model.Game;
 
 public interface GameViewService {
 	
@@ -14,11 +14,11 @@ public interface GameViewService {
 	 * Tiene la responsabilidad de rendirzar en pantalla tomando los datos del juego
 	 * @param juego - datos necesarios para poder renderizar los componentes del Tetris
 	 */
-	void update(Juego juego);
+	void update(Game juego);
 	
 	/**
 	 * Debe encargarse de manejar cuando el juego termine o sea necesario cerrarlo
 	 * @param juego - datos necesarios para poder finalizar el juego Tetris
 	 */
-	void finish(Juego juego);
+	void finish(Game juego);
 }

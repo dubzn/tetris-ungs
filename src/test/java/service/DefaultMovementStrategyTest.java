@@ -13,11 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import exception.CeldaNotFoundException;
-import model.Movimiento;
-import model.Pieza;
+import exception.SquareNotFoundException;
+import model.Movement;
+import model.Tetromino;
 import model.Position;
-import model.Tablero;
+import model.Board;
 import strategy.DefaultMovementStrategy;
 import util.DummyPiezaFactory;
 import util.DummyTableroFactory;
@@ -26,7 +26,7 @@ import util.DummyTableroFactory;
 public class DefaultMovementStrategyTest {
 
     @Mock
-	private ColisionService colision;
+	private CollisionService colision;
 
     @InjectMocks
 	private DefaultMovementStrategy strategy;
@@ -37,112 +37,112 @@ public class DefaultMovementStrategyTest {
 	}
 	
 	@Test
-	public void moverIzquierdaTest() throws CeldaNotFoundException {
+	public void moverIzquierdaTest() throws SquareNotFoundException {
 		Position initialPosition = new Position(5, 1);
-		Pieza T = DummyPiezaFactory.createT();
-		Tablero input = DummyTableroFactory.withPieza(initialPosition, T);
+		Tetromino T = DummyPiezaFactory.createT();
+		Board input = DummyTableroFactory.withPieza(initialPosition, T);
 		
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		Map<Position, Tetromino> piezaEnTablero = new HashMap<>();
 		piezaEnTablero.put(initialPosition, T);
 		
-		when(colision.canMove(input, initialPosition, T, Movimiento.IZQUIERDA)).thenReturn(true);
+		when(colision.canMove(input, initialPosition, T, Movement.LEFT)).thenReturn(true);
 		
-		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.IZQUIERDA);
+		Board actual = strategy.execute(input, piezaEnTablero, Movement.LEFT);
 		
-		Tablero expected = DummyTableroFactory.withPieza(new Position(4, 1), DummyPiezaFactory.createT());
+		Board expected = DummyTableroFactory.withPieza(new Position(4, 1), DummyPiezaFactory.createT());
 		
-		assertEquals(expected.getCeldas(), actual.getCeldas());
+		assertEquals(expected.getAllSquares(), actual.getAllSquares());
 	}
 	
 	@Test
-	public void cannotMoveIzquierdaReturnsSameTableroTest() throws CeldaNotFoundException {
+	public void cannotMoveIzquierdaReturnsSameTableroTest() throws SquareNotFoundException {
 		Position initialPosition = new Position(5, 1);
-		Pieza T = DummyPiezaFactory.createT();
-		Tablero input = DummyTableroFactory.withPieza(initialPosition, T);
+		Tetromino T = DummyPiezaFactory.createT();
+		Board input = DummyTableroFactory.withPieza(initialPosition, T);
 		
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		Map<Position, Tetromino> piezaEnTablero = new HashMap<>();
 		piezaEnTablero.put(initialPosition, T);
 		
-		when(colision.canMove(input, initialPosition, T, Movimiento.IZQUIERDA)).thenReturn(false);
+		when(colision.canMove(input, initialPosition, T, Movement.LEFT)).thenReturn(false);
 		
-		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.IZQUIERDA);
+		Board actual = strategy.execute(input, piezaEnTablero, Movement.LEFT);
 		
-		Tablero expected = DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT());
+		Board expected = DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT());
 		
-		assertEquals(expected.getCeldas(), actual.getCeldas());
+		assertEquals(expected.getAllSquares(), actual.getAllSquares());
 	}
 	
 	@Test
-	public void moverAbajoTest() throws CeldaNotFoundException {
+	public void moverAbajoTest() throws SquareNotFoundException {
 		Position position = new Position(5, 7);
-		Pieza L = DummyPiezaFactory.createL();
-		Tablero input = DummyTableroFactory.withPieza(position, L);
+		Tetromino L = DummyPiezaFactory.createL();
+		Board input = DummyTableroFactory.withPieza(position, L);
 		
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		Map<Position, Tetromino> piezaEnTablero = new HashMap<>();
 		piezaEnTablero.put(position, L);
 		
-		when(colision.canMove(input, position, L, Movimiento.ABAJO)).thenReturn(true);
+		when(colision.canMove(input, position, L, Movement.DOWN)).thenReturn(true);
 		
-		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.ABAJO);
+		Board actual = strategy.execute(input, piezaEnTablero, Movement.DOWN);
 		
-		Tablero expected = DummyTableroFactory.withPieza(new Position(5, 8), DummyPiezaFactory.createL());
+		Board expected = DummyTableroFactory.withPieza(new Position(5, 8), DummyPiezaFactory.createL());
 		
-		assertEquals(expected.getCeldas(), actual.getCeldas());
+		assertEquals(expected.getAllSquares(), actual.getAllSquares());
 	}
 	
 	@Test
-	public void cannotMoveAbajoReturnsSameTableroTest() throws CeldaNotFoundException {
+	public void cannotMoveAbajoReturnsSameTableroTest() throws SquareNotFoundException {
 		Position position = new Position(1, 5);
-		Pieza O = DummyPiezaFactory.createO();
-		Tablero input = DummyTableroFactory.withPieza(position, O);
+		Tetromino O = DummyPiezaFactory.createO();
+		Board input = DummyTableroFactory.withPieza(position, O);
 		
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		Map<Position, Tetromino> piezaEnTablero = new HashMap<>();
 		piezaEnTablero.put(position, O);
 		
-		when(colision.canMove(input, position, O, Movimiento.ABAJO)).thenReturn(false);
+		when(colision.canMove(input, position, O, Movement.DOWN)).thenReturn(false);
 	
-		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.ABAJO);
+		Board actual = strategy.execute(input, piezaEnTablero, Movement.DOWN);
 		
-		Tablero expected = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createO());
+		Board expected = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createO());
 		
-		assertEquals(expected.getCeldas(), actual.getCeldas());
+		assertEquals(expected.getAllSquares(), actual.getAllSquares());
 	}
 	
 	
 	@Test
-	public void moverDerechaTest() throws CeldaNotFoundException {
+	public void moverDerechaTest() throws SquareNotFoundException {
 		Position position = new Position(1, 7);
-		Pieza Z = DummyPiezaFactory.createZ();
-		Tablero input = DummyTableroFactory.withPieza(position, Z);
+		Tetromino Z = DummyPiezaFactory.createZ();
+		Board input = DummyTableroFactory.withPieza(position, Z);
 		
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		Map<Position, Tetromino> piezaEnTablero = new HashMap<>();
 		piezaEnTablero.put(position, Z);
 		System.out.println(input);
-		when(colision.canMove(input, position, Z, Movimiento.DERECHA)).thenReturn(true);
+		when(colision.canMove(input, position, Z, Movement.RIGHT)).thenReturn(true);
 		
-		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.DERECHA);
+		Board actual = strategy.execute(input, piezaEnTablero, Movement.RIGHT);
 		System.out.println(actual);
-		Tablero expected = DummyTableroFactory.withPieza(new Position(2, 7), DummyPiezaFactory.createZ());
+		Board expected = DummyTableroFactory.withPieza(new Position(2, 7), DummyPiezaFactory.createZ());
 		
-		assertEquals(expected.getCeldas(), actual.getCeldas());
+		assertEquals(expected.getAllSquares(), actual.getAllSquares());
 	}
 	
 	@Test
-	public void cannotMoveDerechaReturnsSameTableroTest() throws CeldaNotFoundException {
+	public void cannotMoveDerechaReturnsSameTableroTest() throws SquareNotFoundException {
 		Position position = new Position(1, 5);
-		Pieza L = DummyPiezaFactory.createL();
-		Tablero input = DummyTableroFactory.withPieza(position, L);
+		Tetromino L = DummyPiezaFactory.createL();
+		Board input = DummyTableroFactory.withPieza(position, L);
 		
-		Map<Position, Pieza> piezaEnTablero = new HashMap<>();
+		Map<Position, Tetromino> piezaEnTablero = new HashMap<>();
 		piezaEnTablero.put(position, L);
 		
-		when(colision.canMove(input, position, L, Movimiento.DERECHA)).thenReturn(false);
+		when(colision.canMove(input, position, L, Movement.RIGHT)).thenReturn(false);
 		
-		Tablero actual = strategy.execute(input, piezaEnTablero, Movimiento.DERECHA);
+		Board actual = strategy.execute(input, piezaEnTablero, Movement.RIGHT);
 		
-		Tablero expected = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createL());
+		Board expected = DummyTableroFactory.withPieza(new Position(1, 5), DummyPiezaFactory.createL());
 		
-		assertEquals(expected.getCeldas(), actual.getCeldas());
+		assertEquals(expected.getAllSquares(), actual.getAllSquares());
 	}
 
 }

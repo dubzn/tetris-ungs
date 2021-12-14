@@ -5,10 +5,10 @@ import org.mockito.Mock;
 
 public class DefaultGravityTest {
 
-	private GravedadService gravedad;
+	private GravityService gravedad;
 
 	@Mock
-	private ColisionService colision;
+	private CollisionService colision;
 	
 	@Before
 	public void setUp() {

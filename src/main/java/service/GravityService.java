@@ -1,15 +1,15 @@
 package service;
 
-import exception.CeldaNotFoundException;
-import model.Juego;
+import exception.SquareNotFoundException;
+import model.Game;
 
-public interface GravedadService {
+public interface GravityService {
 
 	/**
 	 * Debe tomar revisar todas las celdas ocupadas del tablero y en caso de que pueda, dejarlas caer
 	 * 
 	 * @param tablero - Es el tablero al que se le debe aplicar la gravedad dejando caer las piezas
-	 * @throws CeldaNotFoundException 
+	 * @throws SquareNotFoundException 
 	 */
-	Juego run(Juego juego) throws CeldaNotFoundException;
+	Game run(Game juego) throws SquareNotFoundException;
 }
