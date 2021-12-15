@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class InGameTetromino extends Tetromino {
 	
@@ -31,4 +32,29 @@ public class InGameTetromino extends Tetromino {
 		this.position = position;
 	}
 
+	
+	
+	@Override
+	public String toString() {
+		return "InGameTetromino [position=" + position + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(position);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		InGameTetromino other = (InGameTetromino) obj;
+		return Objects.equals(position, other.position);
+	}
+
+	
 }

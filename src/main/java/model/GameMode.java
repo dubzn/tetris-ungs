@@ -1,6 +1,6 @@
 package model;
 
 public enum GameMode {
-	CARRERA,
-	SUPERVIVENCIA
+	TIME_TRIAL,
+	SURVIVAL
 }

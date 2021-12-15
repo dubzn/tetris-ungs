@@ -32,14 +32,14 @@ public class SwingMainController implements GameViewService {
 	}
 
 	@Override
-	public void update(Game juego) {
-		List<SquareDTO> celdasDTO = mapper.map(juego.getBoard().getAllSquares(), new TypeToken<List<SquareDTO>>() {}.getType());
+	public void update(Game game) {
+		List<SquareDTO> celdasDTO = mapper.map(game.getBoard().getAllSquares(), new TypeToken<List<SquareDTO>>() {}.getType());
 		gameView.update(celdasDTO);
 	}
 	
 
 	@Override
-	public void finish(Game juego) {
+	public void finish(Game game) {
 		gameView.close();
 		
 	}

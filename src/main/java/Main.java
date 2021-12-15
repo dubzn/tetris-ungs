@@ -14,7 +14,7 @@ import service.Orquestador;
 
 public class Main {	
 	public static void main(String[] args) {
-		Configurador config = new Configurador(new Board(), GameMode.SUPERVIVENCIA);
+		Configurador config = new Configurador(new Board(), GameMode.SURVIVAL);
 		
 		DefaultMovementService movimientoService = new DefaultMovementService(new DefaultCollisionService());
 		KeyboardService keyboard = new KeyboardService(movimientoService);

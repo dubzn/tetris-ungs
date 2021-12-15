@@ -7,7 +7,10 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import exception.SquareNotFoundException;
 import model.Board;
+import model.Game;
+import model.GameMode;
 import util.DummyTableroFactory;
 
 public class DefaultBorradorTest {
@@ -20,34 +23,45 @@ public class DefaultBorradorTest {
 	}
 	
 	@Test
-	public void whenTableroHasFullLines9And10_ThenReturnsATableroWithLines9And10Empty() {
-		Board input = DummyTableroFactory.create(Arrays.asList(18, 21, 22));
-
-		Board actual = borrador.run(input);
+	public void whenTableroHasFullLines1821And22_ThenReturnsATableroWithLines1821And22Empty() {
+		Board board = DummyTableroFactory.create(Arrays.asList(18, 21, 22));
+		Game input = new Game(board, GameMode.SURVIVAL);
 		
-		Board expected = DummyTableroFactory.create();
+		Game actual = borrador.run(input);
 		
-		assertEquals(expected.getAllSquares(), actual.getAllSquares());
+		Game expected = new Game(DummyTableroFactory.create(), GameMode.SURVIVAL);
+		assertEquals(expected, actual);
 	}	
 	
 	@Test
-	public void whenTableroHasNoFullLines_ThenReturnsSameTablero() {
-		Board input = DummyTableroFactory.create();
-		input.getAllSquares().get(10).setOccupied(true);
-		input.getAllSquares().get(11).setOccupied(true);
+	public void whenTableroHasNoFullLines_ThenReturnsSameTablero() throws SquareNotFoundException {
+		Board board = DummyTableroFactory.create();
+		board.getSquare(10, 5).setOccupied(true);
+		board.getSquare(10, 6).setOccupied(true);
+		Game input = new Game(board, GameMode.SURVIVAL);
 		
-		Board actual = borrador.run(input);
+		Game actual = borrador.run(input);
 		
-		assertEquals(input.getAllSquares(), actual.getAllSquares());
+		board = DummyTableroFactory.create();
+		board.getSquare(10, 5).setOccupied(true);
+		board.getSquare(10, 6).setOccupied(true);
+		Game expected = new Game(board, GameMode.SURVIVAL);
+		
+		assertEquals(expected, actual);
 	}	
 	
 	@Test
-	public void whenTableroAlmostHasAFullLine_ThenReturnsSameTablero() {
-		Board input = DummyTableroFactory.create(Arrays.asList(22));
-		input.getAllSquares().get(210).setOccupied(false);
+	public void whenTableroAlmostHasAFullLine_ThenReturnsSameTablero() throws SquareNotFoundException {
+		Board board = DummyTableroFactory.create(Arrays.asList(22));
+		board.getSquare(10, 22).setOccupied(false);
+		Game input = new Game(board, GameMode.SURVIVAL);
 
-		Board actual = borrador.run(input);
+		Game actual = borrador.run(input);
 		
-		assertEquals(input.getAllSquares(), actual.getAllSquares());
+		board = DummyTableroFactory.create(Arrays.asList(22));
+		board.getSquare(10, 22).setOccupied(false);
+		Game expected = new Game(board, GameMode.SURVIVAL);
+
+		assertEquals(expected, actual);
 	}	
 }

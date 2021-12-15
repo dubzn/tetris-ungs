@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Objects;
 
 import exception.SquareNotFoundException;
 
@@ -64,5 +65,26 @@ public class Game {
 	public void setGravityVelocity(Integer gravityVelocity) {
 		this.gravityVelocity = gravityVelocity;
 	}
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(board, gamemode, gravityVelocity, score, tetromino);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Game other = (Game) obj;
+		return Objects.equals(board, other.board) && gamemode == other.gamemode
+				&& Objects.equals(gravityVelocity, other.gravityVelocity) && Objects.equals(score, other.score)
+				&& Objects.equals(tetromino, other.tetromino);
+	}
+
 
 }
