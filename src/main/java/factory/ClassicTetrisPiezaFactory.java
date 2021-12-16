@@ -16,7 +16,6 @@ public class ClassicTetrisPiezaFactory implements TetrominoFactory {
 		this.classics = Arrays.asList(createS(), createI(), createZ(), createJ(), createT(), createO(), createL());
 	}
 	
-	@Override
 	public Tetromino createRandom() {
 		return this.classics.get(new Random().nextInt(classics.size()));
 	}	

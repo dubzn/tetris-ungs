@@ -1,7 +1,6 @@
 package configurator;
 
 import model.Game;
-import model.Jugador;
 import model.GameMode;
 import model.Board;
 

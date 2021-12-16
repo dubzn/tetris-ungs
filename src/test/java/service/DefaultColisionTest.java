@@ -19,6 +19,7 @@ import util.DummyTableroFactory;
 public class DefaultColisionTest {
 
 	private CollisionService colision;
+	
 	@Before
 	public void setUp() {
 		colision= new DefaultCollisionService();
@@ -80,7 +81,7 @@ public class DefaultColisionTest {
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		//Setting a single collision to check if can detect collision
-		input.getBoard().getSquare(4, 7).setOccupied(true);
+		input.getBoard().getSquare(6, 7).setOccupied(true);
 		
 		boolean actual = colision.canMove(input, Movement.LEFT);
 
@@ -114,7 +115,7 @@ public class DefaultColisionTest {
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		//Setting a single collision to check if can detect collision
-		input.getBoard().getSquare(4, 9).setOccupied(true);
+		input.getBoard().getSquare(4, 8).setOccupied(true);
 		
 		boolean actual = colision.canMove(input, Movement.LEFT);
 
@@ -154,10 +155,11 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConParedMoveDerechaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
-		Position positionL = new Position(9, 1);
+		Position positionL = new Position(8, 1);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		
+		Board board = DummyTableroFactory.withPieza(positionL, L);
+		
 		Game input = new Game(board, null);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -194,47 +196,13 @@ public class DefaultColisionTest {
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		//Setting a single collision to check if can detect collision
-		input.getBoard().getSquare(6, 7).setOccupied(true);
-		
-		boolean actual = colision.canMove(input, Movement.RIGHT);
-
-		assertFalse(actual);
-	}
-	
-	@Test
-	public void colisionConCelda2MoveDerechaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
-		Position positionL = new Position(5, 7);
-		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
-		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
-		
-		//Setting a single collision to check if can detect collision
-		input.getBoard().getSquare(6, 8).setOccupied(true);
+		input.getBoard().getSquare(8, 7).setOccupied(true);
 
 		boolean actual = colision.canMove(input, Movement.RIGHT);
 
 		assertFalse(actual);
 	}
-	
-	@Test
-	public void colisionConCelda3MoveDerechaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
-		Position positionL = new Position(5, 7);
-		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
-		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
-		//Setting a single collision to check if can detect collision
-		input.getBoard().getSquare(7, 9).setOccupied(true);
-
-		boolean actual = colision.canMove(input, Movement.RIGHT);
-
-		assertFalse(actual);
-	}
-	
 	@Test
 	public void noColisionConCelda4MoveDerechaTest() throws SquareNotFoundException {
 		Board board = DummyTableroFactory.create();
@@ -284,7 +252,7 @@ public class DefaultColisionTest {
 	public void colisionConPiezaMoveAbajoTest() throws SquareNotFoundException {
 		Board board = DummyTableroFactory.create();
 		Position positionL = new Position(5, 7);
-		Position positionI = new Position(5, 10);
+		Position positionI = new Position(5, 9);
 		Tetromino L = DummyPiezaFactory.createL();
 		Tetromino I = DummyPiezaFactory.createL();
 		
@@ -292,6 +260,7 @@ public class DefaultColisionTest {
 		DummyTableroFactory.addPieza(board, positionI, I);
 		Game input = new Game(board, null);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
+		
 		
 		boolean actual = colision.canMove(input, Movement.DOWN);
 
@@ -308,30 +277,13 @@ public class DefaultColisionTest {
 		Game input = new Game(board, null);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		//Setting a single collision to check if can detect collision
-		input.getBoard().getSquare(5, 10).setOccupied(true);
+		input.getBoard().getSquare(5, 9).setOccupied(true);
 		
 		boolean actual = colision.canMove(input, Movement.DOWN);
 
 		assertFalse(actual);
 	}
-	
-	@Test
-	public void colisionConCelda2MoveAbajoTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
-		Position positionL = new Position(5, 7);
-		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
 
-		Game input = new Game(board, null);
-		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
-		//Setting a single collision to check if can detect collision
-		input.getBoard().getSquare(6, 10).setOccupied(true);
-		
-		boolean actual = colision.canMove(input, Movement.DOWN);
-
-		assertFalse(actual);
-	}
-	
 	@Test
 	public void noColisionConCelda4MoveAbajoTest() throws SquareNotFoundException {
 		Board board = DummyTableroFactory.create();

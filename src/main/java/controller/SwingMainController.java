@@ -25,14 +25,12 @@ public class SwingMainController implements GameViewService {
 		this.keyboardController = keyboardController;
 	}
 
-	@Override
 	public void start() {
 		gameView = new SwingGameView();
 		addKeyBoardListeners();
 		gameView.setVisible(true);
 	}
 
-	@Override
 	public void update(Game game) {
 		if(game.getGameState().equals(GameState.FINISH)) {
 			gameView.showGameOver();
@@ -44,7 +42,6 @@ public class SwingMainController implements GameViewService {
 	}
 	
 
-	@Override
 	public void finish(Game game) {
 		gameView.close();
 		
