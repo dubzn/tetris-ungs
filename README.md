@@ -8,3 +8,7 @@ Documento:
 
 Libs usadas:
 - Interfaz https://es.wikipedia.org/wiki/Swing_(biblioteca_gr%C3%A1fica)
+
+Screenshots:
+![image](https://user-images.githubusercontent.com/58611754/146458347-de37009d-794c-449a-bf73-09ecbeb961b4.png)
+
