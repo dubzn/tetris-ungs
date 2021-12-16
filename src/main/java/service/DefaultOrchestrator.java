@@ -2,7 +2,8 @@ package service;
 
 import java.util.Objects;
 
-import factory.PiezaFactory;
+import exception.SquareNotFoundException;
+import factory.TetrominoFactory;
 import model.Game;
 import model.Tetromino;
 import model.InGameTetromino;
@@ -11,61 +12,62 @@ import view.GameViewService;
 
 public class DefaultOrchestrator implements Orquestador {
 
-	private Game partida;
-	private final LineCleanerService borrador;
+	private Game game;
+	private final LineCleanerService lineCleaner;
 	private final GameViewService view;
-	private final GravityService gravedad;
-	private final MovementService movimiento;
-	private final PiezaFactory factory;
+	private final GravityService gravity;
+	private final MovementService movement;
+	private final TetrominoFactory factory;
 	private TimeService time;
 	
-	public DefaultOrchestrator(Game partida, LineCleanerService borrador, GravityService gravedad,
-			GameViewService view, MovementService movimiento, PiezaFactory generador) {
+	public DefaultOrchestrator(Game game, LineCleanerService lineCleaner, GravityService gravity,
+			GameViewService view, MovementService movement, TetrominoFactory tetrominoFactory) {
 
-		this.partida = partida;
-		this.borrador = borrador;
-		this.gravedad = gravedad;
+		this.game = game;
+		this.lineCleaner = lineCleaner;
+		this.gravity = gravity;
 		this.view = view;
-		this.movimiento = movimiento;
-		this.factory = generador;
+		this.movement = movement;
+		this.factory = tetrominoFactory;
 
 		this.time = new TimeService();
 	}
 
 	public void run() {
 		try {
-			partida.setInGameTetromino(updateInGameTetromino());
+			game.setInGameTetromino(updateInGameTetromino());
 
 			// check if player do a movement
-			partida = movimiento.run(partida);
+			game = movement.run(game);
 
-			if(time.shouldUpdateGravity(partida.getGravityVelocity())) {
-				partida = gravedad.run(partida);	
+			if(time.shouldUpdateGravity(game.getGravityVelocity())) {
+				game = gravity.run(game);	
 				time.setLastTimeUpdated(time.getTimeInSeconds());
 			}
 			
-			if(!partida.getInGameTetromino().getState().getIsFloating()) {
-				partida = borrador.run(partida);
-				partida.checkIfPlayerLose();
-				System.out.println("SCORE: "+partida.getScore());
+			if(!game.getInGameTetromino().getState().getIsFloating()) {
+				game = lineCleaner.run(game);
+				game.checkIfPlayerLose();
 			}
 
-			view.update(partida);
+			view.update(game);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private InGameTetromino updateInGameTetromino() {
-		if (Objects.isNull(partida.getInGameTetromino())) {
+	private InGameTetromino updateInGameTetromino() throws SquareNotFoundException {
+		if (Objects.isNull(game.getInGameTetromino())) {
+			game.setNextInGameTetromino(factory.createRandom());
 			return createTetrominoInPosition(5, 1);
 		}
 
-		if (!partida.getInGameTetromino().getState().getIsFloating()) {
-			return createTetrominoInPosition(5, 1);
+		if (!game.getInGameTetromino().getState().getIsFloating()) {
+			game.setInGameTetromino(new InGameTetromino(game.getNextInGameTetromino().getName(), new Position(5, 1), game.getNextInGameTetromino()));
+			game.setNextInGameTetromino(factory.createRandom());
 		}
 
-		return partida.getInGameTetromino();
+		return game.getInGameTetromino();
 	}
 
 	private InGameTetromino createTetrominoInPosition(Integer x, Integer y) {

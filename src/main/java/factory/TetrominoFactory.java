@@ -2,7 +2,7 @@ package factory;
 
 import model.Tetromino;
 
-public interface PiezaFactory {
+public interface TetrominoFactory {
 
 	/**
 	 * Generate a random Pieza del pool definido

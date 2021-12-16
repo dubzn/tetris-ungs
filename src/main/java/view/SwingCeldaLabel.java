@@ -17,26 +17,32 @@ public class SwingCeldaLabel extends JLabel {
 	private static final long serialVersionUID = 1L;
 	
 	//private List<String> colorNames = Arrays.asList("violeta", "verde", "azul", "roja", "amarilla");
-	private List<String> colorNames = Arrays.asList("azul");
+	private List<String> colorNames = Arrays.asList("violeta");
 	
 	public SwingCeldaLabel(Integer x, Integer y, String color) {
 		setBounds(x, y, 40, 40);
 		setHorizontalAlignment(SwingConstants.CENTER);
-		setIcon(getColor(color));
+		setIcon(getIconColorAndSize(color, 40, 40));
 	}
 	
-	private ImageIcon getColor(String color) {
+	public SwingCeldaLabel(Integer x, Integer y, Integer width, Integer height, String color) {
+		setBounds(x, y, width, height);
+		setHorizontalAlignment(SwingConstants.CENTER);
+		setIcon(getIconColorAndSize(color, width, height));
+	}
+	
+	private ImageIcon getIconColorAndSize(String color, Integer width, Integer height) {
+		String colorName = getRandomColor();
 		if(color.equals("empty")) {
-			return new ImageIcon(SwingCeldaLabel.class.getResource("/resource/celda_no_ocupada.png"));		
+			return new ImageIcon(new ImageIcon(SwingCeldaLabel.class.getResource("/resource/celda_no_ocupada.png")).getImage().getScaledInstance(width, height, 4));	
 		}
-		
-		String colorName = getColorAleatorio(color);
-		
-
-		return new ImageIcon(SwingCeldaLabel.class.getResource("/resource/"+colorName+".png"));
+		if(color.equals("not_occupiable")) {
+			return new ImageIcon(new ImageIcon(SwingCeldaLabel.class.getResource("/resource/celda_no_ocupable.png")).getImage().getScaledInstance(width, height, 4));	
+		}
+		return new ImageIcon( new ImageIcon(SwingCeldaLabel.class.getResource("/resource/"+colorName+".png")).getImage().getScaledInstance(width, height, 4));
 	}
 
-	private String getColorAleatorio(String color) {
+	private String getRandomColor() {
 		Random random = new Random();
 		return "celda_"+colorNames.get(random.nextInt(colorNames.size()));
 	}

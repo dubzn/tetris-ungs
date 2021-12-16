@@ -9,6 +9,7 @@ public class Game {
 	
 	private Board board;
 	private InGameTetromino tetromino;
+	private Tetromino next;
 	private GameMode gamemode;
 	private GameState gameState;
 	private Integer score;
@@ -27,6 +28,14 @@ public class Game {
 		return board;
 	}
 	
+	public Tetromino getNextInGameTetromino() {
+		return this.next;
+	}
+	
+	public void setNextInGameTetromino(Tetromino tetromino) throws SquareNotFoundException {
+		this.next = tetromino;
+	}
+	
 	public InGameTetromino getInGameTetromino() {
 		return this.tetromino;
 	}
@@ -40,7 +49,7 @@ public class Game {
 		
 		this.tetromino = tetromino;
 	}
-	
+
 	public void setBoard(Board board) {
 		this.board = board;
 	}
@@ -70,8 +79,8 @@ public class Game {
 	}
 	
 	public void checkIfPlayerLose() {
-		boolean hasASquareOccupiedIn0or1 = this.board.getAllSquares().stream().anyMatch(square -> (square.getY() == 0 || square.getY() == 1) && square.getOccupied());
-		this.gameState = hasASquareOccupiedIn0or1 ? GameState.FINISH : GameState.IN_PROGRESS;
+		boolean hasASquareOccupiedIn1or2 = this.board.getAllSquares().stream().anyMatch(square -> (square.getY() == 1 || square.getY() == 2) && square.getOccupied());
+		this.gameState = hasASquareOccupiedIn1or2 ? GameState.FINISH : GameState.IN_PROGRESS;
 	}
 
 	@Override

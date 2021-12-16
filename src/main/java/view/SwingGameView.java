@@ -12,23 +12,49 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import java.awt.Toolkit;
+
 public class SwingGameView extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private JPanel tablero;
-	private JPanel gameOver;
-	private JPanel scoreView;
+	private BoardPanel board;
+	private GameOverPanel gameover;
+	private ScorePanel score;
+	private NextTetrominoPanel next;
 	
 	public SwingGameView() {
-		setBounds(100, 100, 600, 1000);
+		setTitle("Tetris PP2 - UNGS");
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SwingGameView.class.getResource("/resource/frame_icon.png")));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 600, 960);
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		
-		tablero = new JPanel();
-		tablero.setOpaque(false);
-		tablero.setBounds(0, 0, 584, 963);
-		getContentPane().add(tablero);
-		tablero.setLayout(null);
+		gameover = new GameOverPanel();
+		gameover.setLocation(66, 150);	
+		getContentPane().add(gameover);
+		gameover.setVisible(false);
+		gameover.setLayout(null);
 		
+		score =  new ScorePanel();
+		score.setLocation(450, 100);
+		getContentPane().add(score);
+		score.setLayout(null);
+
+		board = new BoardPanel();		
+		getContentPane().add(board);
+		board.setLayout(null);
+		
+		next = new NextTetrominoPanel();	
+		next.setLocation(450, 230);	
+		getContentPane().add(next);
+		next.setLayout(null);
+
+		addGameBackground();
+	}
+
+	private void addGameBackground() {
 		JPanel background = new JPanel();
 		background.setBounds(0, 0, 584, 963);
 		getContentPane().add(background);
@@ -38,40 +64,42 @@ public class SwingGameView extends JFrame {
 		backgroundImage.setBounds(0, 0, 1920, 1080);
 		backgroundImage.setIcon(new ImageIcon(SwingGameView.class.getResource("/resource/background.png")));
 		background.add(backgroundImage);
-		
-		scoreView = new ScorePanel();
-		scoreView.setVisible(true);
-		
 	}
 
-	public void update(List<SquareDTO> celdas) {
-		tablero.removeAll(); 
-		JLabel tableroImage = new JLabel("");
-		tableroImage.setBounds(20, 25, 420, 900);
-		tableroImage.setIcon(new ImageIcon(SwingGameView.class.getResource("/resource/tablero_neon.png")));
-		tablero.add(tableroImage);
-		for(SquareDTO celda : celdas) {
-			JLabel celdaSwing;
-			if(!celda.getOccupied()) {
-				celdaSwing = new SwingCeldaLabel((celda.getX() * 40) - 10, (celda.getY() * 40) - 5, "empty");
-				
-			} else {
-				celdaSwing = new SwingCeldaLabel((celda.getX() * 40) - 10, (celda.getY() * 40) - 5, "aleatorio");		
-			}
-			tablero.add(celdaSwing);
-		}
-		tablero.repaint();
+	public void showGameOver() {
+		gameover.setVisible(true);
 	}
 	
-	public void showGameOver() {
-		gameOver = new GameOverPanel();
-		getContentPane().add(gameOver);
-		gameOver.setVisible(true);
+	public void update(List<SquareDTO> actualTetromino, List<SquareDTO> nextTetromino, String scoreValue) {
+		board.removeAll(); 
+		board.addBackgroundImage();
+		
+		score.setScoreValue(scoreValue);
+		next.removeAll();
+		next.addBackGroundImage();
+		next.setNextTetromino(nextTetromino);
+		
+		for(SquareDTO celda : actualTetromino) {
+			JLabel swingSquare;
+			if(celda.getY() == 1 || celda.getY() == 2) {
+				swingSquare = celda.getOccupied() ? 
+						new SwingCeldaLabel((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "default") :
+						new SwingCeldaLabel((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "not_occupiable");
+			}
+			else
+			{
+				swingSquare = celda.getOccupied() ? 
+						new SwingCeldaLabel((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "default") :
+						new SwingCeldaLabel((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "empty");
+			}
+
+			board.add(swingSquare);
+		}
+		board.repaint();
 	}
 	
 	public void close() {
 		setVisible(false); 
 		dispose(); 
 	}
-
 }

@@ -8,7 +8,7 @@ import model.Square;
 import model.Tetromino;
 import model.Position;
 
-public class ClassicTetrisPiezaFactory implements PiezaFactory {
+public class ClassicTetrisPiezaFactory implements TetrominoFactory {
 	
 	private List<Tetromino> classics;
 	

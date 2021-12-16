@@ -12,7 +12,6 @@ import model.Game;
 import model.GameState;
 import model.Movement;
 import view.GameViewService;
-import view.ScorePanel;
 import view.SwingGameView;
 
 public class SwingMainController implements GameViewService {
@@ -39,8 +38,9 @@ public class SwingMainController implements GameViewService {
 			gameView.showGameOver();
 			return;
 		}
-		List<SquareDTO> squareDTO = mapper.map(game.getBoard().getAllSquares(), new TypeToken<List<SquareDTO>>() {}.getType());
-		gameView.update(squareDTO);
+		List<SquareDTO> actualTetrominoSquares = mapper.map(game.getBoard().getAllSquares(), new TypeToken<List<SquareDTO>>() {}.getType());
+		List<SquareDTO> nextTetrominoSquares = mapper.map(game.getNextInGameTetromino().getSquareListForm(), new TypeToken<List<SquareDTO>>() {}.getType());
+		gameView.update(actualTetrominoSquares, nextTetrominoSquares, game.getScore().toString());
 	}
 	
 
