@@ -6,6 +6,8 @@ import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import exception.SquareNotFoundException;
 import model.Board;
@@ -14,12 +16,16 @@ import model.GameMode;
 import util.DummyTableroFactory;
 
 public class DefaultBorradorTest {
+	
+	@Mock
+	private ScoreService score;
 
+	@InjectMocks
 	private LineCleanerService borrador;
 	
 	@Before
 	public void setUp() {
-		borrador = new DefaultLineCleanerService();
+		borrador = new DefaultLineCleanerService(score);
 	}
 	
 	@Test

@@ -47,6 +47,7 @@ public class DefaultOrchestrator implements Orquestador {
 			if(!partida.getInGameTetromino().getState().getIsFloating()) {
 				partida = borrador.run(partida);
 				partida.checkIfPlayerLose();
+				System.out.println("SCORE: "+partida.getScore());
 			}
 
 			view.update(partida);

@@ -11,6 +11,12 @@ import model.Board;
 
 public class DefaultLineCleanerService implements LineCleanerService {
 
+	private final ScoreService score;
+	
+	public DefaultLineCleanerService(ScoreService score) { 
+		this.score = score;
+	}
+	
 	public Game run(Game game)  {
 		try {
 			List<Square> celdas = game.getBoard().getAllSquares();
@@ -41,6 +47,7 @@ public class DefaultLineCleanerService implements LineCleanerService {
 		for(Integer posY : linesWithOccupiedCells.keySet()) {
 			if(linesWithOccupiedCells.get(posY) == game.getBoard().getWidth()) {
 				game.setBoard(cleanLine(game.getBoard(), posY));
+				score.add(game, 1);
 			}
 		}
 		return game;

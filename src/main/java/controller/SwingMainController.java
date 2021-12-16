@@ -12,6 +12,7 @@ import model.Game;
 import model.GameState;
 import model.Movement;
 import view.GameViewService;
+import view.ScorePanel;
 import view.SwingGameView;
 
 public class SwingMainController implements GameViewService {

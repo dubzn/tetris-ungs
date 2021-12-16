@@ -10,6 +10,7 @@ import service.DefaultCollisionService;
 import service.DefaultGravityService;
 import service.DefaultMovementService;
 import service.DefaultOrchestrator;
+import service.DefaultScoreService;
 import service.KeyboardService;
 import service.Orquestador;
 
@@ -28,7 +29,7 @@ public class Main {
 		
 		Orquestador orquestrador = new DefaultOrchestrator(
 					config.inicializar(), 
-					new DefaultLineCleanerService(), 
+					new DefaultLineCleanerService(new DefaultScoreService()), 
 					new DefaultGravityService(new DefaultCollisionService()),
 					viewController,
 					movimientoService, 

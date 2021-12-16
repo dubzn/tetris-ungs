@@ -17,6 +17,7 @@ public class SwingGameView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel tablero;
 	private JPanel gameOver;
+	private JPanel scoreView;
 	
 	public SwingGameView() {
 		setBounds(100, 100, 600, 1000);
@@ -37,6 +38,10 @@ public class SwingGameView extends JFrame {
 		backgroundImage.setBounds(0, 0, 1920, 1080);
 		backgroundImage.setIcon(new ImageIcon(SwingGameView.class.getResource("/resource/background.png")));
 		background.add(backgroundImage);
+		
+		scoreView = new ScorePanel();
+		scoreView.setVisible(true);
+		
 	}
 
 	public void update(List<SquareDTO> celdas) {
