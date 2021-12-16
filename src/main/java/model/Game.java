@@ -10,6 +10,7 @@ public class Game {
 	private Board board;
 	private InGameTetromino tetromino;
 	private GameMode gamemode;
+	private GameState gameState;
 	private Integer score;
 	private Integer gravityVelocity;
 	
@@ -17,6 +18,7 @@ public class Game {
 		this.board = board;
 		this.gamemode = gamemode; 
 		this.score = 0;
+		this.gameState = GameState.IN_PROGRESS;
 		//default gravity
 		this.gravityVelocity = 1;
 	}
@@ -30,13 +32,10 @@ public class Game {
 	}
 	
 	public void setInGameTetromino(InGameTetromino tetromino) throws SquareNotFoundException {
-		List<Square> celdasPieza = tetromino
-				 .getState()
-				 .getOrientation()
-				 .equals(Orientation.HORIZONTAL) ? tetromino.getHorizontalForm() : tetromino.getVerticalForm();
+		List<Square> squares = tetromino.getSquareListForm();
 				 
-		for(Square celda : celdasPieza) {
-			this.board.getSquare(celda.getX() + tetromino.getX(), celda.getY() + tetromino.getY()).setOccupied(true);
+		for(Square square : squares) {
+			this.board.getSquare(square.getX() + tetromino.getX(), square.getY() + tetromino.getY()).setOccupied(true);
 		}
 		
 		this.tetromino = tetromino;
@@ -65,7 +64,15 @@ public class Game {
 	public void setGravityVelocity(Integer gravityVelocity) {
 		this.gravityVelocity = gravityVelocity;
 	}
+
+	public GameState getGameState() {
+		return gameState;
+	}
 	
+	public void checkIfPlayerLose() {
+		boolean hasASquareOccupiedIn0or1 = this.board.getAllSquares().stream().anyMatch(square -> (square.getY() == 0 || square.getY() == 1) && square.getOccupied());
+		this.gameState = hasASquareOccupiedIn0or1 ? GameState.FINISH : GameState.IN_PROGRESS;
+	}
 
 	@Override
 	public int hashCode() {
@@ -85,6 +92,8 @@ public class Game {
 				&& Objects.equals(gravityVelocity, other.gravityVelocity) && Objects.equals(score, other.score)
 				&& Objects.equals(tetromino, other.tetromino);
 	}
+
+
 
 
 }

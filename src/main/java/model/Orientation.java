@@ -2,5 +2,7 @@ package model;
 
 public enum Orientation {
 	HORIZONTAL,
-	VERTICAL
+	INVERTED_HORIZONTAL,
+	VERTICAL,
+	INVERTED_VERTICAL;
 }

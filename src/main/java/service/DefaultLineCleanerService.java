@@ -4,57 +4,70 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import exception.SquareNotFoundException;
 import model.Square;
 import model.Game;
 import model.Board;
 
 public class DefaultLineCleanerService implements LineCleanerService {
 
-	public Game run(Game game) {
-		List<Square> celdas = game.getBoard().getAllSquares();
-		Map<Integer, Integer> lineasConCeldasOcupadas = countCompletedLines(celdas); ;
-		game = cleanCompletedLines(game, lineasConCeldasOcupadas);
-		game = applyGravity(game, lineasConCeldasOcupadas);
-		
+	public Game run(Game game)  {
+		try {
+			List<Square> celdas = game.getBoard().getAllSquares();
+			Map<Integer, Integer> lineasConCeldasOcupadas = countCompletedLines(celdas); ;
+			game = cleanCompletedLines(game, lineasConCeldasOcupadas);
+			game = applyGravity(game, lineasConCeldasOcupadas);
+		} catch(SquareNotFoundException e) {
+			e.printStackTrace();
+		}
+				
 		return game;
 	}
 
-	private Game applyGravity(Game game, Map<Integer, Integer> lineasConCeldasOcupadas) {
-		
+	private Game applyGravity(Game game, Map<Integer, Integer> linesWithOccupiedCells) throws SquareNotFoundException {
+		for(Integer posY : linesWithOccupiedCells.keySet()) {
+			if(linesWithOccupiedCells.get(posY) == game.getBoard().getWidth()) {
+				for(int y = posY - 1; y >= 1; y--) {
+					for(int x = 1 ; x <= game.getBoard().getWidth() ; x++ ) {
+						game.getBoard().getSquare(x, y + 1).setOccupied(game.getBoard().getSquare(x, y).getOccupied());;
+					}
+				}
+			}
+		}
 		return game;
 	}
 
-	private Game cleanCompletedLines(Game game, Map<Integer, Integer> lineasConCeldasOcupadas) {
-		for(Integer posY : lineasConCeldasOcupadas.keySet()) {
-			if(lineasConCeldasOcupadas.get(posY) == game.getBoard().getWidth()) {
+	private Game cleanCompletedLines(Game game, Map<Integer, Integer> linesWithOccupiedCells) {
+		for(Integer posY : linesWithOccupiedCells.keySet()) {
+			if(linesWithOccupiedCells.get(posY) == game.getBoard().getWidth()) {
 				game.setBoard(cleanLine(game.getBoard(), posY));
 			}
 		}
 		return game;
 	}
 
-	private Map<Integer, Integer> countCompletedLines(List<Square> celdas) {
-		Map<Integer, Integer> contadorLineasOcupadas = new HashMap<>();
-		for (Square celda : celdas) {
-			if(celda.getOccupied()) {
-				if(contadorLineasOcupadas.get(celda.getY()) == null) {
-					contadorLineasOcupadas.put(celda.getY(),  1);
+	private Map<Integer, Integer> countCompletedLines(List<Square> squares) {
+		Map<Integer, Integer> linesOccupiedCount = new HashMap<>();
+		for (Square square : squares) {
+			if(square.getOccupied()) {
+				if(linesOccupiedCount.get(square.getY()) == null) {
+					linesOccupiedCount.put(square.getY(), 1);
 					continue;
 				}
-				contadorLineasOcupadas.put(celda.getY(), contadorLineasOcupadas.get(celda.getY()) + 1);				
+				linesOccupiedCount.put(square.getY(), linesOccupiedCount.get(square.getY()) + 1);				
 			}		
 		}
-		return contadorLineasOcupadas;
+		return linesOccupiedCount;
 	}
 
 	private Board cleanLine(Board board, Integer lineNumber) {
-		List<Square> celdas =  board.getAllSquares();
-		for (Square celda : celdas) {
-			if (celda.getY() == lineNumber) {
-				celda.setOccupied(false);
+		List<Square> squares =  board.getAllSquares();
+		for (Square square : squares) {
+			if (square.getY() == lineNumber) {
+				square.setOccupied(false);
 			}
 		}
-		board.setSquares(celdas);
+		board.setSquares(squares);
 		return board;
 	}
 

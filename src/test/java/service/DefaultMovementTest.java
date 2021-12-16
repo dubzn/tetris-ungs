@@ -40,14 +40,14 @@ public class DefaultMovementTest {
 		Tetromino T = DummyPiezaFactory.createT();
 		Board board = DummyTableroFactory.withPieza(initialPosition, T);
 		Game input = new Game(board, null);
-		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T.getHorizontalForm(), T.getVerticalForm()));
+		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T));
 		when(colision.canMove(input, Movement.LEFT)).thenReturn(true);
 
 		movement.addToQueue(Movement.LEFT);
 		Game actual = movement.run(input);
 		
 		Game expected = new Game(DummyTableroFactory.withPieza(new Position(4, 1), DummyPiezaFactory.createT()), null);
-		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(4, 1), T.getHorizontalForm(), T.getVerticalForm()));
+		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(4, 1), T));
 
 		assertEquals(expected, actual);
 	}
@@ -58,14 +58,14 @@ public class DefaultMovementTest {
 		Tetromino T = DummyPiezaFactory.createT();
 		Board board = DummyTableroFactory.withPieza(initialPosition, T);
 		Game input = new Game(board, null);
-		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T.getHorizontalForm(), T.getVerticalForm()));
+		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T));
 		when(colision.canMove(input, Movement.LEFT)).thenReturn(false);
 
 		movement.addToQueue(Movement.LEFT);
 		Game actual = movement.run(input);
 		
 		Game expected = new Game(DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT()), null);
-		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 1), T.getHorizontalForm(), T.getVerticalForm()));
+		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 1), T));
 
 		assertEquals(expected, actual);
 	}
@@ -76,14 +76,14 @@ public class DefaultMovementTest {
 		Tetromino T = DummyPiezaFactory.createT();
 		Board board = DummyTableroFactory.withPieza(initialPosition, T);
 		Game input = new Game(board, null);
-		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T.getHorizontalForm(), T.getVerticalForm()));
+		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T));
 		when(colision.canMove(input, Movement.DOWN)).thenReturn(true);
 
 		movement.addToQueue(Movement.DOWN);
 		Game actual = movement.run(input);
 		
 		Game expected = new Game(DummyTableroFactory.withPieza(new Position(5, 5), DummyPiezaFactory.createT()), null);
-		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 5), T.getHorizontalForm(), T.getVerticalForm()));
+		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 5), T));
 
 		assertEquals(expected, actual);
 	}
@@ -94,14 +94,14 @@ public class DefaultMovementTest {
 		Tetromino T = DummyPiezaFactory.createT();
 		Board board = DummyTableroFactory.withPieza(initialPosition, T);
 		Game input = new Game(board, null);
-		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T.getHorizontalForm(), T.getVerticalForm()));
+		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T));
 		when(colision.canMove(input, Movement.DOWN)).thenReturn(false);
 
 		movement.addToQueue(Movement.DOWN);
 		Game actual = movement.run(input);
 		
 		Game expected = new Game(DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT()), null);
-		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 1), T.getHorizontalForm(), T.getVerticalForm()));
+		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 1), T));
 
 		assertEquals(expected, actual);
 	}
@@ -111,14 +111,14 @@ public class DefaultMovementTest {
 		Tetromino T = DummyPiezaFactory.createT();
 		Board board = DummyTableroFactory.withPieza(initialPosition, T);
 		Game input = new Game(board, null);
-		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T.getHorizontalForm(), T.getVerticalForm()));
+		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T));
 		when(colision.canMove(input, Movement.RIGHT)).thenReturn(true);
 
 		movement.addToQueue(Movement.RIGHT);
 		Game actual = movement.run(input);
 		
 		Game expected = new Game(DummyTableroFactory.withPieza(new Position(6, 4), DummyPiezaFactory.createT()), null);
-		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(6, 4), T.getHorizontalForm(), T.getVerticalForm()));
+		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(6, 4), T));
 
 		assertEquals(expected, actual);
 	}
@@ -129,14 +129,14 @@ public class DefaultMovementTest {
 		Tetromino T = DummyPiezaFactory.createT();
 		Board board = DummyTableroFactory.withPieza(initialPosition, T);
 		Game input = new Game(board, null);
-		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T.getHorizontalForm(), T.getVerticalForm()));
+		input.setInGameTetromino(new InGameTetromino(T.getName(), initialPosition, T));
 		when(colision.canMove(input, Movement.RIGHT)).thenReturn(false);
 
 		movement.addToQueue(Movement.RIGHT);
 		Game actual = movement.run(input);
 		
 		Game expected = new Game(DummyTableroFactory.withPieza(new Position(5, 1), DummyPiezaFactory.createT()), null);
-		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 1), T.getHorizontalForm(), T.getVerticalForm()));
+		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 1), T));
 
 		assertEquals(expected, actual);
 	}

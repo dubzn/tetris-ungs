@@ -9,6 +9,7 @@ import org.modelmapper.TypeToken;
 
 import dto.SquareDTO;
 import model.Game;
+import model.GameState;
 import model.Movement;
 import view.GameViewService;
 import view.SwingGameView;
@@ -33,8 +34,12 @@ public class SwingMainController implements GameViewService {
 
 	@Override
 	public void update(Game game) {
-		List<SquareDTO> celdasDTO = mapper.map(game.getBoard().getAllSquares(), new TypeToken<List<SquareDTO>>() {}.getType());
-		gameView.update(celdasDTO);
+		if(game.getGameState().equals(GameState.FINISH)) {
+			gameView.showGameOver();
+			return;
+		}
+		List<SquareDTO> squareDTO = mapper.map(game.getBoard().getAllSquares(), new TypeToken<List<SquareDTO>>() {}.getType());
+		gameView.update(squareDTO);
 	}
 	
 

@@ -16,6 +16,7 @@ public class SwingGameView extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel tablero;
+	private JPanel gameOver;
 	
 	public SwingGameView() {
 		setBounds(100, 100, 600, 1000);
@@ -50,13 +51,19 @@ public class SwingGameView extends JFrame {
 				celdaSwing = new SwingCeldaLabel((celda.getX() * 40) - 10, (celda.getY() * 40) - 5, "empty");
 				
 			} else {
-				celdaSwing = new SwingCeldaLabel((celda.getX() * 40) - 10, (celda.getY() * 40) - 5, "verde");		
+				celdaSwing = new SwingCeldaLabel((celda.getX() * 40) - 10, (celda.getY() * 40) - 5, "aleatorio");		
 			}
 			tablero.add(celdaSwing);
 		}
 		tablero.repaint();
 	}
-
+	
+	public void showGameOver() {
+		gameOver = new GameOverPanel();
+		getContentPane().add(gameOver);
+		gameOver.setVisible(true);
+	}
+	
 	public void close() {
 		setVisible(false); 
 		dispose(); 

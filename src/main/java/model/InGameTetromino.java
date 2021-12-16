@@ -1,14 +1,13 @@
 package model;
 
-import java.util.List;
 import java.util.Objects;
 
 public class InGameTetromino extends Tetromino {
 	
 	private Position position;
 	
-	public InGameTetromino(String nombre, Position position, List<Square> piezaHorizontal, List<Square> piezaVertical) {
-		super(nombre, piezaHorizontal, piezaVertical);
+	public InGameTetromino(String name, Position position, Tetromino tetromino) {
+		super(name, tetromino.getHorizontalForm(), tetromino.getInvertedHorizontalForm(), tetromino.getVerticalForm(), tetromino.getInvertedVerticalForm());
 		this.setPosition(position);
 	}
 
@@ -32,8 +31,6 @@ public class InGameTetromino extends Tetromino {
 		this.position = position;
 	}
 
-	
-	
 	@Override
 	public String toString() {
 		return "InGameTetromino [position=" + position + "]";

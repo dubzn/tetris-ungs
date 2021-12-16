@@ -6,7 +6,6 @@ import exception.SquareNotFoundException;
 import model.Square;
 import model.Game;
 import model.Movement;
-import model.Orientation;
 import model.Position;
 
 public class DefaultGravityService implements GravityService {
@@ -28,10 +27,7 @@ public class DefaultGravityService implements GravityService {
 	}
 
 	private void appearInGameTetromino(Game game, boolean appear) throws SquareNotFoundException {	
-		List<Square> celdasPieza = game.getInGameTetromino()
-				 .getState()
-				 .getOrientation()
-				 .equals(Orientation.HORIZONTAL) ? game.getInGameTetromino().getHorizontalForm() : game.getInGameTetromino().getVerticalForm();
+		List<Square> celdasPieza = game.getInGameTetromino().getSquareListForm();
 		
 		for(Square celda : celdasPieza) {
 			game.getBoard().getSquare(celda.getX() + game.getInGameTetromino().getX(), celda.getY() + game.getInGameTetromino().getY()).setOccupied(appear);
@@ -39,11 +35,10 @@ public class DefaultGravityService implements GravityService {
 	}
 	
 	private void applyGravityToInGameTetromino(Game game) throws SquareNotFoundException {		
-		if(game.getInGameTetromino().getState().getIsFloating()) {
-			game.getInGameTetromino().setPosition(new Position(game.getInGameTetromino().getX(), game.getInGameTetromino().getY() + 1));	
-		}
-		
-		if(!collision.canMove(game, Movement.DOWN)) {
+		if(collision.canMove(game, Movement.DOWN)) {
+			appearInGameTetromino(game, false);
+			game.getInGameTetromino().setPosition(new Position(game.getInGameTetromino().getX(), game.getInGameTetromino().getY() + 1));
+		} else {
 			game.getInGameTetromino().getState().setIsFloating(false);	
 		}
 	}

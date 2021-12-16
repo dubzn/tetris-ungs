@@ -1,6 +1,7 @@
 import configurator.Configurador;
 import controller.SwingKeyboardController;
 import controller.SwingMainController;
+import exception.SquareNotFoundException;
 import factory.ClassicTetrisPiezaFactory;
 import model.GameMode;
 import model.Board;
@@ -13,7 +14,10 @@ import service.KeyboardService;
 import service.Orquestador;
 
 public class Main {	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SquareNotFoundException {
+		
+				
+		
 		Configurador config = new Configurador(new Board(), GameMode.SURVIVAL);
 		
 		DefaultMovementService movimientoService = new DefaultMovementService(new DefaultCollisionService());
@@ -32,13 +36,9 @@ public class Main {
 		try
 		{
 			viewController.start();
-			int iteraciones = 0;
 			while(true) {
-				System.out.println(iteraciones);
 				orquestrador.run();
-				Thread.sleep(250);
-				iteraciones++;
-			
+				Thread.sleep(33);			
 			}
 		} catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
