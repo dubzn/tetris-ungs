@@ -7,4 +7,4 @@ Documento:
 - https://docs.google.com/document/d/1Ky2m6UBGDVsUo3rahgZYGr0GFtvBK-lvr44Ul62FL2g/edit?usp=sharing
 
 Libs usadas:
-- https://litiengine.com/docs/
+- Interfaz https://es.wikipedia.org/wiki/Swing_(biblioteca_gr%C3%A1fica)
