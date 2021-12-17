@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 
 import javax.swing.ImageIcon;
 
-public class GameOverPanel extends JPanel {
+public class SwingGameOverComponent extends JPanel {
 
 	/**
 	 * 
@@ -14,7 +14,7 @@ public class GameOverPanel extends JPanel {
 
 	private JLabel background;
 	
-	public GameOverPanel() {
+	public SwingGameOverComponent() {
 		setBounds(0, 0, 300, 200);
 		setOpaque(false);
 		setLayout(null);

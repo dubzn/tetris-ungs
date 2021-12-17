@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
-public class BoardPanel extends JPanel {
+public class SwingBoardComponent extends JPanel {
 
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class BoardPanel extends JPanel {
 	
 	private JLabel background;
 	
-	public BoardPanel() {
+	public SwingBoardComponent() {
 		setBounds(10, 10, 420, 900);
 		setOpaque(false);
 		

@@ -7,7 +7,7 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 
-public class ScorePanel extends JPanel {
+public class SwingScorePanelComponent extends JPanel {
 
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class ScorePanel extends JPanel {
 	private JLabel background;
 	private JLabel score;
 	
-	public ScorePanel() {
+	public SwingScorePanelComponent() {
 		setBounds(0, 0, 120, 120);
 		setOpaque(false);
 		setLayout(null);

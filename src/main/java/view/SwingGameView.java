@@ -17,10 +17,10 @@ import java.awt.Toolkit;
 public class SwingGameView extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private BoardPanel board;
-	private GameOverPanel gameover;
-	private ScorePanel score;
-	private NextTetrominoPanel next;
+	private SwingBoardComponent board;
+	private SwingGameOverComponent gameover;
+	private SwingScorePanelComponent score;
+	private SwingNextTetrominoComponent next;
 	
 	public SwingGameView() {
 		setTitle("Tetris PP2 - UNGS");
@@ -31,22 +31,22 @@ public class SwingGameView extends JFrame {
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
-		gameover = new GameOverPanel();
+		gameover = new SwingGameOverComponent();
 		gameover.setLocation(66, 150);	
 		getContentPane().add(gameover);
 		gameover.setVisible(false);
 		gameover.setLayout(null);
 		
-		score =  new ScorePanel();
+		score =  new SwingScorePanelComponent();
 		score.setLocation(450, 100);
 		getContentPane().add(score);
 		score.setLayout(null);
 
-		board = new BoardPanel();		
+		board = new SwingBoardComponent();		
 		getContentPane().add(board);
 		board.setLayout(null);
 		
-		next = new NextTetrominoPanel();	
+		next = new SwingNextTetrominoComponent();	
 		next.setLocation(450, 230);	
 		getContentPane().add(next);
 		next.setLayout(null);
@@ -83,14 +83,14 @@ public class SwingGameView extends JFrame {
 			JLabel swingSquare;
 			if(celda.getY() == 1 || celda.getY() == 2) {
 				swingSquare = celda.getOccupied() ? 
-						new SwingCeldaLabel((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "default") :
-						new SwingCeldaLabel((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "not_occupiable");
+						new SwingSquareComponent((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "default") :
+						new SwingSquareComponent((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "not_occupiable");
 			}
 			else
 			{
 				swingSquare = celda.getOccupied() ? 
-						new SwingCeldaLabel((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "default") :
-						new SwingCeldaLabel((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "empty");
+						new SwingSquareComponent((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "default") :
+						new SwingSquareComponent((celda.getX() * 40) - 30, (celda.getY() * 40) - 30, "empty");
 			}
 
 			board.add(swingSquare);

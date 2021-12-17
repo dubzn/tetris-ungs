@@ -7,7 +7,7 @@ import java.util.List;
 
 import dto.SquareDTO;
 
-public class NextTetrominoPanel extends JPanel {
+public class SwingNextTetrominoComponent extends JPanel {
 
 	/**
 	 * 
@@ -16,7 +16,7 @@ public class NextTetrominoPanel extends JPanel {
 
 	private JLabel background;
 	
-	public NextTetrominoPanel() {
+	public SwingNextTetrominoComponent() {
 		setBounds(0, 0, 120, 120);
 		setOpaque(false);
 		setLayout(null);
@@ -33,8 +33,8 @@ public class NextTetrominoPanel extends JPanel {
 
 		for(SquareDTO celda : squares) {
 			JLabel swingSquare = celda.getOccupied() ? 
-					new SwingCeldaLabel((celda.getX() * 20) + 30, (celda.getY() * 20) + 55, 20, 20, "default") :
-					new SwingCeldaLabel((celda.getX() * 20) + 30, (celda.getY() * 20) + 55, 20, 20, "empty");
+					new SwingSquareComponent((celda.getX() * 20) + 30, (celda.getY() * 20) + 55, 20, 20, "default") :
+					new SwingSquareComponent((celda.getX() * 20) + 30, (celda.getY() * 20) + 55, 20, 20, "empty");
 			this.add(swingSquare);
 		}
 		this.repaint();
