@@ -29,7 +29,7 @@ public class SwingNextTetrominoComponent extends JPanel {
 		setVisible(true);
 	}
 	
-	public void setNextTetromino(List<SquareDTO> squares) {
+	public void drawNextTetromino(List<SquareDTO> squares) {
 
 		for(SquareDTO celda : squares) {
 			JLabel swingSquare = celda.getOccupied() ? 

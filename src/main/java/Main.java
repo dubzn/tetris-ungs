@@ -3,7 +3,6 @@ import controller.SwingKeyboardController;
 import controller.SwingMainController;
 import exception.SquareNotFoundException;
 import factory.ClassicTetrisPiezaFactory;
-import model.GameMode;
 import model.Board;
 import service.DefaultLineCleanerService;
 import service.DefaultCollisionService;
@@ -19,7 +18,7 @@ public class Main {
 		
 				
 		
-		Configurador config = new Configurador(new Board(), GameMode.SURVIVAL);
+		Configurador config = new Configurador(new Board());
 		
 		DefaultMovementService movimientoService = new DefaultMovementService(new DefaultCollisionService());
 		KeyboardService keyboard = new KeyboardService(movimientoService);

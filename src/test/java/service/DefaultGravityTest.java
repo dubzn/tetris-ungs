@@ -39,14 +39,14 @@ public class DefaultGravityTest {
 	@Test
 	public void whenATetrominoIsInPositionx5y1_ThenShouldReturnTheSameTetrominoInPositionx5y2() throws SquareNotFoundException {
 		Tetromino T = DummyPiezaFactory.createT();
-		Game input = new Game(DummyTableroFactory.withPieza(new Position(5, 1),  T), null);
+		Game input = new Game(DummyTableroFactory.withPieza(new Position(5, 1),  T));
 		input.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 1), T));
 		
 		when(colision.canMove(input, Movement.DOWN)).thenReturn(true);
 		
 		Game actual = gravedad.run(input);
 		
-		Game expected = new Game(DummyTableroFactory.withPieza(new Position(5, 2),  T), null);
+		Game expected = new Game(DummyTableroFactory.withPieza(new Position(5, 2),  T));
 		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 2), T));
 
 		assertEquals(expected, actual);
@@ -55,14 +55,14 @@ public class DefaultGravityTest {
 	@Test
 	public void whenATetrominoIsInPositionx5y22_ThenShouldReturnTheSameTetrominoInPositionx5y22() throws SquareNotFoundException {
 		Tetromino T = DummyPiezaFactory.createT();
-		Game input = new Game(DummyTableroFactory.withPieza(new Position(5, 21),  T), null);
+		Game input = new Game(DummyTableroFactory.withPieza(new Position(5, 21),  T));
 		input.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 21), T));
 		
 		when(colision.canMove(input, Movement.DOWN)).thenReturn(false);
 		
 		Game actual = gravedad.run(input);
 		
-		Game expected = new Game(DummyTableroFactory.withPieza(new Position(5, 21),  T), null);
+		Game expected = new Game(DummyTableroFactory.withPieza(new Position(5, 21),  T));
 		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 21), T));
 
 		assertFalse(actual.getInGameTetromino().getState().getIsFloating());
@@ -72,13 +72,13 @@ public class DefaultGravityTest {
 	@Test
 	public void whenInGameTetrominoIsNotFloating_ThenShouldReturnSameBoard() throws SquareNotFoundException {
 		Tetromino T = DummyPiezaFactory.createT();
-		Game input = new Game(DummyTableroFactory.withPieza(new Position(5, 21),  T), null);
+		Game input = new Game(DummyTableroFactory.withPieza(new Position(5, 21),  T));
 		input.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 21), T));
 		input.getInGameTetromino().getState().setIsFloating(false);
 		
 		Game actual = gravedad.run(input);
 		
-		Game expected = new Game(DummyTableroFactory.withPieza(new Position(5, 21),  T), null);
+		Game expected = new Game(DummyTableroFactory.withPieza(new Position(5, 21),  T));
 		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 21), T));
 
 		verify(colision, times(0)).canMove(input, Movement.DOWN);

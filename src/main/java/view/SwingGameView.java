@@ -74,10 +74,10 @@ public class SwingGameView extends JFrame {
 		board.removeAll(); 
 		board.addBackgroundImage();
 		
-		score.setScoreValue(scoreValue);
+		score.drawScoreValue(scoreValue);
 		next.removeAll();
 		next.addBackGroundImage();
-		next.setNextTetromino(nextTetromino);
+		next.drawNextTetromino(nextTetromino);
 		
 		for(SquareDTO celda : actualTetromino) {
 			JLabel swingSquare;

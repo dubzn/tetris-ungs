@@ -31,7 +31,7 @@ public class DefaultColisionTest {
 		Position initialPosition = new Position(5, 1);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, initialPosition, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), initialPosition, L));
 		
 		boolean actual = colision.canMove(input, Movement.LEFT);
@@ -45,7 +45,7 @@ public class DefaultColisionTest {
 		Position initialPosition = new Position(1, 1);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, initialPosition, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), initialPosition, L));
 		
 		boolean actual = colision.canMove(input, Movement.LEFT);
@@ -63,7 +63,7 @@ public class DefaultColisionTest {
 		
 		DummyTableroFactory.addPieza(board, positionL, L);
 		DummyTableroFactory.addPieza(board, positionI, I);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		boolean actual = colision.canMove(input, Movement.LEFT);
@@ -77,7 +77,7 @@ public class DefaultColisionTest {
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		//Setting a single collision to check if can detect collision
@@ -94,7 +94,7 @@ public class DefaultColisionTest {
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		//Setting a single collision to check if can detect collision
@@ -111,7 +111,7 @@ public class DefaultColisionTest {
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		//Setting a single collision to check if can detect collision
@@ -128,7 +128,7 @@ public class DefaultColisionTest {
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		//Setting a single collision to check if can detect collision
@@ -145,7 +145,7 @@ public class DefaultColisionTest {
 		Position positionL = new Position(5, 1);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		boolean actual = colision.canMove(input, Movement.RIGHT);
@@ -160,7 +160,7 @@ public class DefaultColisionTest {
 		
 		Board board = DummyTableroFactory.withPieza(positionL, L);
 		
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		boolean actual = colision.canMove(input, Movement.RIGHT);
@@ -178,7 +178,7 @@ public class DefaultColisionTest {
 		
 		DummyTableroFactory.addPieza(board, positionL, L);
 		DummyTableroFactory.addPieza(board, positionI, I);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		boolean actual = colision.canMove(input, Movement.RIGHT);
@@ -192,7 +192,7 @@ public class DefaultColisionTest {
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		//Setting a single collision to check if can detect collision
@@ -209,7 +209,7 @@ public class DefaultColisionTest {
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		//Setting a single collision to check if can detect collision
@@ -226,7 +226,7 @@ public class DefaultColisionTest {
 		Position positionL = new Position(5, 1);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		boolean actual = colision.canMove(input, Movement.DOWN);
@@ -240,7 +240,7 @@ public class DefaultColisionTest {
 		Position positionO = new Position(5, 21);
 		Tetromino O = DummyPiezaFactory.createO();
 		DummyTableroFactory.addPieza(board, positionO, O);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(O.getName(), positionO, O));
 		
 		boolean actual = colision.canMove(input, Movement.DOWN);
@@ -258,7 +258,7 @@ public class DefaultColisionTest {
 		
 		DummyTableroFactory.addPieza(board, positionL, L);
 		DummyTableroFactory.addPieza(board, positionI, I);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		
@@ -274,7 +274,7 @@ public class DefaultColisionTest {
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, positionL, L);
 
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		//Setting a single collision to check if can detect collision
 		input.getBoard().getSquare(5, 9).setOccupied(true);
@@ -290,7 +290,7 @@ public class DefaultColisionTest {
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
 		DummyTableroFactory.addPieza(board, positionL, L);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
 		//Setting a single collision to check if can detect collision

@@ -10,14 +10,12 @@ public class Game {
 	private Board board;
 	private InGameTetromino tetromino;
 	private Tetromino next;
-	private GameMode gamemode;
 	private GameState gameState;
 	private Integer score;
 	private Integer gravityVelocity;
 	
-	public Game(Board board, GameMode gamemode) {
+	public Game(Board board) {
 		this.board = board;
-		this.gamemode = gamemode; 
 		this.score = 0;
 		this.gameState = GameState.IN_PROGRESS;
 		//default gravity
@@ -54,10 +52,6 @@ public class Game {
 		this.board = board;
 	}
 	
-	public GameMode getModoJuego() {
-		return gamemode;
-	}
-	
 	public Integer getScore() {
 		return score;
 	}
@@ -85,7 +79,7 @@ public class Game {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(board, gamemode, gravityVelocity, score, tetromino);
+		return Objects.hash(board, gravityVelocity, score, tetromino);
 	}
 
 	@Override
@@ -97,8 +91,9 @@ public class Game {
 		if (getClass() != obj.getClass())
 			return false;
 		Game other = (Game) obj;
-		return Objects.equals(board, other.board) && gamemode == other.gamemode
-				&& Objects.equals(gravityVelocity, other.gravityVelocity) && Objects.equals(score, other.score)
+		return Objects.equals(board, other.board)
+				&& Objects.equals(gravityVelocity, other.gravityVelocity) 
+				&& Objects.equals(score, other.score)
 				&& Objects.equals(tetromino, other.tetromino);
 	}
 

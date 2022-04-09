@@ -37,7 +37,7 @@ public class SwingScorePanelComponent extends JPanel {
 		setVisible(true);
 	}
 	
-	public void setScoreValue(String value) {
+	public void drawScoreValue(String value) {
 		score.setText(value);
 		score.repaint();
 	}

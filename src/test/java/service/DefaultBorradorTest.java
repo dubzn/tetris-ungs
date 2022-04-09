@@ -35,11 +35,11 @@ public class DefaultBorradorTest {
 	@Test
 	public void whenTableroHasFullLines1821And22_ThenReturnsATableroWithLines1821And22Empty() {
 		Board board = DummyTableroFactory.create(Arrays.asList(18, 21, 22));
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		
 		Game actual = borrador.run(input);
 		
-		Game expected = new Game(DummyTableroFactory.create(), null);
+		Game expected = new Game(DummyTableroFactory.create());
 	    verify(score, times(3)).add(input, 1);
 		assertEquals(expected, actual);
 	}	
@@ -49,13 +49,13 @@ public class DefaultBorradorTest {
 		Board board = DummyTableroFactory.create();
 		board.getSquare(10, 5).setOccupied(true);
 		board.getSquare(10, 6).setOccupied(true);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 		
 		Game actual = borrador.run(input);
 		board = DummyTableroFactory.create();
 		board.getSquare(10, 5).setOccupied(true);
 		board.getSquare(10, 6).setOccupied(true);
-		Game expected = new Game(board, null);
+		Game expected = new Game(board);
 
 	    verify(score, times(0)).add(input, 1);
 		assertEquals(expected, actual);
@@ -65,13 +65,13 @@ public class DefaultBorradorTest {
 	public void whenTableroAlmostHasAFullLine_ThenReturnsSameTablero() throws SquareNotFoundException {
 		Board board = DummyTableroFactory.create(Arrays.asList(22));
 		board.getSquare(10, 22).setOccupied(false);
-		Game input = new Game(board, null);
+		Game input = new Game(board);
 
 		Game actual = borrador.run(input);
 		
 		board = DummyTableroFactory.create(Arrays.asList(22));
 		board.getSquare(10, 22).setOccupied(false);
-		Game expected = new Game(board, null);
+		Game expected = new Game(board);
 
 	    verify(score, times(0)).add(input, 1);
 		assertEquals(expected, actual);
