@@ -8,10 +8,9 @@ import service.DefaultLineCleanerService;
 import service.DefaultCollisionService;
 import service.DefaultGravityService;
 import service.DefaultMovementService;
-import service.DefaultOrchestrator;
+import service.Orchestrator;
 import service.DefaultScoreService;
 import service.KeyboardService;
-import service.Orquestador;
 
 public class Main {	
 	public static void main(String[] args) throws SquareNotFoundException {
@@ -26,7 +25,7 @@ public class Main {
 		
 		SwingMainController viewController = new SwingMainController(keyboardController);
 		
-		Orquestador orquestrador = new DefaultOrchestrator(
+		Orchestrator orquestrador = new Orchestrator(
 					config.inicializar(), 
 					new DefaultLineCleanerService(new DefaultScoreService()), 
 					new DefaultGravityService(new DefaultCollisionService()),

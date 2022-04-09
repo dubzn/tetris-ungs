@@ -10,7 +10,7 @@ import model.InGameTetromino;
 import model.Position;
 import view.GameViewService;
 
-public class DefaultOrchestrator implements Orquestador {
+public class Orchestrator {
 
 	private Game game;
 	private final LineCleanerService lineCleaner;
@@ -20,7 +20,7 @@ public class DefaultOrchestrator implements Orquestador {
 	private final TetrominoFactory factory;
 	private TimeService time;
 	
-	public DefaultOrchestrator(Game game, LineCleanerService lineCleaner, GravityService gravity,
+	public Orchestrator(Game game, LineCleanerService lineCleaner, GravityService gravity,
 			GameViewService view, MovementService movement, TetrominoFactory tetrominoFactory) {
 
 		this.game = game;
