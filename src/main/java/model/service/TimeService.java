@@ -1,4 +1,4 @@
-package service;
+package model.service;
 
 import java.time.Duration;
 import java.time.Instant;

@@ -1,6 +1,6 @@
-package service;
+package model.service;
 
-import java.util.Stack;
+import java.util.*;
 
 import exception.SquareNotFoundException;
 import model.Game;
@@ -8,7 +8,7 @@ import model.Movement;
 
 public abstract class MovementService {
 	
-	Stack<Movement> queue;
+	Queue<Movement> queue;
 	
 	/**
 	 * En base a la cola de movimientos, debe retornar el tablero modificado
@@ -21,22 +21,22 @@ public abstract class MovementService {
 	 * @param mov - movimiento realizado por el usuario
 	 * @return
 	 */
-	public Stack<Movement> addToQueue(Movement mov) {
+	public Queue<Movement> addToQueue(Movement mov) {
 		if(queue == null) {
-			Stack<Movement> stack = new Stack<Movement>();
-			stack.push(mov);
-			queue = stack;
+			System.out.println("queue null, creating");
+			Queue<Movement> tmp = new LinkedList<>();
+			queue = new LinkedList<>();
+			queue.add(mov);
 		}
 		else {
-			if(this.queue.size() < 2) {
-				this.queue.push(mov);					
+			if(queue.size() < 3) {
+				queue.add(mov);
 			}
-			if(this.queue.size() == 2) {
-				this.queue.clear();
-				this.queue.push(mov);
+			if(queue.size() == 3) {
+				queue.clear();
+				this.queue.add(mov);
 			}
 		}
-		
 		return this.queue;
 	}
 	

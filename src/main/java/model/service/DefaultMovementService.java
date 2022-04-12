@@ -1,6 +1,8 @@
-package service;
+package model.service;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 import exception.SquareNotFoundException;
@@ -16,20 +18,22 @@ public class DefaultMovementService extends MovementService {
 	private final CollisionService colision;
 	
 	public DefaultMovementService(CollisionService colision) {
-		this.queue = new Stack<>();
-		this.colision = colision;	
+		if (Objects.isNull(queue)) {
+			queue = new LinkedList<>();
+		}
+		this.colision = colision;
 	}
 	
 	@Override
-	Game run(Game juego) throws SquareNotFoundException {
+	public Game run(Game game) throws SquareNotFoundException {
 		if(!this.queue.isEmpty()) {
-			Movement nextMove = this.queue.pop(); 
-			appearInGameTetromino(juego, false);
-			juego = resolve(juego, nextMove);		
-			appearInGameTetromino(juego, true);
+			Movement nextMove = this.queue.poll();
+			appearInGameTetromino(game, false);
+			game = resolve(game, nextMove);
+			appearInGameTetromino(game, true);
 		}
 
-		return juego;
+		return game;
 	}
 
 	private void appearInGameTetromino(Game game, boolean appear) throws SquareNotFoundException {	

@@ -23,7 +23,7 @@ public class SwingScorePanelComponent extends JPanel {
 		setLayout(null);
 		
 		background = new JLabel("");
-		background.setIcon(new ImageIcon(SwingGameView.class.getResource("/resource/score.png")));
+		background.setIcon(new ImageIcon(SwingGameView.class.getResource("/score.png")));
 		background.setBounds(0, 0, 120, 119);
 		this.add(background);
 

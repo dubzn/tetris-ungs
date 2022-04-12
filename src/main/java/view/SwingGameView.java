@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import java.awt.Toolkit;
+import java.util.Objects;
 
 public class SwingGameView extends JFrame {
 	
@@ -25,7 +26,7 @@ public class SwingGameView extends JFrame {
 	public SwingGameView() {
 		setTitle("Tetris PP2 - UNGS");
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(SwingGameView.class.getResource("/resource/frame_icon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SwingGameView.class.getResource("/frame_icon.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 960);
 		getContentPane().setLayout(null);
@@ -62,7 +63,7 @@ public class SwingGameView extends JFrame {
 		
 		JLabel backgroundImage = new JLabel("");
 		backgroundImage.setBounds(0, 0, 1920, 1080);
-		backgroundImage.setIcon(new ImageIcon(SwingGameView.class.getResource("/resource/background.png")));
+		backgroundImage.setIcon(new ImageIcon(Objects.requireNonNull(SwingGameView.class.getResource("/background.png"))));
 		background.add(backgroundImage);
 	}
 

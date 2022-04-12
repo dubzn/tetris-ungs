@@ -1,6 +1,7 @@
-package service;
+package model.service;
 
 import java.util.Objects;
+import java.util.Observable;
 
 import exception.SquareNotFoundException;
 import factory.TetrominoFactory;
@@ -10,27 +11,70 @@ import model.InGameTetromino;
 import model.Position;
 import view.GameViewService;
 
-public class Orchestrator {
+public class Orchestrator extends Observable {
 
 	private Game game;
 	private final LineCleanerService lineCleaner;
-	private final GameViewService view;
 	private final GravityService gravity;
 	private final MovementService movement;
 	private final TetrominoFactory factory;
 	private TimeService time;
 	
 	public Orchestrator(Game game, LineCleanerService lineCleaner, GravityService gravity,
-			GameViewService view, MovementService movement, TetrominoFactory tetrominoFactory) {
+						MovementService movement, TetrominoFactory tetrominoFactory) {
 
 		this.game = game;
 		this.lineCleaner = lineCleaner;
 		this.gravity = gravity;
-		this.view = view;
 		this.movement = movement;
 		this.factory = tetrominoFactory;
-
 		this.time = new TimeService();
+	}
+
+	public Orchestrator(Builder builder) {
+		this.game = builder.game;
+		this.lineCleaner = builder.lineCleaner;
+		this.gravity = builder.gravity;
+		this.movement = builder.movement;
+		this.factory = builder.factory;
+		this.time = new TimeService();
+	}
+
+	public static class Builder {
+		private Game game;
+		private LineCleanerService lineCleaner;
+		private GravityService gravity;
+		private MovementService movement;
+		private TetrominoFactory factory;
+
+		public Builder withGame(Game game) {
+			this.game = game;
+			return this;
+		}
+
+		public Builder withLineCleaner(LineCleanerService lineCleaner) {
+			this.lineCleaner = lineCleaner;
+			return this;
+		}
+
+		public Builder withGravityService(GravityService gravity) {
+			this.gravity = gravity;
+			return this;
+		}
+
+		public Builder withMovementService(MovementService movement) {
+			this.movement = movement;
+			return this;
+		}
+
+		public Builder withTetrominoFactory(TetrominoFactory factory) {
+			this.factory = factory;
+			return this;
+		}
+
+		public Orchestrator build() {
+			return new Orchestrator(this);
+		}
 	}
 
 	public void run() {
@@ -50,7 +94,8 @@ public class Orchestrator {
 				game.checkIfPlayerLose();
 			}
 
-			view.update(game);
+			this.setChanged();
+			this.notifyObservers(game);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,5 +119,4 @@ public class Orchestrator {
 		Tetromino tetromino = factory.createRandom();
 		return new InGameTetromino(tetromino.getName(), new Position(x, y), tetromino);
 	}
-
 }

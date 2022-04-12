@@ -1,4 +1,4 @@
-package service;
+package model.service;
 
 import exception.SquareNotFoundException;
 import model.Game;

@@ -22,7 +22,7 @@ public class SwingNextTetrominoComponent extends JPanel {
 		setLayout(null);
 		
 		background = new JLabel("");
-		background.setIcon(new ImageIcon(SwingGameView.class.getResource("/resource/next.png")));
+		background.setIcon(new ImageIcon(SwingGameView.class.getResource("/next.png")));
 		background.setBounds(0, 0, 120, 119);
 		this.add(background);
 		

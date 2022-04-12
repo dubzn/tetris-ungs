@@ -18,7 +18,7 @@ public class SwingBoardComponent extends JPanel {
 		setOpaque(false);
 		
 		background = new JLabel("");
-		background.setIcon(new ImageIcon(SwingGameView.class.getResource("/resource/tablero_neon.png")));
+		background.setIcon(new ImageIcon(SwingGameView.class.getResource("/tablero_neon.png")));
 		background.setBounds(0, 0, 420, 900);
 		this.add(background);
 		

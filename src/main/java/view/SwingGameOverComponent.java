@@ -20,7 +20,7 @@ public class SwingGameOverComponent extends JPanel {
 		setLayout(null);
 		
 		background = new JLabel("");
-		background.setIcon(new ImageIcon(SwingGameView.class.getResource("/resource/gameover.png")));
+		background.setIcon(new ImageIcon(SwingGameView.class.getResource("/gameover.png")));
 		background.setBounds(0, 0, 300, 200);
 		this.add(background);	
 	}

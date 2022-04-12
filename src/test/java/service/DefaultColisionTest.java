@@ -3,6 +3,8 @@ package service;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import model.service.CollisionService;
+import model.service.DefaultCollisionService;
 import org.junit.Before;
 import org.junit.Test;
 

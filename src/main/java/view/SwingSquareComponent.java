@@ -17,7 +17,7 @@ public class SwingSquareComponent extends JLabel {
 	private static final long serialVersionUID = 1L;
 	
 	//private List<String> colorNames = Arrays.asList("violeta", "verde", "azul", "roja", "amarilla");
-	private List<String> colorNames = Arrays.asList("violeta");
+	private List<String> colorNames = Arrays.asList("azul");
 	
 	public SwingSquareComponent(Integer x, Integer y, String color) {
 		setBounds(x, y, 40, 40);
@@ -34,12 +34,12 @@ public class SwingSquareComponent extends JLabel {
 	private ImageIcon getIconColorAndSize(String color, Integer width, Integer height) {
 		String colorName = getRandomColor();
 		if(color.equals("empty")) {
-			return new ImageIcon(new ImageIcon(SwingSquareComponent.class.getResource("/resource/celda_no_ocupada.png")).getImage().getScaledInstance(width, height, 4));	
+			return new ImageIcon(new ImageIcon(SwingSquareComponent.class.getResource("/celda_no_ocupada.png")).getImage().getScaledInstance(width, height, 4));
 		}
 		if(color.equals("not_occupiable")) {
-			return new ImageIcon(new ImageIcon(SwingSquareComponent.class.getResource("/resource/celda_no_ocupable.png")).getImage().getScaledInstance(width, height, 4));	
+			return new ImageIcon(new ImageIcon(SwingSquareComponent.class.getResource("/celda_no_ocupable.png")).getImage().getScaledInstance(width, height, 4));
 		}
-		return new ImageIcon( new ImageIcon(SwingSquareComponent.class.getResource("/resource/"+colorName+".png")).getImage().getScaledInstance(width, height, 4));
+		return new ImageIcon( new ImageIcon(SwingSquareComponent.class.getResource("/"+colorName+".png")).getImage().getScaledInstance(width, height, 4));
 	}
 
 	private String getRandomColor() {

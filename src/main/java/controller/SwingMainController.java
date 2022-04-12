@@ -3,6 +3,8 @@ package controller;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -14,7 +16,7 @@ import model.Movement;
 import view.GameViewService;
 import view.SwingGameView;
 
-public class SwingMainController implements GameViewService {
+public class SwingMainController implements Observer {
 
 	private ModelMapper mapper; 
 	private final SwingKeyboardController keyboardController;
@@ -31,7 +33,10 @@ public class SwingMainController implements GameViewService {
 		gameView.setVisible(true);
 	}
 
-	public void update(Game game) {
+
+	@Override
+	public void update(Observable o, Object arg) {
+		Game game = (Game) arg;
 		if(game.getGameState().equals(GameState.FINISH)) {
 			gameView.showGameOver();
 			return;
@@ -40,14 +45,8 @@ public class SwingMainController implements GameViewService {
 		List<SquareDTO> nextTetrominoSquares = mapper.map(game.getNextInGameTetromino().getSquareListForm(), new TypeToken<List<SquareDTO>>() {}.getType());
 		gameView.update(actualTetrominoSquares, nextTetrominoSquares, game.getScore().toString());
 	}
-	
 
-	public void finish(Game game) {
-		gameView.close();
-		
-	}
-	
-	public void addMovement(Integer keycode) { 
+	public void addMovement(Integer keycode) {
 		switch(keycode) {
 		case 32:
 			keyboardController.addMovement(Movement.ROTATE);
@@ -72,7 +71,4 @@ public class SwingMainController implements GameViewService {
 			}
 		});
 	}
-
-
-	
 }
