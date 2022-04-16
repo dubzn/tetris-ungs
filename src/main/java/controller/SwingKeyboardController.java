@@ -1,14 +1,14 @@
 package controller;
 
 import model.Movement;
+import model.cor.MovementHandler;
 import model.service.ControlService;
-import model.service.MovementService;
 
 public class SwingKeyboardController {
 
 	private final ControlService control;
 	
-	public SwingKeyboardController(MovementService movimiento, ControlService control) {
+	public SwingKeyboardController(MovementHandler movement, ControlService control) {
 		this.control = control;		
 	}
 	

@@ -1,12 +1,13 @@
 package model.service;
 
 import model.Movement;
+import model.cor.MovementHandler;
 
 public class KeyboardService implements ControlService {
 
-	private MovementService movement;
+	private final MovementHandler movement;
 	
-	public KeyboardService(MovementService movement) {
+	public KeyboardService(MovementHandler movement) {
 		this.movement = movement;
 	}
 
@@ -14,5 +15,4 @@ public class KeyboardService implements ControlService {
 	public void addMovement(Movement mov) {
 		this.movement.addToQueue(mov);
 	}
-
 }

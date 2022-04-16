@@ -1,41 +1,30 @@
 import controller.SwingKeyboardController;
 import controller.SwingMainController;
-import exception.SquareNotFoundException;
 import factory.ClassicTetrisPiezaFactory;
 import model.Board;
 import model.Game;
-import model.service.DefaultLineCleanerService;
-import model.service.DefaultCollisionService;
-import model.service.DefaultGravityService;
-import model.service.DefaultMovementService;
-import model.service.Orchestrator;
-import model.service.DefaultScoreService;
-import model.service.KeyboardService;
+import model.cor.*;
+import model.service.*;
 
-public class Main {	
+public class Main {
 	public static void main(String[] args) {
-		DefaultMovementService movimientoService = new DefaultMovementService(new DefaultCollisionService());
-		KeyboardService keyboard = new KeyboardService(movimientoService);
-		SwingKeyboardController keyboardController = new SwingKeyboardController(movimientoService, keyboard);
+		GameHandler gameHandler = new GameHandler(null);
+		CleanerHandler cleanerHandler = new CleanerHandler(gameHandler, new DefaultScoreService());
+		GravityHandler gravityHandler = new GravityHandler(cleanerHandler, new DefaultCollisionService(), new TimeService());
+		MovementHandler movementHandler = new MovementHandler(gravityHandler, new DefaultCollisionService());
+		TetrominoHandler tetrominoHandler = new TetrominoHandler(movementHandler, new ClassicTetrisPiezaFactory());
+
+		KeyboardService keyboard = new KeyboardService(movementHandler);
+		SwingKeyboardController keyboardController = new SwingKeyboardController(movementHandler, keyboard);
 		SwingMainController viewController = new SwingMainController(keyboardController);
 
-		Orchestrator orchestrator = new Orchestrator.Builder()
-			.withGame(new Game(new Board()))
-			.withLineCleaner(new DefaultLineCleanerService(new DefaultScoreService()))
-			.withGravityService(new DefaultGravityService(new DefaultCollisionService()))
-			.withMovementService(movimientoService)
-			.withTetrominoFactory(new ClassicTetrisPiezaFactory())
-			.build();
-
-		orchestrator.addObserver(viewController);
+		gravityHandler.addObserver(viewController);
+		movementHandler.addObserver(viewController);
 		viewController.start();
-		try {
-			while(true) {
-				orchestrator.run();
-				Thread.sleep(33);			
-			}
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
+
+		Game game = new Game(new Board());
+		while (true) {
+			tetrominoHandler.handle(game);
 		}
 	}
 }

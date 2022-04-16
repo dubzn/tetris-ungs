@@ -24,10 +24,10 @@ public class Tetromino {
 		this.invertedVerticalForm = invertedVerticalForm;
 		this.state = new TetrominoState(Orientation.HORIZONTAL, true);
 
-		this.horizontalWidth = horizontalForm.stream().max((c1,c2) -> c1.getX().compareTo(c2.getX())).get().getX()+1;
-		this.horizontalHeight = horizontalForm.stream().max((c1,c2) -> c1.getY().compareTo(c2.getY())).get().getY()+1;
-		this.verticalWidth = verticalForm.stream().max((c1,c2) -> c1.getX().compareTo(c2.getX())).get().getX()+1;
-		this.verticalHeight = verticalForm.stream().max((c1,c2) -> c1.getY().compareTo(c2.getY())).get().getY()+1;
+		this.horizontalWidth = horizontalForm.stream().max((c1,c2) -> c1.getPosition().getX().compareTo(c2.getPosition().getX())).get().getPosition().getX()+1;
+		this.horizontalHeight = horizontalForm.stream().max((c1,c2) -> c1.getPosition().getY().compareTo(c2.getPosition().getY())).get().getPosition().getY()+1;
+		this.verticalWidth = verticalForm.stream().max((c1,c2) -> c1.getPosition().getX().compareTo(c2.getPosition().getX())).get().getPosition().getX()+1;
+		this.verticalHeight = verticalForm.stream().max((c1,c2) -> c1.getPosition().getY().compareTo(c2.getPosition().getY())).get().getPosition().getY()+1;
 	}
 	
 	public String getName() {

@@ -71,10 +71,13 @@ public class Game {
 	public GameState getGameState() {
 		return gameState;
 	}
-	
-	public void checkIfPlayerLose() {
-		boolean hasASquareOccupiedIn1or2 = this.board.getAllSquares().stream().anyMatch(square -> (square.getY() == 1 || square.getY() == 2) && square.getOccupied());
-		this.gameState = hasASquareOccupiedIn1or2 ? GameState.FINISH : GameState.IN_PROGRESS;
+
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
+	}
+
+	public boolean lastLinesAreOcuppied() {
+		return this.board.getAllSquares().stream().anyMatch(square -> (square.getY() == 1 || square.getY() == 2) && square.getOccupied());
 	}
 
 	@Override
@@ -96,8 +99,4 @@ public class Game {
 				&& Objects.equals(score, other.score)
 				&& Objects.equals(tetromino, other.tetromino);
 	}
-
-
-
-
 }

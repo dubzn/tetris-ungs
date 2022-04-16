@@ -1,5 +1,8 @@
 package model;
 
+import lombok.Getter;
+
+@Getter
 public enum Movement {
 	
 	LEFT("left", -1, 0),
@@ -16,17 +19,4 @@ public enum Movement {
 		this.movX = x;
 		this.movY = y;
 	}
-	
-	public Integer getMovementX() {
-		return this.movX;
-	}
-	
-	public Integer getMovementY() {
-		return this.movY;
-	}
-	
-	public String getname() {
-		return this.name;
-	}
-	
 }

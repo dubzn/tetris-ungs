@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 
-import model.service.DefaultLineCleanerService;
 import model.service.ScoreService;
 import org.junit.Before;
 import org.junit.Test;

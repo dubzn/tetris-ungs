@@ -34,7 +34,8 @@ public class SwingSquareComponent extends JLabel {
 	private ImageIcon getIconColorAndSize(String color, Integer width, Integer height) {
 		String colorName = getRandomColor();
 		if(color.equals("empty")) {
-			return new ImageIcon(new ImageIcon(SwingSquareComponent.class.getResource("/celda_no_ocupada.png")).getImage().getScaledInstance(width, height, 4));
+			return null;
+			//return new ImageIcon(new ImageIcon(SwingSquareComponent.class.getResource("/celda_no_ocupada.png")).getImage().getScaledInstance(width, height, 4));
 		}
 		if(color.equals("not_occupiable")) {
 			return new ImageIcon(new ImageIcon(SwingSquareComponent.class.getResource("/celda_no_ocupable.png")).getImage().getScaledInstance(width, height, 4));

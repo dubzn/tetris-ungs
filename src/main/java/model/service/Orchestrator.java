@@ -11,7 +11,7 @@ import model.InGameTetromino;
 import model.Position;
 import view.GameViewService;
 
-public class Orchestrator extends Observable {
+public class Orchestrator {
 
 	private Game game;
 	private final LineCleanerService lineCleaner;
@@ -91,11 +91,7 @@ public class Orchestrator extends Observable {
 			
 			if(!game.getInGameTetromino().getState().getIsFloating()) {
 				game = lineCleaner.run(game);
-				game.checkIfPlayerLose();
 			}
-
-			this.setChanged();
-			this.notifyObservers(game);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

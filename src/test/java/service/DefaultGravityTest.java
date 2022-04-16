@@ -8,8 +8,6 @@ import static org.mockito.Mockito.times;
 
 
 import model.service.CollisionService;
-import model.service.DefaultGravityService;
-import model.service.GravityService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
