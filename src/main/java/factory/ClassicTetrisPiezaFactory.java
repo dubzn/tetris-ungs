@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import model.Square;
-import model.Tetromino;
-import model.Position;
+import models.Square;
+import models.Tetromino;
+import models.Position;
 
 public class ClassicTetrisPiezaFactory implements TetrominoFactory {
 	

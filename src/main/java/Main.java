@@ -1,14 +1,14 @@
-import controller.SwingKeyboardController;
-import controller.SwingMainController;
+import controllers.SwingKeyboardController;
+import controllers.SwingMainController;
 import factory.ClassicTetrisPiezaFactory;
-import model.Board;
-import model.Game;
-import model.cor.*;
-import model.service.*;
+import models.Board;
+import models.Game;
+import models.core.*;
+import models.service.*;
 
 public class Main {
 	public static void main(String[] args) {
-		GameHandler gameHandler = new GameHandler(null);
+		GameStateHandler gameHandler = new GameStateHandler();
 		CleanerHandler cleanerHandler = new CleanerHandler(gameHandler, new DefaultScoreService());
 		GravityHandler gravityHandler = new GravityHandler(cleanerHandler, new DefaultCollisionService(), new TimeService());
 		MovementHandler movementHandler = new MovementHandler(gravityHandler, new DefaultCollisionService());

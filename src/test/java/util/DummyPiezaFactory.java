@@ -2,9 +2,9 @@ package util;
 
 import java.util.Arrays;
 
-import model.Square;
-import model.Tetromino;
-import model.Position;
+import models.Square;
+import models.Tetromino;
+import models.Position;
 
 public class DummyPiezaFactory {
 

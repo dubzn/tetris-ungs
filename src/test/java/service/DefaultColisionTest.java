@@ -3,20 +3,20 @@ package service;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import model.service.CollisionService;
-import model.service.DefaultCollisionService;
+import models.service.CollisionService;
+import models.service.DefaultCollisionService;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.SquareNotFoundException;
-import model.Movement;
-import model.Tetromino;
-import model.Position;
-import model.Board;
-import model.Game;
-import model.InGameTetromino;
+import exceptions.SquareNotFoundException;
+import models.Movement;
+import models.Tetromino;
+import models.Position;
+import models.Board;
+import models.Game;
+import models.InGameTetromino;
 import util.DummyPiezaFactory;
-import util.DummyTableroFactory;
+import util.DummyBoardFactory;
 
 public class DefaultColisionTest {
 
@@ -29,10 +29,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void canMoveIzquierdaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position initialPosition = new Position(5, 1);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, initialPosition, L);
+		DummyBoardFactory.addTetromino(board, initialPosition, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), initialPosition, L));
 		
@@ -43,10 +43,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConParedMoveIzquierdaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position initialPosition = new Position(1, 1);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, initialPosition, L);
+		DummyBoardFactory.addTetromino(board, initialPosition, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), initialPosition, L));
 		
@@ -57,14 +57,14 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConPiezaMoveIzquierdaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Position positionI = new Position(4, 7);
 		Tetromino L = DummyPiezaFactory.createL();
 		Tetromino I = DummyPiezaFactory.createI();
 		
-		DummyTableroFactory.addPieza(board, positionL, L);
-		DummyTableroFactory.addPieza(board, positionI, I);
+		DummyBoardFactory.addTetromino(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionI, I);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -75,10 +75,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConCelda1MoveIzquierdaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionL, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -92,10 +92,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConCelda2MoveIzquierdaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionL, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -109,10 +109,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConCelda3MoveIzquierdaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionL, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -126,10 +126,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void noColisionConCelda4MoveIzquierdaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionL, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -143,10 +143,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void canMoveDerechaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 1);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionL, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -160,7 +160,7 @@ public class DefaultColisionTest {
 		Position positionL = new Position(8, 1);
 		Tetromino L = DummyPiezaFactory.createL();
 		
-		Board board = DummyTableroFactory.withPieza(positionL, L);
+		Board board = DummyBoardFactory.withPieza(positionL, L);
 		
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
@@ -172,14 +172,14 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConPiezaMoveDerechaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Position positionI = new Position(6, 7);
 		Tetromino L = DummyPiezaFactory.createL();
 		Tetromino I = DummyPiezaFactory.createL();
 		
-		DummyTableroFactory.addPieza(board, positionL, L);
-		DummyTableroFactory.addPieza(board, positionI, I);
+		DummyBoardFactory.addTetromino(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionI, I);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -190,10 +190,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConCelda1MoveDerechaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionL, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -207,10 +207,10 @@ public class DefaultColisionTest {
 		
 	@Test
 	public void noColisionConCelda4MoveDerechaTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionL, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -224,10 +224,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void canMoveAbajoTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 1);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionL, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -238,10 +238,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConParedMoveAbajoTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionO = new Position(5, 21);
 		Tetromino O = DummyPiezaFactory.createO();
-		DummyTableroFactory.addPieza(board, positionO, O);
+		DummyBoardFactory.addTetromino(board, positionO, O);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(O.getName(), positionO, O));
 		
@@ -252,14 +252,14 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConPiezaMoveAbajoTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Position positionI = new Position(5, 9);
 		Tetromino L = DummyPiezaFactory.createL();
 		Tetromino I = DummyPiezaFactory.createL();
 		
-		DummyTableroFactory.addPieza(board, positionL, L);
-		DummyTableroFactory.addPieza(board, positionI, I);
+		DummyBoardFactory.addTetromino(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionI, I);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		
@@ -271,10 +271,10 @@ public class DefaultColisionTest {
 	
 	@Test
 	public void colisionConCelda1MoveAbajoTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionL, L);
 
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
@@ -288,10 +288,10 @@ public class DefaultColisionTest {
 
 	@Test
 	public void noColisionConCelda4MoveAbajoTest() throws SquareNotFoundException {
-		Board board = DummyTableroFactory.create();
+		Board board = DummyBoardFactory.create();
 		Position positionL = new Position(5, 7);
 		Tetromino L = DummyPiezaFactory.createL();
-		DummyTableroFactory.addPieza(board, positionL, L);
+		DummyBoardFactory.addTetromino(board, positionL, L);
 		Game input = new Game(board);
 		input.setInGameTetromino(new InGameTetromino(L.getName(), positionL, L));
 		

@@ -1,6 +1,6 @@
 package factory;
 
-import model.Tetromino;
+import models.Tetromino;
 
 public interface TetrominoFactory {
 
