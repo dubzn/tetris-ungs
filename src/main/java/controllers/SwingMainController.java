@@ -36,7 +36,7 @@ public class SwingMainController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		Game game = (Game) arg;
-		if(game.getGameState().equals(GameState.FINISH)) {
+		if (GameState.FINISH.equals(game.getGameState())) {
 			gameView.showGameOver();
 			return;
 		}

@@ -7,7 +7,7 @@ import utils.Cleaner;
 
 import java.util.*;
 
-public class MovementHandler extends Observable implements Handler<Game> {
+public class MovementHandler implements Handler<Game> {
 
     private Handler<Game> next;
     private Queue<Movement> queue;
@@ -32,9 +32,6 @@ public class MovementHandler extends Observable implements Handler<Game> {
                 Cleaner.appearInGameTetromino(request, false);
                 request = resolve(request, nextMove);
                 Cleaner.appearInGameTetromino(request, true);
-
-                setChanged();
-                notifyObservers(request);
             }
 
             if (!Objects.isNull(next)) {

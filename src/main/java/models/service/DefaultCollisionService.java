@@ -16,7 +16,8 @@ public class DefaultCollisionService implements CollisionService {
 		List<Square> inGameTetrominoNextRotateForm = game.getInGameTetromino().getNextRotateForm();
 		
 		Cleaner.appearInGameTetromino(game,false);
-		boolean ret = !collideWithBorder(game, inGameTetrominoNextRotateForm, Movement.ROTATE);
+		boolean ret = !collideWithBorder(game, inGameTetrominoNextRotateForm, Movement.ROTATE) &&
+				!collideWithTetromino(game, inGameTetrominoNextRotateForm, Movement.ROTATE);
 		Cleaner.appearInGameTetromino(game, true);
 
 		return ret;
@@ -69,6 +70,4 @@ public class DefaultCollisionService implements CollisionService {
 			return false;
 		}
 	}
-
-
 }

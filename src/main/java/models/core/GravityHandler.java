@@ -11,7 +11,7 @@ import utils.Cleaner;
 import java.util.Objects;
 import java.util.Observable;
 
-public class GravityHandler extends Observable implements Handler<Game> {
+public class GravityHandler implements Handler<Game> {
 
     private Handler<Game> next;
     private final CollisionService collision;
@@ -49,9 +49,6 @@ public class GravityHandler extends Observable implements Handler<Game> {
             Cleaner.appearInGameTetromino(game, false);
             applyGravityToInGameTetromino(game);
             Cleaner.appearInGameTetromino(game, true);
-
-            setChanged();
-            notifyObservers(game);
         }
 
         return game;

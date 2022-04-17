@@ -18,8 +18,7 @@ public class Main {
 		SwingKeyboardController keyboardController = new SwingKeyboardController(movementHandler, keyboard);
 		SwingMainController viewController = new SwingMainController(keyboardController);
 
-		gravityHandler.addObserver(viewController);
-		movementHandler.addObserver(viewController);
+		gameHandler.addObserver(viewController);
 		viewController.start();
 
 		Game game = new Game(new Board());
