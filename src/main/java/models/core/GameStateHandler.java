@@ -19,7 +19,7 @@ public class GameStateHandler extends Observable implements Handler<Game> {
 
   @Override
   public void handle(Game request) {
-    if(!request.getInGameTetromino().getState().getIsFloating() && request.lastLinesAreOcuppied()) {
+    if(!request.inGameTetrominoIsFloating() && request.lastLinesAreOcuppied()) {
       request.setGameState(GameState.FINISH);
     }
 

@@ -37,7 +37,7 @@ public class TetrominoHandler implements Handler<Game> {
       return createTetrominoInPosition(5, 1);
     }
 
-    if (!game.getInGameTetromino().getState().getIsFloating()) {
+    if (!game.inGameTetrominoIsFloating()) {
       game.setInGameTetromino(new InGameTetromino(game.getNextInGameTetromino().getName(), new Position(5, 1), game.getNextInGameTetromino()));
       game.setNextInGameTetromino(factory.createRandom());
     }

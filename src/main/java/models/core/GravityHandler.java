@@ -45,7 +45,7 @@ public class GravityHandler implements Handler<Game> {
     }
 
     private Game applyGravity(Game game) throws SquareNotFoundException {
-        if(game.getInGameTetromino().getState().getIsFloating()) {
+        if(game.inGameTetrominoIsFloating()) {
             Cleaner.appearInGameTetromino(game, false);
             applyGravityToInGameTetromino(game);
             Cleaner.appearInGameTetromino(game, true);

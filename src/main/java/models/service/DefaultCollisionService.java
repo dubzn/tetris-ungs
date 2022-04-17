@@ -24,26 +24,26 @@ public class DefaultCollisionService implements CollisionService {
 	}
 	
 	@Override
-	public boolean canMove(Game game, Movement movimiento) throws SquareNotFoundException {
+	public boolean canMove(Game game, Movement movement) throws SquareNotFoundException {
 		List<Square> squaresInGameTetromino = game.getInGameTetromino().getSquareListForm();
 
 		Cleaner.appearInGameTetromino(game, false);
-		boolean ret = !collideWithBorder(game, squaresInGameTetromino, movimiento) && !collideWithTetromino(game, squaresInGameTetromino, movimiento);
+		boolean ret = !collideWithBorder(game, squaresInGameTetromino, movement) && !collideWithTetromino(game, squaresInGameTetromino, movement);
 		Cleaner.appearInGameTetromino(game, true);
 
 		return ret;
 	}
 
 
-	private boolean collideWithTetromino(Game juego, List<Square> squaresInGameTetromino, Movement movimiento) {
-		return squaresInGameTetromino.stream().anyMatch(celda -> resolve(juego, celda, movimiento));
+	private boolean collideWithTetromino(Game game, List<Square> squaresInGameTetromino, Movement movement) {
+		return squaresInGameTetromino.stream().anyMatch(celda -> resolve(game, celda, movement));
 	}
 
-	private boolean resolve(Game juego, Square celda, Movement movimiento) {
+	private boolean resolve(Game game, Square square, Movement movement) {
 		try {
-			return juego.getBoard()
-					.getSquare(celda.getX() + juego.getInGameTetromino().getX() + movimiento.getMovX(),
-							celda.getY() + juego.getInGameTetromino().getY() + movimiento.getMovY())
+			return game.getBoard()
+					.getSquare(square.getX() + game.getInGameTetromino().getX() + movement.getMovX(),
+							square.getY() + game.getInGameTetromino().getY() + movement.getMovY())
 					.getOccupied();
 		} catch (SquareNotFoundException e) {
 			e.printStackTrace();

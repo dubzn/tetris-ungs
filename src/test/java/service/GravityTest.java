@@ -72,7 +72,7 @@ public class GravityTest {
 		Game expected = new Game(DummyBoardFactory.withPieza(new Position(5, 21),  T));
 		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 21), T));
 
-		assertFalse(input.getInGameTetromino().getState().getIsFloating());
+		assertFalse(input.inGameTetrominoIsFloating());
 		assertEquals(expected, input);
 	}
 	
@@ -89,7 +89,7 @@ public class GravityTest {
 		expected.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 21), T));
 
 		verify(collision, times(0)).canMove(input, Movement.DOWN);
-		assertFalse(input.getInGameTetromino().getState().getIsFloating());
+		assertFalse(input.inGameTetrominoIsFloating());
 		assertEquals(expected, input);
 	}
 

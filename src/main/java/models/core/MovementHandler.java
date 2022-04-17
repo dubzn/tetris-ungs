@@ -49,25 +49,24 @@ public class MovementHandler implements Handler<Game> {
             return game;
         }
 
-        if(!game.getInGameTetromino().getState().getIsFloating()) {
+        if(!game.inGameTetrominoIsFloating()) {
             return game;
         }
 
         if(colision.canMove(game, movimiento)) {
-            InGameTetromino pieza = game.getInGameTetromino();
+            InGameTetromino tetromino = game.getInGameTetromino();
+            List<Square> squares = tetromino.getSquareListForm();
 
-            List<Square> celdasPieza = game.getInGameTetromino().getSquareListForm();
-
-            for(Square celda : celdasPieza) {
-                game.getBoard().getSquare(celda.getX() + pieza.getX(), celda.getY() + pieza.getY()).setOccupied(false);
+            for(Square square : squares) {
+                game.getBoard().getSquare(square.getX() + tetromino.getX(), square.getY() + tetromino.getY()).setOccupied(false);
             }
 
-            for(Square celda : celdasPieza) {
-                Integer posicionNuevaX = celda.getX() + pieza.getX() + movimiento.getMovX();
-                Integer posicionNuevaY = celda.getY() + pieza.getY() + movimiento.getMovY();
-                game.getBoard().getSquare(posicionNuevaX, posicionNuevaY).setOccupied(true);
+            for(Square square : squares) {
+                Integer newPositionX = square.getX() + tetromino.getX() + movimiento.getMovX();
+                Integer newPositionY = square.getY() + tetromino.getY() + movimiento.getMovY();
+                game.getBoard().getSquare(newPositionX, newPositionY).setOccupied(true);
             }
-            pieza.setPosition(new Position(pieza.getX() + movimiento.getMovX(), pieza.getY() + movimiento.getMovY()));
+            tetromino.setPosition(new Position(tetromino.getX() + movimiento.getMovX(), tetromino.getY() + movimiento.getMovY()));
         }
         return game;
     }
@@ -78,7 +77,6 @@ public class MovementHandler implements Handler<Game> {
      */
     public void addToQueue(Movement mov) {
         if(queue == null) {
-            System.out.println("queue null, creating");
             Queue<Movement> tmp = new LinkedList<>();
             queue = new LinkedList<>();
             queue.add(mov);

@@ -40,6 +40,10 @@ public class Game {
     return this.tetromino;
   }
 
+  public boolean inGameTetrominoIsFloating() {
+    return this.tetromino.getState().getIsFloating();
+  }
+
   public void setInGameTetromino(InGameTetromino tetromino) throws SquareNotFoundException {
     List<Square> squares = tetromino.getSquareListForm();
     for(Square square : squares) {
