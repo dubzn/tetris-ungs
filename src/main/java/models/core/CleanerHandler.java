@@ -25,7 +25,7 @@ public class CleanerHandler extends Observable implements Handler<Game>  {
   @Override
   public void handle(Game request) {
     try {
-      if(!request.inGameTetrominoIsFloating()) {
+      if (!request.inGameTetrominoIsFloating()) {
         List<Square> squares = request.getBoard().getSquares();
         Map<Integer, Integer> linesWithCompletedSquares = countCompletedLines(squares); ;
         cleanCompletedLines(request, linesWithCompletedSquares);
@@ -34,16 +34,16 @@ public class CleanerHandler extends Observable implements Handler<Game>  {
       if (!Objects.isNull(next)) {
         next.handle(request);
       }
-    } catch(SquareNotFoundException e) {
+    } catch (SquareNotFoundException e) {
       e.printStackTrace();
     }
   }
 
   private Game applyGravity(Game game, Map<Integer, Integer> linesWithOccupiedCells) throws SquareNotFoundException {
-    for(Integer posY : linesWithOccupiedCells.keySet()) {
-      if(linesWithOccupiedCells.get(posY) == game.getBoard().getWidth()) {
-        for(int y = posY - 1; y >= 1; y--) {
-          for(int x = 1 ; x <= game.getBoard().getWidth() ; x++ ) {
+    for (Integer posY : linesWithOccupiedCells.keySet()) {
+      if (Objects.equals(linesWithOccupiedCells.get(posY), game.getBoard().getWidth())) {
+        for (int y = posY - 1; y >= 1; y--) {
+          for (int x = 1 ; x <= game.getBoard().getWidth() ; x++ ) {
             game.getBoard().getSquare(x, y + 1).setOccupied(game.getBoard().getSquare(x, y).getOccupied());;
           }
         }
@@ -53,8 +53,8 @@ public class CleanerHandler extends Observable implements Handler<Game>  {
   }
 
   private Game cleanCompletedLines(Game game, Map<Integer, Integer> linesWithOccupiedCells) {
-    for(Integer posY : linesWithOccupiedCells.keySet()) {
-      if(linesWithOccupiedCells.get(posY) == game.getBoard().getWidth()) {
+    for (Integer posY : linesWithOccupiedCells.keySet()) {
+      if (linesWithOccupiedCells.get(posY) == game.getBoard().getWidth()) {
         game.setBoard(cleanLine(game.getBoard(), posY));
         score.add(game, 1);
       }
@@ -65,8 +65,8 @@ public class CleanerHandler extends Observable implements Handler<Game>  {
   private Map<Integer, Integer> countCompletedLines(List<Square> squares) {
     Map<Integer, Integer> linesOccupiedCount = new HashMap<>();
     for (Square square : squares) {
-      if(square.getOccupied()) {
-        if(linesOccupiedCount.get(square.getY()) == null) {
+      if (square.getOccupied()) {
+        if (linesOccupiedCount.get(square.getY()) == null) {
           linesOccupiedCount.put(square.getY(), 1);
           continue;
         }
