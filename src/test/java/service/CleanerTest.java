@@ -43,13 +43,13 @@ public class CleanerTest {
 	public void whenBoardHasFullLines1821And22_ThenReturnsABoardWithLines1821And22Empty() throws SquareNotFoundException {
 		Board board = DummyBoardFactory.create(Arrays.asList(18, 21, 22));
 		Game input = new Game(board);
-		input.setInGameTetromino(new InGameTetromino(null, new Position(5, 1), DummyPiezaFactory.createO()));
+		input.setInGameTetromino(new InGameTetromino(null, new Position(5, 16), DummyPiezaFactory.createO()));
 		input.getInGameTetromino().getState().setIsFloating(false);
 
 		cleaner.handle(input);
 
 		Game expected = new Game(DummyBoardFactory.create());
-		DummyBoardFactory.addTetromino(expected.getBoard(), new Position(5, 1), DummyPiezaFactory.createO());
+		DummyBoardFactory.addTetromino(expected.getBoard(), new Position(5, 19), DummyPiezaFactory.createO());
 		verify(score, times(3)).add(input, 1);
 		assertEquals(expected.getBoard(), input.getBoard());
 	}	
