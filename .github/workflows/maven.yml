@@ -34,17 +34,3 @@ jobs:
         files: |
           **/target/*-reports/TEST-*.xml
           **/build/test-results/*/TEST-*.xml
-        
-    - name: JUnit Report Action
-      # You may pin to the exact commit or the version.
-      # uses: mikepenz/action-junit-report@41a3188dde10229782fd78cd72fc574884dd7686
-      uses: mikepenz/action-junit-report@v3.0.3
-      with:
-        # Specify the token to use to publish the check.
-        token: ${{ github.token }}
-        # Xml report paths in glob format
-        report_paths: "**/reports/TEST-*.xml"
-        # Fail if no test are found.
-        require_tests: true
-        # Include passed tests in the report
-        include_passed: false
