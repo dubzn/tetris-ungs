@@ -34,3 +34,13 @@ jobs:
         files: |
           **/target/*-reports/TEST-*.xml
           **/build/test-results/*/TEST-*.xml
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      id: test-results
+      if: always()
+      with:
+        files: "test-results/**/*.xml"
+
+    - name: Conclusion
+      run: echo "Conclusion is ${{ fromJSON( steps.test-results.outputs.json ).conclusion }}"
