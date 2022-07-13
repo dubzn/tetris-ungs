@@ -1,7 +1,5 @@
 # PP2 - Tetris UNGS
 
-https://gist.githubusercontent.com/sdgalvan/tetris-ungs/raw/badge.svg
-
 Proyecto del diseño del juego tetris para el final de la materia PP2
 La idea es diseñar e implementar desde 0 un juego tetris básico.
 
