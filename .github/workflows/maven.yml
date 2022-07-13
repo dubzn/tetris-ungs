@@ -25,6 +25,16 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
+    # Uses Docker, that's why Linux-only.
+    - name: JUnit Tests (EnricoMi/publish-unit-test-result-action@v1, Linux)
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: ${{ runner.os == 'Linux' }}
+      with:
+        check_name: JUnit Tests (${{ runner.os }}, EnricoMi/publish-unit-test-result-action@v1)
+        files: |
+          **/target/*-reports/TEST-*.xml
+          **/build/test-results/*/TEST-*.xml
+        
     - name: JUnit Report Action
       # You may pin to the exact commit or the version.
       # uses: mikepenz/action-junit-report@41a3188dde10229782fd78cd72fc574884dd7686
