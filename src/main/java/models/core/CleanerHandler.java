@@ -25,21 +25,22 @@ public class CleanerHandler extends Observable implements Handler<Game>  {
   @Override
   public void handle(Game request) {
     try {
-      if (!request.inGameTetrominoIsFloating()) {
-        List<Square> squares = request.getBoard().getSquares();
-        Map<Integer, Integer> linesWithCompletedSquares = countCompletedLines(squares); ;
-        cleanCompletedLines(request, linesWithCompletedSquares);
-        applyGravity(request, linesWithCompletedSquares);
-      }
-      if (!Objects.isNull(next)) {
-        next.handle(request);
-      }
+      if (!Objects.isNull(request.getInGameTetromino()) && !request.inGameTetrominoIsFloating()) {
+          List<Square> squares = request.getBoard().getSquares();
+          Map<Integer, Integer> linesWithCompletedSquares = countCompletedLines(squares);
+
+          cleanCompletedLines(request, linesWithCompletedSquares);
+          applyGravity(request, linesWithCompletedSquares);
+        }
     } catch (SquareNotFoundException e) {
       e.printStackTrace();
     }
+    if (!Objects.isNull(next)) {
+      next.handle(request);
+    }
   }
 
-  private Game applyGravity(Game game, Map<Integer, Integer> linesWithOccupiedCells) throws SquareNotFoundException {
+  private void applyGravity(Game game, Map<Integer, Integer> linesWithOccupiedCells) throws SquareNotFoundException {
     for (Integer posY : linesWithOccupiedCells.keySet()) {
       if (Objects.equals(linesWithOccupiedCells.get(posY), game.getBoard().getWidth())) {
         for (int y = posY - 1; y >= 1; y--) {
@@ -49,24 +50,22 @@ public class CleanerHandler extends Observable implements Handler<Game>  {
         }
       }
     }
-    return game;
   }
 
-  private Game cleanCompletedLines(Game game, Map<Integer, Integer> linesWithOccupiedCells) {
+  private void cleanCompletedLines(Game game, Map<Integer, Integer> linesWithOccupiedCells) {
     for (Integer posY : linesWithOccupiedCells.keySet()) {
       if (linesWithOccupiedCells.get(posY) == game.getBoard().getWidth()) {
         game.setBoard(cleanLine(game.getBoard(), posY));
         score.add(game, 1);
       }
     }
-    return game;
   }
 
   private Map<Integer, Integer> countCompletedLines(List<Square> squares) {
     Map<Integer, Integer> linesOccupiedCount = new HashMap<>();
     for (Square square : squares) {
       if (square.getOccupied()) {
-        if (linesOccupiedCount.get(square.getY()) == null) {
+        if (Objects.isNull(linesOccupiedCount.get(square.getY()))) {
           linesOccupiedCount.put(square.getY(), 1);
           continue;
         }
@@ -79,7 +78,7 @@ public class CleanerHandler extends Observable implements Handler<Game>  {
   private Board cleanLine(Board board, Integer lineNumber) {
     List<Square> squares =  board.getSquares();
     for (Square square : squares) {
-      if (square.getY() == lineNumber) {
+      if (square.getY().equals(lineNumber)) {
         square.setOccupied(false);
       }
     }

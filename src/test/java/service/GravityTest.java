@@ -2,6 +2,7 @@ package service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
@@ -50,7 +51,8 @@ public class GravityTest {
 		input.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 1), T));
 		
 		when(collision.canMove(input, Movement.DOWN)).thenReturn(true);
-		
+		when(time.shouldUpdateGravity(any())).thenReturn(true);
+
 		gravity.handle(input);
 		
 		Game expected = new Game(DummyBoardFactory.withPieza(new Position(5, 2),  T));
@@ -64,8 +66,9 @@ public class GravityTest {
 		Tetromino T = DummyPiezaFactory.createT();
 		Game input = new Game(DummyBoardFactory.withPieza(new Position(5, 21),  T));
 		input.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 21), T));
-		
+
 		when(collision.canMove(input, Movement.DOWN)).thenReturn(false);
+		when(time.shouldUpdateGravity(any())).thenReturn(true);
 		
 		gravity.handle(input);
 		

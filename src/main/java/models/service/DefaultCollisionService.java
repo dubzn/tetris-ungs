@@ -28,7 +28,8 @@ public class DefaultCollisionService implements CollisionService {
 		List<Square> squaresInGameTetromino = game.getInGameTetromino().getSquareListForm();
 
 		Cleaner.appearInGameTetromino(game, false);
-		boolean ret = !collideWithBorder(game, squaresInGameTetromino, movement) && !collideWithTetromino(game, squaresInGameTetromino, movement);
+		boolean ret = !collideWithBorder(game, squaresInGameTetromino, movement)
+					&& !collideWithTetromino(game, squaresInGameTetromino, movement);
 		Cleaner.appearInGameTetromino(game, true);
 
 		return ret;

@@ -23,11 +23,11 @@ public class TetrominoHandler implements Handler<Game> {
   public void handle(Game request) {
     try {
       request.setInGameTetromino(updateInGameTetromino(request));
-      if (!Objects.isNull(next)) {
-        next.handle(request);
-      }
     } catch (SquareNotFoundException exception) {
       System.out.println("An error occurs in tetromino handler! " + exception.getMessage());
+    }
+    if (!Objects.isNull(next)) {
+      next.handle(request);
     }
   }
 

@@ -30,27 +30,25 @@ public class MovementHandler implements Handler<Game> {
             if(!this.queue.isEmpty()) {
                 Movement nextMove = this.queue.poll();
                 Cleaner.appearInGameTetromino(request, false);
-                request = resolve(request, nextMove);
+                resolve(request, nextMove);
                 Cleaner.appearInGameTetromino(request, true);
-            }
-
-            if (!Objects.isNull(next)) {
-                next.handle(request);
             }
         } catch (SquareNotFoundException exception) {
             System.out.println("An error occurs in movement handler! " + exception.getMessage());
         }
+        if (!Objects.isNull(next)) {
+            next.handle(request);
+        }
     }
 
-    private Game resolve(Game game, Movement movimiento) throws SquareNotFoundException {
+    private void resolve(Game game, Movement movimiento) throws SquareNotFoundException {
         if(movimiento.equals(Movement.ROTATE) && colision.canRotate(game)) {
             Cleaner.appearInGameTetromino(game, false);
             game.getInGameTetromino().setNextRotateState();
-            return game;
         }
 
         if(!game.inGameTetrominoIsFloating()) {
-            return game;
+            return;
         }
 
         if(colision.canMove(game, movimiento)) {
@@ -68,7 +66,6 @@ public class MovementHandler implements Handler<Game> {
             }
             tetromino.setPosition(new Position(tetromino.getX() + movimiento.getMovX(), tetromino.getY() + movimiento.getMovY()));
         }
-        return game;
     }
 
     /**

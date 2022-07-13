@@ -35,12 +35,12 @@ public class GravityHandler implements Handler<Game> {
                 applyGravity(request);
                 time.setLastTimeUpdated(time.getTimeInSeconds());
             }
-
-            if (!Objects.isNull(next)) {
-                next.handle(request);
-            }
         } catch (SquareNotFoundException exception) {
             System.out.println("An error occurs in gravity handler! " + exception.getMessage());
+        }
+
+        if (!Objects.isNull(next)) {
+            next.handle(request);
         }
     }
 

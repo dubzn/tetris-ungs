@@ -10,6 +10,7 @@ import java.util.Collections;
 import models.InGameTetromino;
 import models.Position;
 import models.core.CleanerHandler;
+import models.core.GravityHandler;
 import models.service.ScoreService;
 import org.junit.Before;
 import org.junit.Test;
