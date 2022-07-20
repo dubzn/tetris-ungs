@@ -46,7 +46,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_311\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean verify"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="es"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -65,9 +65,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="service.DefaultMovementTest" name="cannotMoveLeftReturnsSameTableroTest" time="0.024"/>
-  <testcase classname="service.DefaultMovementTest" name="cannotMoveDownTestReturnsSameTableroTest" time="0"/>
-  <testcase classname="service.DefaultMovementTest" name="moveRightTest" time="0"/>
+  <testcase classname="service.DefaultMovementTest" name="cannotMoveLeftReturnsSameTableroTest" time="0.022"/>
+  <testcase classname="service.DefaultMovementTest" name="cannotMoveDownTestReturnsSameTableroTest" time="0.001"/>
+  <testcase classname="service.DefaultMovementTest" name="moveRightTest" time="0.001"/>
   <testcase classname="service.DefaultMovementTest" name="moveDownTest" time="0.001"/>
   <testcase classname="service.DefaultMovementTest" name="moverLeftTest" time="0.001"/>
   <testcase classname="service.DefaultMovementTest" name="cannotMoveRightTestReturnsSameTableroTest" time="0"/>
