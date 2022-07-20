@@ -1,0 +1,6 @@
+service\DefaultColisionTest.class
+service\DefaultMovementTest.class
+util\DummyBoardFactory.class
+service\GravityTest.class
+service\CleanerTest.class
+util\DummyPiezaFactory.class

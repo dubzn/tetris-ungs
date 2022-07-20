@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SwingMainController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tetris-ungs</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">SwingMainController.java</span></div><h1>SwingMainController.java</h1><pre class="source lang-java linenums">package controllers;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+
+import dtos.SquareDTO;
+import models.Game;
+import models.GameState;
+import models.Movement;
+import views.SwingGameView;
+
+public class SwingMainController implements Observer {
+
+	private ModelMapper mapper; 
+	private final SwingKeyboardController keyboardController;
+	private SwingGameView gameView;
+	
+<span class="nc" id="L24">	public SwingMainController(SwingKeyboardController keyboardController) {</span>
+<span class="nc" id="L25">		this.mapper = new ModelMapper();</span>
+<span class="nc" id="L26">		this.keyboardController = keyboardController;</span>
+<span class="nc" id="L27">	}</span>
+
+	public void start() {
+<span class="nc" id="L30">		gameView = new SwingGameView();</span>
+<span class="nc" id="L31">		addKeyBoardListeners();</span>
+<span class="nc" id="L32">		gameView.setVisible(true);</span>
+<span class="nc" id="L33">	}</span>
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+<span class="nc" id="L38">		Game game = (Game) arg;</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">		if (GameState.FINISH.equals(game.getGameState())) {</span>
+<span class="nc" id="L40">			gameView.showGameOver();</span>
+<span class="nc" id="L41">			return;</span>
+		}
+<span class="nc" id="L43">		List&lt;SquareDTO&gt; actualTetrominoSquares = mapper.map(game.getBoard().getSquares(), new TypeToken&lt;List&lt;SquareDTO&gt;&gt;() {}.getType());</span>
+<span class="nc" id="L44">		List&lt;SquareDTO&gt; nextTetrominoSquares = mapper.map(game.getNextInGameTetromino().getSquareListForm(), new TypeToken&lt;List&lt;SquareDTO&gt;&gt;() {}.getType());</span>
+<span class="nc" id="L45">		gameView.update(actualTetrominoSquares, nextTetrominoSquares, game.getScore().toString());</span>
+<span class="nc" id="L46">	}</span>
+
+	public void addMovement(Integer keycode) {
+<span class="nc bnc" id="L49" title="All 5 branches missed.">		switch(keycode) {</span>
+		case 32:
+<span class="nc" id="L51">			keyboardController.addMovement(Movement.ROTATE);</span>
+<span class="nc" id="L52">			break;</span>
+		case 37:
+<span class="nc" id="L54">			keyboardController.addMovement(Movement.LEFT);</span>
+<span class="nc" id="L55">			break;</span>
+		case 39: 
+<span class="nc" id="L57">			keyboardController.addMovement(Movement.RIGHT);</span>
+<span class="nc" id="L58">			break;</span>
+		case 40:
+<span class="nc" id="L60">			keyboardController.addMovement(Movement.DOWN);</span>
+			break;	
+		}
+<span class="nc" id="L63">	}</span>
+	
+	private void addKeyBoardListeners() {
+<span class="nc" id="L66">		gameView.addKeyListener(new KeyAdapter() {</span>
+			@Override
+			public void keyPressed(KeyEvent e) {
+<span class="nc" id="L69">				addMovement(e.getKeyCode());</span>
+<span class="nc" id="L70">			}</span>
+		});
+<span class="nc" id="L72">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

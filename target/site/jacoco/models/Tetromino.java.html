@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Tetromino.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tetris-ungs</a> &gt; <a href="index.source.html" class="el_package">models</a> &gt; <span class="el_source">Tetromino.java</span></div><h1>Tetromino.java</h1><pre class="source lang-java linenums">package models;
+
+import java.util.Collections;
+import java.util.List;
+
+public class Tetromino {
+	
+	private String name;
+	private TetrominoState state;
+	private List&lt;Square&gt; horizontalForm;
+	private List&lt;Square&gt; verticalForm;
+	private List&lt;Square&gt; invertedHorizontalForm;
+	private List&lt;Square&gt; invertedVerticalForm;
+	private Integer horizontalWidth;
+	private Integer horizontalHeight;
+	private Integer verticalWidth;
+	private Integer verticalHeight;
+	
+<span class="fc" id="L19">	public Tetromino(String name, List&lt;Square&gt; horizontalForm, List&lt;Square&gt; invertedHorizontalForm, List&lt;Square&gt; verticalForm, List&lt;Square&gt; invertedVerticalForm) {</span>
+<span class="fc" id="L20">		this.name = name;</span>
+<span class="fc" id="L21">		this.horizontalForm = horizontalForm;</span>
+<span class="fc" id="L22">		this.verticalForm = verticalForm;</span>
+<span class="fc" id="L23">		this.invertedHorizontalForm = invertedHorizontalForm;</span>
+<span class="fc" id="L24">		this.invertedVerticalForm = invertedVerticalForm;</span>
+<span class="fc" id="L25">		this.state = new TetrominoState(Orientation.HORIZONTAL, true);</span>
+
+<span class="fc" id="L27">		this.horizontalWidth = horizontalForm.stream().max((c1,c2) -&gt; c1.getX().compareTo(c2.getX())).get().getX()+1;</span>
+<span class="fc" id="L28">		this.horizontalHeight = horizontalForm.stream().max((c1,c2) -&gt; c1.getY().compareTo(c2.getY())).get().getY()+1;</span>
+<span class="fc" id="L29">		this.verticalWidth = verticalForm.stream().max((c1,c2) -&gt; c1.getX().compareTo(c2.getX())).get().getX()+1;</span>
+<span class="fc" id="L30">		this.verticalHeight = verticalForm.stream().max((c1,c2) -&gt; c1.getY().compareTo(c2.getY())).get().getY()+1;</span>
+<span class="fc" id="L31">	}</span>
+	
+	public String getName() {
+<span class="fc" id="L34">		return name;</span>
+	}
+	
+	public void setName(String name) {
+<span class="nc" id="L38">		this.name = name;</span>
+<span class="nc" id="L39">	}</span>
+
+	public List&lt;Square&gt; getVerticalForm() {
+<span class="fc" id="L42">		return verticalForm;</span>
+	}
+	
+	public List&lt;Square&gt; getInvertedVerticalForm() {
+<span class="fc" id="L46">		return invertedVerticalForm;</span>
+	}
+	
+	public List&lt;Square&gt; getHorizontalForm() {
+<span class="fc" id="L50">		return horizontalForm;</span>
+	}
+	
+	public List&lt;Square&gt; getInvertedHorizontalForm() {
+<span class="fc" id="L54">		return invertedHorizontalForm;</span>
+	}
+
+	public void setNextRotateState() {
+<span class="nc bnc" id="L58" title="All 5 branches missed.">		switch(this.getState().getOrientation()) {</span>
+		case VERTICAL:
+<span class="nc" id="L60">			this.getState().setOrientation(Orientation.INVERTED_HORIZONTAL);	</span>
+<span class="nc" id="L61">			break;</span>
+		case INVERTED_HORIZONTAL:
+<span class="nc" id="L63">			this.getState().setOrientation(Orientation.INVERTED_VERTICAL);</span>
+<span class="nc" id="L64">			break;</span>
+		case INVERTED_VERTICAL:
+<span class="nc" id="L66">			this.getState().setOrientation(Orientation.HORIZONTAL);</span>
+<span class="nc" id="L67">			break;</span>
+		case HORIZONTAL: 
+<span class="nc" id="L69">			this.getState().setOrientation(Orientation.VERTICAL);</span>
+			break;
+		}
+<span class="nc" id="L72">	}</span>
+	public List&lt;Square&gt; getNextRotateForm() { 
+<span class="nc bnc" id="L74" title="All 5 branches missed.">		switch(this.getState().getOrientation()) {</span>
+		case VERTICAL:
+<span class="nc" id="L76">			return this.getInvertedHorizontalForm();</span>
+		case INVERTED_HORIZONTAL:
+<span class="nc" id="L78">			return this.getInvertedVerticalForm();</span>
+		case INVERTED_VERTICAL:
+<span class="nc" id="L80">			return this.getHorizontalForm();</span>
+		case HORIZONTAL: 
+<span class="nc" id="L82">			return this.getVerticalForm();</span>
+		default:
+<span class="nc" id="L84">			return Collections.emptyList();</span>
+		}
+	}
+	
+	public List&lt;Square&gt; getSquareListForm() { 
+<span class="pc bpc" id="L89" title="4 of 5 branches missed.">		switch(this.getState().getOrientation()) {</span>
+		case HORIZONTAL: 
+<span class="fc" id="L91">			return this.getHorizontalForm();</span>
+		case INVERTED_HORIZONTAL:
+<span class="nc" id="L93">			return this.getInvertedHorizontalForm();</span>
+		case VERTICAL:
+<span class="nc" id="L95">			return this.getVerticalForm();</span>
+		case INVERTED_VERTICAL:
+<span class="nc" id="L97">			return this.getInvertedVerticalForm();</span>
+		default:
+<span class="nc" id="L99">			return Collections.emptyList();</span>
+		}
+	}
+	
+	public Integer getWidth() {
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">		return state.getOrientation().equals(Orientation.HORIZONTAL) || </span>
+<span class="pc bnc" id="L105" title="All 2 branches missed.">				state.getOrientation().equals(Orientation.INVERTED_HORIZONTAL)</span>
+				? horizontalWidth : verticalWidth;
+	}
+	
+	public Integer getHeight() {
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">		return state.getOrientation().equals(Orientation.HORIZONTAL) || </span>
+<span class="pc bnc" id="L111" title="All 2 branches missed.">				state.getOrientation().equals(Orientation.INVERTED_HORIZONTAL)</span>
+				? horizontalHeight : verticalHeight;
+	}
+	
+	public TetrominoState getState() {
+<span class="fc" id="L116">		return state;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

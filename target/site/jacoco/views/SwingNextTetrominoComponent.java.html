@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SwingNextTetrominoComponent.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tetris-ungs</a> &gt; <a href="index.source.html" class="el_package">views</a> &gt; <span class="el_source">SwingNextTetrominoComponent.java</span></div><h1>SwingNextTetrominoComponent.java</h1><pre class="source lang-java linenums">package views;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.util.List;
+
+import dtos.SquareDTO;
+
+public class SwingNextTetrominoComponent extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private JLabel background;
+	
+<span class="nc" id="L19">	public SwingNextTetrominoComponent() {</span>
+<span class="nc" id="L20">		setBounds(0, 0, 120, 120);</span>
+<span class="nc" id="L21">		setOpaque(false);</span>
+<span class="nc" id="L22">		setLayout(null);</span>
+		
+<span class="nc" id="L24">		background = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L25">		background.setIcon(new ImageIcon(SwingGameView.class.getResource(&quot;/next.png&quot;)));</span>
+<span class="nc" id="L26">		background.setBounds(0, 0, 120, 119);</span>
+<span class="nc" id="L27">		this.add(background);</span>
+		
+<span class="nc" id="L29">		setVisible(true);</span>
+<span class="nc" id="L30">	}</span>
+	
+	public void drawNextTetromino(List&lt;SquareDTO&gt; squares) {
+
+<span class="nc bnc" id="L34" title="All 2 branches missed.">		for(SquareDTO celda : squares) {</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">			JLabel swingSquare = celda.getOccupied() ? </span>
+<span class="nc" id="L36">					new SwingSquareComponent((celda.getX() * 20) + 30, (celda.getY() * 20) + 55, 20, 20, &quot;default&quot;) :</span>
+<span class="nc" id="L37">					new SwingSquareComponent((celda.getX() * 20) + 30, (celda.getY() * 20) + 55, 20, 20, &quot;empty&quot;);</span>
+<span class="nc" id="L38">			this.add(swingSquare);</span>
+<span class="nc" id="L39">		}</span>
+<span class="nc" id="L40">		this.repaint();</span>
+<span class="nc" id="L41">	}</span>
+
+	public void addBackGroundImage() {
+<span class="nc" id="L44">		this.add(background);</span>
+<span class="nc" id="L45">	}</span>
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
