@@ -11,8 +11,12 @@ import java.util.Objects;
 
 public class TetrominoHandler implements Handler<Game> {
 
-  private final Handler<Game> next;
+  private Handler<Game> next;
   private final TetrominoFactory factory;
+
+  public TetrominoHandler(TetrominoFactory factory) {
+    this.factory = factory;
+  }
 
   public TetrominoHandler(Handler<Game> next, TetrominoFactory factory) {
     this.factory = factory;

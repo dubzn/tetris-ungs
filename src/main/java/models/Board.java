@@ -35,13 +35,13 @@ public class Board {
 
 	@Override
 	public String toString() {
-		String ret = "▒▒▒Tetris▒▒▒\n";
+		String ret = "---Tetris---\n";
 		ret = ret + "00123456789X\n";
 		for(Square celda : squares) {
 			if(celda.getX() == 1) {
 				ret = celda.getY() >= 10 ? ret + + celda.getY() : ret +"0" + celda.getY();
 			}
-			String ocupada = celda.getOccupied() ? "█" : "░";
+			String ocupada = celda.getOccupied() ? "X" : " ";
 			ret = ret + ocupada;
 			if(celda.getX() == width) {
 				ret = ret +"\n";
