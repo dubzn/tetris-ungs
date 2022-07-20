@@ -3,7 +3,7 @@
 Proyecto del diseño del juego tetris para el final de la materia PP2
 La idea es diseñar e implementar desde 0 un juego tetris básico.
 
-# Coverage
+# ![Coverage (by cicirello)](https://github.com/cicirello/jacoco-badge-generator#jacoco-badge-generator)
 ![Coverage](badges/jacoco.svg)
 ![Branches](badges/branches.svg)
 
