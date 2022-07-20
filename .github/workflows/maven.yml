@@ -34,12 +34,6 @@ jobs:
         files: |
           **/target/*-reports/TEST-*.xml
           **/build/test-results/*/TEST-*.xml
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1
-      id: test-results
-      if: always()
-      with:
-        files: "test-results/**/*.xml"
         
   report-badge:
     runs-on: ubuntu-latest
@@ -50,9 +44,7 @@ jobs:
       with:
         generate-branches-badge: true
         jacoco-csv-file: >
-          module1/target/site/jacoco/jacoco.csv
-          module2/target/site/jacoco/jacoco.csv
-          module3/target/site/jacoco/jacoco.csv
+            target/site/jacoco/jacoco.csv
 
     - name: Log coverage percentage
       run: |
