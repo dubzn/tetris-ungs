@@ -1,10 +1,9 @@
-package service;
+package core;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import models.core.MovementHandler;
-import models.service.CollisionService;
+import core.MovementHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,11 +18,12 @@ import models.Position;
 import models.Board;
 import models.Game;
 import models.InGameTetromino;
+import service.CollisionService;
 import util.DummyPiezaFactory;
 import util.DummyBoardFactory;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DefaultMovementTest {
+public class MovementHandlerTest {
 
     @Mock
 	private CollisionService colision;

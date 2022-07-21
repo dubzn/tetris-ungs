@@ -1,4 +1,4 @@
-package models.core;
+package core;
 
 import exceptions.SquareNotFoundException;
 import factory.TetrominoFactory;

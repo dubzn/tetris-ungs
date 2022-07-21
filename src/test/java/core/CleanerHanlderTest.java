@@ -1,4 +1,4 @@
-package service;
+package core;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
@@ -9,9 +9,6 @@ import java.util.Collections;
 
 import models.InGameTetromino;
 import models.Position;
-import models.core.CleanerHandler;
-import models.core.GravityHandler;
-import models.service.ScoreService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,11 +19,12 @@ import org.mockito.junit.MockitoJUnitRunner;
 import exceptions.SquareNotFoundException;
 import models.Board;
 import models.Game;
+import service.ScoreService;
 import util.DummyBoardFactory;
 import util.DummyPiezaFactory;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CleanerTest {
+public class CleanerHanlderTest {
 	
 	@Mock
 	private ScoreService score;

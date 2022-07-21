@@ -1,4 +1,4 @@
-package service;
+package core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,9 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
 
-import models.core.GravityHandler;
-import models.service.CollisionService;
-import models.service.TimeService;
+import core.GravityHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,12 +21,14 @@ import models.InGameTetromino;
 import models.Movement;
 import models.Position;
 import models.Tetromino;
+import service.CollisionService;
+import service.TimeService;
 import util.DummyPiezaFactory;
 import util.DummyBoardFactory;
 
 @RunWith(MockitoJUnitRunner.class)
 
-public class GravityTest {
+public class GravityHandlerTest {
 
 	private GravityHandler gravity;
 

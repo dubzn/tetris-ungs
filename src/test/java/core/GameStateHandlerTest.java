@@ -1,11 +1,11 @@
-package service;
+package core;
 
 import exceptions.SquareNotFoundException;
 import models.*;
-import models.core.GameStateHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import util.DummyBoardFactory;
 import util.DummyPiezaFactory;
@@ -13,13 +13,16 @@ import util.DummyPiezaFactory;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GameStateTest {
+public class GameStateHandlerTest {
 
   private GameStateHandler gameState;
+
+  //Puede ser cualquier handler
+  @Mock
+  private CleanerHandler cleaner;
 
   @Before
   public void setUp() {
@@ -72,5 +75,20 @@ public class GameStateTest {
     gameState.handle(input);
 
     assertEquals(input.getGameState(), GameState.IN_PROGRESS);
+  }
+
+  @Test
+  public void whenNextInHandlerIsntNull_ThenShouldBeCallToNextHandler() throws SquareNotFoundException {
+    Tetromino T = DummyPiezaFactory.createT();
+    Game input = new Game(DummyBoardFactory.create(Arrays.asList(21, 20)));
+    input.setInGameTetromino(new InGameTetromino(T.getName(), new Position(5, 18), T));
+    input.getInGameTetromino().getState().setIsFloating(false);
+
+    GameStateHandler gameStateHandler = new GameStateHandler(cleaner);
+
+    doNothing().when(cleaner).handle(input);
+    gameStateHandler.handle(input);
+
+    verify(cleaner, times(1)).handle(input);
   }
 }

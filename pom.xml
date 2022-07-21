@@ -17,6 +17,13 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/models/*</exclude>
+                        <exclude>**/dtos/*</exclude>
+                        <exclude>**/exceptions/*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -86,6 +93,13 @@
 	    <version>4.13.2</version>
 	    <scope>test</scope>
 	</dependency>
+
+      <dependency>
+          <groupId>org.junit.jupiter</groupId>
+          <artifactId>junit-jupiter-params</artifactId>
+          <version>5.8.2</version>
+          <scope>test</scope>
+      </dependency>
 		
 
 </dependencies>

@@ -1,7 +1,7 @@
-package models.service;
+package service;
 
 import models.Movement;
-import models.core.MovementHandler;
+import core.MovementHandler;
 
 public class KeyboardService implements ControlService {
 

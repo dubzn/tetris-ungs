@@ -1,15 +1,14 @@
-package models.core;
+package core;
 
 import exceptions.SquareNotFoundException;
 import models.Game;
 import models.Movement;
 import models.Position;
-import models.service.CollisionService;
-import models.service.TimeService;
+import service.CollisionService;
+import service.TimeService;
 import utils.Cleaner;
 
 import java.util.Objects;
-import java.util.Observable;
 
 public class GravityHandler implements Handler<Game> {
 

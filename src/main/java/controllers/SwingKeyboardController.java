@@ -1,8 +1,8 @@
 package controllers;
 
 import models.Movement;
-import models.core.MovementHandler;
-import models.service.ControlService;
+import core.MovementHandler;
+import service.ControlService;
 
 public class SwingKeyboardController {
 

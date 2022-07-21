@@ -1,8 +1,8 @@
-package models.core;
+package core;
 
 import exceptions.SquareNotFoundException;
 import models.*;
-import models.service.CollisionService;
+import service.CollisionService;
 import utils.Cleaner;
 
 import java.util.*;

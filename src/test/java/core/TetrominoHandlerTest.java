@@ -1,7 +1,7 @@
-package service;
+package core;
 
 import factory.TetrominoFactory;
-import models.core.TetrominoHandler;
+import core.TetrominoHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TetrominoTest {
+public class TetrominoHandlerTest {
 
   private TetrominoHandler tetrominoHandler;
 

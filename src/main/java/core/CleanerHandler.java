@@ -1,10 +1,10 @@
-package models.core;
+package core;
 
 import exceptions.SquareNotFoundException;
 import models.Board;
 import models.Game;
 import models.Square;
-import models.service.ScoreService;
+import service.ScoreService;
 
 import java.util.*;
 
