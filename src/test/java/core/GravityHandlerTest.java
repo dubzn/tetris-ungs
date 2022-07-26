@@ -3,9 +3,7 @@ package core;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.*;
 
 
 import core.GravityHandler;
@@ -30,18 +28,22 @@ import util.DummyBoardFactory;
 
 public class GravityHandlerTest {
 
-	private GravityHandler gravity;
+	GravityHandler gravity;
+
+	//can be any handler
+	@Mock
+	GameStateHandler gameHandler;
 
 	@Mock
-	private CollisionService collision;
+	CollisionService collision;
 
 	@Mock
-	private TimeService time;
+	TimeService time;
 
 
 	@Before
 	public void setUp() {
-		this.gravity = new GravityHandler(collision, time);
+		this.gravity = new GravityHandler(gameHandler, collision, time);
 	}
 	
 	@Test
@@ -96,6 +98,13 @@ public class GravityHandlerTest {
 		assertEquals(expected, input);
 	}
 
+	@Test
+	public void whenHandlerIsNotNull_ThenHandlerShouldCallNext() throws SquareNotFoundException {
+		Game input = new Game(DummyBoardFactory.withPieza(new Position(5, 21),  DummyPiezaFactory.createT()));
+		when(time.shouldUpdateGravity(any())).thenReturn(false);
 
+		gravity.handle(input);
 
+		verify(gameHandler, times(1)).handle(input);
+	}
 }
