@@ -24,7 +24,7 @@ import util.DummyBoardFactory;
 import util.DummyPiezaFactory;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CleanerHanlderTest {
+public class CleanerHandlerTest {
 	
 	@Mock
 	private ScoreService score;

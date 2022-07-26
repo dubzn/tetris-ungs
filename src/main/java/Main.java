@@ -8,6 +8,7 @@ import service.DefaultCollisionService;
 import service.DefaultScoreService;
 import service.KeyboardService;
 import service.TimeService;
+import views.SwingGameView;
 
 public class Main {
 	public static void main(String[] args) {
@@ -19,7 +20,8 @@ public class Main {
 
 		KeyboardService keyboard = new KeyboardService(movementHandler);
 		SwingKeyboardController keyboardController = new SwingKeyboardController(movementHandler, keyboard);
-		SwingMainController viewController = new SwingMainController(keyboardController);
+		SwingGameView gameView  = new SwingGameView();
+		SwingMainController viewController = new SwingMainController(keyboardController, gameView);
 
 		gameHandler.addObserver(viewController);
 		viewController.start();

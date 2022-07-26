@@ -21,13 +21,13 @@ public class SwingMainController implements Observer {
 	private final SwingKeyboardController keyboardController;
 	private SwingGameView gameView;
 	
-	public SwingMainController(SwingKeyboardController keyboardController) {
+	public SwingMainController(SwingKeyboardController keyboardController, SwingGameView swingGameView ) {
 		this.mapper = new ModelMapper();
+		this.gameView = swingGameView;
 		this.keyboardController = keyboardController;
 	}
 
 	public void start() {
-		gameView = new SwingGameView();
 		addKeyBoardListeners();
 		gameView.setVisible(true);
 	}
