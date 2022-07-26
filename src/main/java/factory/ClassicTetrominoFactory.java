@@ -4,9 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import models.Square;
-import models.Tetromino;
-import models.Position;
+import models.*;
 
 public class ClassicTetrominoFactory implements TetrominoFactory {
 	
@@ -41,7 +39,8 @@ public class ClassicTetrominoFactory implements TetrominoFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(0, 1), true),
 			new Square(new Position(1, 1), true),
-			new Square(new Position(1, 2), true)));		
+			new Square(new Position(1, 2), true)),
+		new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 	public Tetromino createZ() {
@@ -65,7 +64,8 @@ public class ClassicTetrominoFactory implements TetrominoFactory {
 			new Square(new Position(1, 0), true),
 			new Square(new Position(0, 1), true),
 			new Square(new Position(1, 1), true),
-			new Square(new Position(0, 2), true)));
+			new Square(new Position(0, 2), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 	public Tetromino createI() {
@@ -89,7 +89,8 @@ public class ClassicTetrominoFactory implements TetrominoFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(1, 0), true),
 			new Square(new Position(2, 0), true),
-			new Square(new Position(3, 0), true)));
+			new Square(new Position(3, 0), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 	public Tetromino createL() {
@@ -113,7 +114,8 @@ public class ClassicTetrominoFactory implements TetrominoFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(1, 0), true),
 			new Square(new Position(1, 1), true),
-			new Square(new Position(1, 2), true)));
+			new Square(new Position(1, 2), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 	public Tetromino createJ() {
@@ -137,7 +139,8 @@ public class ClassicTetrominoFactory implements TetrominoFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(1, 0), true),
 			new Square(new Position(0, 1), true),
-			new Square(new Position(0, 2), true)));
+			new Square(new Position(0, 2), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 	public Tetromino createT() {
@@ -161,7 +164,8 @@ public class ClassicTetrominoFactory implements TetrominoFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(0, 1), true),
 			new Square(new Position(0, 2), true),
-			new Square(new Position(1, 1), true)));
+			new Square(new Position(1, 1), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 	public Tetromino createO() {
@@ -185,7 +189,8 @@ public class ClassicTetrominoFactory implements TetrominoFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(1, 0), true),
 			new Square(new Position(1, 1), true),
-			new Square(new Position(0, 1), true)));
+			new Square(new Position(0, 1), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 }

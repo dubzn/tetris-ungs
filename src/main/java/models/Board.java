@@ -30,23 +30,23 @@ public class Board {
 			.stream()
 			.filter(square -> square.getX() == x && square.getY() == y)
 			.findFirst()
-			.orElseThrow(() -> new SquareNotFoundException("La celda con posiciones (X: " + x + " Y: "+ y +") no corresponde al tablero de " + width + " de ancho y " + height + "de alto"));
+			.orElseThrow(() -> new SquareNotFoundException("La celda con posiciones (x: " + x + ", y: "+ y +") no corresponde al tablero de " + width + " de ancho y " + height + "de alto"));
 	}
 
 	@Override
 	public String toString() {
-		String ret = "---Tetris---\n";
-		ret = ret + "00123456789X\n";
+		StringBuilder ret = new StringBuilder("---Tetris---\n");
+		ret.append("00123456789X\n");
 		for(Square celda : squares) {
 			if(celda.getX() == 1) {
-				ret = celda.getY() >= 10 ? ret + + celda.getY() : ret +"0" + celda.getY();
+				ret = new StringBuilder(celda.getY() >= 10 ? ret.toString() + +celda.getY() : ret + "0" + celda.getY());
 			}
-			String ocupada = celda.getOccupied() ? "X" : " ";
-			ret = ret + ocupada;
+			String ocupada = celda.getOccupied() ? "X" : ".";
+			ret.append(ocupada);
 			if(celda.getX() == width) {
-				ret = ret +"\n";
+				ret.append("\n");
 			}
 		}
-		return ret;
+		return ret.toString();
 	}
 }

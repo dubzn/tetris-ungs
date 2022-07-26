@@ -2,9 +2,7 @@ package util;
 
 import java.util.Arrays;
 
-import models.Square;
-import models.Tetromino;
-import models.Position;
+import models.*;
 
 public class DummyPiezaFactory {
 
@@ -29,7 +27,34 @@ public class DummyPiezaFactory {
 			new Square(new Position(0, 1), true),
 			new Square(new Position(1, 1), true),
 			new Square(new Position(1, 0), true),
-			new Square(new Position(2, 0), true)));		
+			new Square(new Position(2, 0), true)),
+
+			new TetrominoState(Orientation.HORIZONTAL, true));
+	}
+
+	public static Tetromino createS(TetrominoState state) {
+		return new Tetromino("S",
+			Arrays.asList(
+			new Square(new Position(0, 1), true),
+			new Square(new Position(1, 1), true),
+			new Square(new Position(1, 0), true),
+			new Square(new Position(2, 0), true)),
+			Arrays.asList(
+			new Square(new Position(0, 1), true),
+			new Square(new Position(1, 1), true),
+			new Square(new Position(1, 0), true),
+			new Square(new Position(2, 0), true)),
+			Arrays.asList(
+			new Square(new Position(0, 0), true),
+			new Square(new Position(0, 1), true),
+			new Square(new Position(1, 1), true),
+			new Square(new Position(1, 2), true)),
+			Arrays.asList(
+			new Square(new Position(0, 1), true),
+			new Square(new Position(1, 1), true),
+			new Square(new Position(1, 0), true),
+			new Square(new Position(2, 0), true)),
+			state);
 	}
 
 	public static Tetromino createZ() {
@@ -53,7 +78,8 @@ public class DummyPiezaFactory {
 			new Square(new Position(1, 0), true),
 			new Square(new Position(0, 1), true),
 			new Square(new Position(1, 1), true),
-			new Square(new Position(0, 2), true)));
+			new Square(new Position(0, 2), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 	public static Tetromino createI() {
@@ -77,7 +103,8 @@ public class DummyPiezaFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(1, 0), true),
 			new Square(new Position(2, 0), true),
-			new Square(new Position(3, 0), true)));
+			new Square(new Position(3, 0), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 	public static Tetromino createL() {
@@ -101,9 +128,34 @@ public class DummyPiezaFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(1, 0), true),
 			new Square(new Position(1, 1), true),
-			new Square(new Position(1, 2), true)));
+			new Square(new Position(1, 2), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
+	public static Tetromino createL(TetrominoState state) {
+		return new Tetromino("L",
+			Arrays.asList(
+			new Square(new Position(2, 0), true),
+			new Square(new Position(0, 1), true),
+			new Square(new Position(1, 1), true),
+			new Square(new Position(2, 1), true)),
+			Arrays.asList(
+			new Square(new Position(0, 0), true),
+			new Square(new Position(1, 0), true),
+			new Square(new Position(2, 0), true),
+			new Square(new Position(0, 1), true)),
+			Arrays.asList(
+			new Square(new Position(0, 0), true),
+			new Square(new Position(0, 1), true),
+			new Square(new Position(0, 2), true),
+			new Square(new Position(1, 2), true)),
+			Arrays.asList(
+			new Square(new Position(0, 0), true),
+			new Square(new Position(1, 0), true),
+			new Square(new Position(1, 1), true),
+			new Square(new Position(1, 2), true)),
+			state);
+	}
 	public static Tetromino createJ() {
 		return new Tetromino("J", 
 			Arrays.asList(
@@ -125,7 +177,8 @@ public class DummyPiezaFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(1, 0), true),
 			new Square(new Position(0, 1), true),
-			new Square(new Position(0, 2), true)));	
+			new Square(new Position(0, 2), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 	public static Tetromino createT() {
@@ -149,7 +202,8 @@ public class DummyPiezaFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(0, 1), true),
 			new Square(new Position(0, 2), true),
-			new Square(new Position(1, 1), true)));
+			new Square(new Position(1, 1), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 	
 	public static Tetromino createO() {
@@ -173,7 +227,8 @@ public class DummyPiezaFactory {
 			new Square(new Position(0, 0), true),
 			new Square(new Position(1, 0), true),
 			new Square(new Position(1, 1), true),
-			new Square(new Position(0, 1), true)));
+			new Square(new Position(0, 1), true)),
+			new TetrominoState(Orientation.HORIZONTAL, true));
 	}
 
 }
