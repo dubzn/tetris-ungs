@@ -5,6 +5,7 @@ import controllers.SwingMainController;
 import dtos.SquareDTO;
 import exceptions.SquareNotFoundException;
 import models.*;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
@@ -32,6 +33,7 @@ public class SwingMainControllerTest {
   @InjectMocks
   SwingMainController controller;
 
+  @Before
   public void setUp() {
     controller = new SwingMainController(keyboardController, gameView);
   }
@@ -79,5 +81,53 @@ public class SwingMainControllerTest {
 
     verify(gameView, times(1)).showGameOver();
     verifyNoMoreInteractions(gameView);
+  }
+
+  @Test
+  @DisplayName("Giving key code 32 when call addMovement function then keyboard controller should add ROTATE")
+  public void givingKeyCode32_WhenCallAddMovementThenShouldAddROTATE() throws SquareNotFoundException {
+    doNothing().when(keyboardController).addMovement(any());
+
+    controller.addMovement(32);
+
+    verify(keyboardController, times(1)).addMovement(Movement.ROTATE);
+  }
+
+  @Test
+  @DisplayName("Giving key code 37 when call addMovement function then keyboard controller should add LEFT")
+  public void givingKeyCode37_WhenCallAddMovementThenShouldAddLEFT() throws SquareNotFoundException {
+    doNothing().when(keyboardController).addMovement(any());
+
+    controller.addMovement(37);
+
+    verify(keyboardController, times(1)).addMovement(Movement.LEFT);
+  }
+
+  @Test
+  @DisplayName("Giving key code 39 when call addMovement function then keyboard controller should add RIGHT")
+  public void givingKeyCode39_WhenCallAddMovementThenShouldAddRIGHT() throws SquareNotFoundException {
+    doNothing().when(keyboardController).addMovement(any());
+
+    controller.addMovement(39);
+
+    verify(keyboardController, times(1)).addMovement(Movement.RIGHT);
+  }
+
+  @Test
+  @DisplayName("Giving key code 40 when call addMovement function then keyboard controller should add DOWN")
+  public void givingKeyCode40_WhenCallAddMovementThenShouldAddDOWN() throws SquareNotFoundException {
+    doNothing().when(keyboardController).addMovement(any());
+
+    controller.addMovement(40);
+
+    verify(keyboardController, times(1)).addMovement(Movement.DOWN);
+  }
+
+  @Test
+  @DisplayName("Giving a any other key code when call addMovement function then keyboard controller should not add movement")
+  public void givingAnyOtherKeyCode_WhenCallAddMovementThenShouldNotAddMovement() throws SquareNotFoundException {
+    controller.addMovement(100);
+
+    verifyNoInteractions(keyboardController);
   }
 }
