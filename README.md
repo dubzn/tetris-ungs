@@ -5,7 +5,7 @@ La idea es diseñar e implementar desde 0 un juego tetris básico.
 
 # Coverage
 Estos reportes son generados por GitHub actions, [créditos a cicirello](https://github.com/cicirello/jacoco-badge-generator#jacoco-badge-generator)  
-![Coverage](badges/jacoco.svg) 
+![Coverage](badges/jacoco.svg)
 ![Branches](badges/branches.svg)  
 
 # Documento del proyecto 
