@@ -17,6 +17,7 @@ import views.SwingGameView;
 
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -50,10 +51,7 @@ public class SwingMainControllerTest {
   @Test
   @DisplayName("When call start method then GameView is visible")
   public void whenCallStartMethod_ThenGameViewSetVisibleOnTrue() {
-    doNothing().when(gameView).addKeyListener(any());
-
     controller.start();
-
     verify(gameView, times(1)).setVisible(true);
   }
 
@@ -124,7 +122,7 @@ public class SwingMainControllerTest {
 
   @Test
   @DisplayName("Giving a any other key code when call addMovement function then keyboard controller should not add movement")
-  public void givingAnyOtherKeyCode_WhenCallAddMovementThenShouldNotAddMovement() throws SquareNotFoundException {
+  public void givingAnyOtherKeyCode_WhenCallAddMovementThenShouldNotAddMovement() {
     controller.addMovement(100);
 
     verifyNoInteractions(keyboardController);

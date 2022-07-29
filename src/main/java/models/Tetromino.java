@@ -1,8 +1,11 @@
 package models;
 
+import lombok.EqualsAndHashCode;
+
 import java.util.Collections;
 import java.util.List;
 
+@EqualsAndHashCode
 public class Tetromino {
 	
 	private String name;
@@ -117,5 +120,10 @@ public class Tetromino {
 	
 	public TetrominoState getState() {
 		return state;
+	}
+
+	@Override
+	public String toString() {
+		return "name: " + name + ", state: "+ state;
 	}
 }

@@ -19,7 +19,7 @@ public class Main {
 		TetrominoHandler tetrominoHandler = new TetrominoHandler(movementHandler, new ClassicTetrominoFactory());
 
 		KeyboardService keyboard = new KeyboardService(movementHandler);
-		SwingKeyboardController keyboardController = new SwingKeyboardController(movementHandler, keyboard);
+		SwingKeyboardController keyboardController = new SwingKeyboardController(keyboard);
 		SwingGameView gameView  = new SwingGameView();
 		SwingMainController viewController = new SwingMainController(keyboardController, gameView);
 

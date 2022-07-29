@@ -8,7 +8,7 @@ public class SwingKeyboardController {
 
 	private final ControlService control;
 	
-	public SwingKeyboardController(MovementHandler movement, ControlService control) {
+	public SwingKeyboardController(ControlService control) {
 		this.control = control;		
 	}
 	
