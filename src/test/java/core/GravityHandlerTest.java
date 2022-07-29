@@ -1,16 +1,12 @@
-package service;
+package core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.*;
 
 
-import models.core.GravityHandler;
-import models.service.CollisionService;
-import models.service.TimeService;
+import core.GravityHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,25 +19,31 @@ import models.InGameTetromino;
 import models.Movement;
 import models.Position;
 import models.Tetromino;
+import service.CollisionService;
+import service.TimeService;
 import util.DummyPiezaFactory;
 import util.DummyBoardFactory;
 
 @RunWith(MockitoJUnitRunner.class)
 
-public class GravityTest {
+public class GravityHandlerTest {
 
-	private GravityHandler gravity;
+	GravityHandler gravity;
+
+	//can be any handler
+	@Mock
+	GameStateHandler gameHandler;
 
 	@Mock
-	private CollisionService collision;
+	CollisionService collision;
 
 	@Mock
-	private TimeService time;
+	TimeService time;
 
 
 	@Before
 	public void setUp() {
-		this.gravity = new GravityHandler(collision, time);
+		this.gravity = new GravityHandler(gameHandler, collision, time);
 	}
 	
 	@Test
@@ -96,6 +98,13 @@ public class GravityTest {
 		assertEquals(expected, input);
 	}
 
+	@Test
+	public void whenHandlerIsNotNull_ThenHandlerShouldCallNext() throws SquareNotFoundException {
+		Game input = new Game(DummyBoardFactory.withPieza(new Position(5, 21),  DummyPiezaFactory.createT()));
+		when(time.shouldUpdateGravity(any())).thenReturn(false);
 
+		gravity.handle(input);
 
+		verify(gameHandler, times(1)).handle(input);
+	}
 }

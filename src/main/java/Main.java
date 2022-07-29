@@ -1,10 +1,14 @@
 import controllers.SwingKeyboardController;
 import controllers.SwingMainController;
-import factory.ClassicTetrisPiezaFactory;
+import core.*;
+import factory.ClassicTetrominoFactory;
 import models.Board;
 import models.Game;
-import models.core.*;
-import models.service.*;
+import service.DefaultCollisionService;
+import service.DefaultScoreService;
+import service.KeyboardService;
+import service.TimeService;
+import views.SwingGameView;
 
 public class Main {
 	public static void main(String[] args) {
@@ -12,11 +16,12 @@ public class Main {
 		CleanerHandler cleanerHandler = new CleanerHandler(gameHandler, new DefaultScoreService());
 		GravityHandler gravityHandler = new GravityHandler(cleanerHandler, new DefaultCollisionService(), new TimeService());
 		MovementHandler movementHandler = new MovementHandler(gravityHandler, new DefaultCollisionService());
-		TetrominoHandler tetrominoHandler = new TetrominoHandler(movementHandler, new ClassicTetrisPiezaFactory());
+		TetrominoHandler tetrominoHandler = new TetrominoHandler(movementHandler, new ClassicTetrominoFactory());
 
 		KeyboardService keyboard = new KeyboardService(movementHandler);
-		SwingKeyboardController keyboardController = new SwingKeyboardController(movementHandler, keyboard);
-		SwingMainController viewController = new SwingMainController(keyboardController);
+		SwingKeyboardController keyboardController = new SwingKeyboardController(keyboard);
+		SwingGameView gameView  = new SwingGameView();
+		SwingMainController viewController = new SwingMainController(keyboardController, gameView);
 
 		gameHandler.addObserver(viewController);
 		viewController.start();

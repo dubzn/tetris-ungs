@@ -1,39 +1,45 @@
 package models;
 
+import lombok.EqualsAndHashCode;
+
 import java.util.Collections;
 import java.util.List;
 
+@EqualsAndHashCode
 public class Tetromino {
 	
 	private String name;
 	private TetrominoState state;
-	private List<Square> horizontalForm;
-	private List<Square> verticalForm;
-	private List<Square> invertedHorizontalForm;
-	private List<Square> invertedVerticalForm;
-	private Integer horizontalWidth;
-	private Integer horizontalHeight;
-	private Integer verticalWidth;
-	private Integer verticalHeight;
+
+	private final List<Square> horizontalForm;
+	private final List<Square> verticalForm;
+	private final List<Square> invertedHorizontalForm;
+	private final List<Square> invertedVerticalForm;
+
+	private final Integer horizontalWidth;
+	private final Integer horizontalHeight;
+	private final Integer verticalWidth;
+	private final Integer verticalHeight;
 	
-	public Tetromino(String name, List<Square> horizontalForm, List<Square> invertedHorizontalForm, List<Square> verticalForm, List<Square> invertedVerticalForm) {
+	public Tetromino(String name, List<Square> horizontalForm, List<Square> invertedHorizontalForm, List<Square> verticalForm, List<Square> invertedVerticalForm, TetrominoState state) {
 		this.name = name;
 		this.horizontalForm = horizontalForm;
 		this.verticalForm = verticalForm;
 		this.invertedHorizontalForm = invertedHorizontalForm;
 		this.invertedVerticalForm = invertedVerticalForm;
-		this.state = new TetrominoState(Orientation.HORIZONTAL, true);
+		this.state = state;
 
 		this.horizontalWidth = horizontalForm.stream().max((c1,c2) -> c1.getX().compareTo(c2.getX())).get().getX()+1;
 		this.horizontalHeight = horizontalForm.stream().max((c1,c2) -> c1.getY().compareTo(c2.getY())).get().getY()+1;
 		this.verticalWidth = verticalForm.stream().max((c1,c2) -> c1.getX().compareTo(c2.getX())).get().getX()+1;
 		this.verticalHeight = verticalForm.stream().max((c1,c2) -> c1.getY().compareTo(c2.getY())).get().getY()+1;
 	}
-	
+
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -57,7 +63,7 @@ public class Tetromino {
 	public void setNextRotateState() {
 		switch(this.getState().getOrientation()) {
 		case VERTICAL:
-			this.getState().setOrientation(Orientation.INVERTED_HORIZONTAL);	
+			this.getState().setOrientation(Orientation.INVERTED_HORIZONTAL);
 			break;
 		case INVERTED_HORIZONTAL:
 			this.getState().setOrientation(Orientation.INVERTED_VERTICAL);
@@ -114,5 +120,10 @@ public class Tetromino {
 	
 	public TetrominoState getState() {
 		return state;
+	}
+
+	@Override
+	public String toString() {
+		return "name: " + name + ", state: "+ state;
 	}
 }

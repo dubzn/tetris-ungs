@@ -3,18 +3,12 @@ package service;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import models.service.CollisionService;
-import models.service.DefaultCollisionService;
+import models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import exceptions.SquareNotFoundException;
-import models.Movement;
-import models.Tetromino;
-import models.Position;
-import models.Board;
-import models.Game;
-import models.InGameTetromino;
+import org.junit.jupiter.api.DisplayName;
 import util.DummyPiezaFactory;
 import util.DummyBoardFactory;
 
@@ -302,4 +296,51 @@ public class DefaultColisionTest {
 
 		assertTrue(actual);
 	}
+
+	@Test
+	@DisplayName("When tetromino has no space to rotate in right and next rotation will overflow board then can rotate returns false")
+	public void whenTetrominoHasNoSpaceInRight_ThenCanRotateReturnsFalse() throws SquareNotFoundException {
+		Board board = DummyBoardFactory.create();
+		Position position = new Position(9, 3);
+		Tetromino S = DummyPiezaFactory.createS(new TetrominoState(Orientation.VERTICAL, true));
+		Game input = new Game(board);
+		input.setInGameTetromino(new InGameTetromino(S.getName(), position, S));
+
+		boolean actual = colision.canRotate(input);
+
+		assertFalse(actual);
+	}
+
+	@Test
+	@DisplayName("When tetromino has no space to rotate in for a occupied square and next rotation will collide then can rotate returns false")
+	public void whenNextTetrominoRotationWillCollideWithAnOccupiedSquare_ThenCanRotateReturnsFalse() throws SquareNotFoundException {
+		Board board = DummyBoardFactory.create();
+		Position position = new Position(6, 3);
+		Tetromino S = DummyPiezaFactory.createS(new TetrominoState(Orientation.VERTICAL, true));
+		Game input = new Game(board);
+
+		input.setInGameTetromino(new InGameTetromino(S.getName(), position, S));
+
+		input.getBoard().getSquare(7, 3).setOccupied(true);
+		boolean actual = colision.canRotate(input);
+
+		assertFalse(actual);
+	}
+
+	@Test
+	@DisplayName("When tetromino has no space to rotate in for a occupied square and next rotation will collide then can rotate returns false")
+	public void givingAnInexistentSquare_ThenCanRotateShouldNotThrowAnException() throws SquareNotFoundException {
+		Board board = DummyBoardFactory.create();
+		Position position = new Position(6, 3);
+		Tetromino S = DummyPiezaFactory.createS(new TetrominoState(Orientation.VERTICAL, true));
+		Game input = new Game(board);
+
+		input.setInGameTetromino(new InGameTetromino(S.getName(), position, S));
+
+		input.getBoard().getSquare(7, 3).setOccupied(true);
+		boolean actual = colision.canRotate(input);
+
+		assertFalse(actual);
+	}
+
 }

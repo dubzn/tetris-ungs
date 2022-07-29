@@ -1,4 +1,4 @@
-package dtos;
+package dto;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

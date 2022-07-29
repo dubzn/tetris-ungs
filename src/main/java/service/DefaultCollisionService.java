@@ -1,4 +1,4 @@
-package models.service;
+package service;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class DefaultCollisionService implements CollisionService {
 
 
 	private boolean collideWithTetromino(Game game, List<Square> squaresInGameTetromino, Movement movement) {
-		return squaresInGameTetromino.stream().anyMatch(celda -> resolve(game, celda, movement));
+		return squaresInGameTetromino.stream().anyMatch(square -> resolve(game, square, movement));
 	}
 
 	private boolean resolve(Game game, Square square, Movement movement) {

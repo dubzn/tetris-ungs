@@ -1,4 +1,4 @@
-package models.core;
+package core;
 
 import lombok.NoArgsConstructor;
 import models.Game;
@@ -6,7 +6,6 @@ import models.GameState;
 
 import java.util.Objects;
 import java.util.Observable;
-import java.util.Observer;
 
 @NoArgsConstructor
 public class GameStateHandler extends Observable implements Handler<Game> {

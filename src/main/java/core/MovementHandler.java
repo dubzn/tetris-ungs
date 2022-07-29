@@ -1,8 +1,8 @@
-package models.core;
+package core;
 
 import exceptions.SquareNotFoundException;
 import models.*;
-import models.service.CollisionService;
+import service.CollisionService;
 import utils.Cleaner;
 
 import java.util.*;
@@ -11,16 +11,16 @@ public class MovementHandler implements Handler<Game> {
 
     private Handler<Game> next;
     private Queue<Movement> queue;
-    private final CollisionService colision;
+    private final CollisionService collision;
 
-    public MovementHandler(CollisionService colision) {
-        this.colision = colision;
+    public MovementHandler(CollisionService collision) {
+        this.collision = collision;
         this.queue = new LinkedList<>();
     }
 
-    public MovementHandler(Handler<Game> next, CollisionService colision) {
+    public MovementHandler(Handler<Game> next, CollisionService collision) {
         this.next = next;
-        this.colision = colision;
+        this.collision = collision;
         this.queue = new LinkedList<>();
     }
 
@@ -42,7 +42,7 @@ public class MovementHandler implements Handler<Game> {
     }
 
     private void resolve(Game game, Movement movimiento) throws SquareNotFoundException {
-        if(movimiento.equals(Movement.ROTATE) && colision.canRotate(game)) {
+        if(movimiento.equals(Movement.ROTATE) && collision.canRotate(game)) {
             Cleaner.appearInGameTetromino(game, false);
             game.getInGameTetromino().setNextRotateState();
         }
@@ -51,7 +51,7 @@ public class MovementHandler implements Handler<Game> {
             return;
         }
 
-        if(colision.canMove(game, movimiento)) {
+        if(collision.canMove(game, movimiento)) {
             InGameTetromino tetromino = game.getInGameTetromino();
             List<Square> squares = tetromino.getSquareListForm();
 

@@ -1,14 +1,12 @@
 package models;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @EqualsAndHashCode
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class TetrominoState {
 	private Orientation orientation;
 	private Boolean isFloating;
