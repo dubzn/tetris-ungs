@@ -20,8 +20,9 @@
                 <configuration>
                     <excludes>
                         <exclude>**/models/*</exclude>
-                        <exclude>**/dtos/*</exclude>
+                        <exclude>**/dto/*</exclude>
                         <exclude>**/exceptions/*</exclude>
+                        <exclude>**/views/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

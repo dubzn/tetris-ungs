@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import javax.swing.JPanel;
 
-import dtos.SquareDTO;
+import dto.SquareDTO;
 
 import javax.swing.JLabel;
 

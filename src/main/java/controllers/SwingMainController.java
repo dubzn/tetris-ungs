@@ -9,7 +9,7 @@ import java.util.Observer;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
-import dtos.SquareDTO;
+import dto.SquareDTO;
 import models.Game;
 import models.GameState;
 import models.Movement;

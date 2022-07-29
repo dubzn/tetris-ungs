@@ -2,7 +2,6 @@ package controller;
 
 import controllers.SwingKeyboardController;
 import controllers.SwingMainController;
-import dtos.SquareDTO;
 import exceptions.SquareNotFoundException;
 import models.*;
 import org.junit.Before;

@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.util.List;
 
-import dtos.SquareDTO;
+import dto.SquareDTO;
 
 public class SwingNextTetrominoComponent extends JPanel {
 
